@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活力东城 东城区街区更新公众平台</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=1200">
+    <meta name=" title" content="北京老城保护数字文化平台">
+    <meta name="desc" content="北京老城保护数字文化平台">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css" />
+    <link href="assets/css/normalize.min.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/slide.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019103001" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page page-heat">
+        <div class="header">
+            <div class="fix-row h100">
+                <img src="assets/img/dc/logo.png" class="logo" />
+                <ul class="top-nav">
+                    <li><a href="index.html"><i class="iconfont icon-home2"></i><span>首页</span></a></li>
+                    <li><a href=""><i class="iconfont icon-map"></i><span>文化线路地图</span></a></li>
+                    <li><a href=""><i class="iconfont icon-bxq"></i><span>北新桥街道体检平台</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-nav">
+            <div class="fix-row">
+                <ul>
+                    <li><a href="park.html">咱家车往哪儿停</a></li>
+                    <li><a href="">咱在东城玩点啥</a></li>
+                    <li><a href="">舌尖上的东城</a></li>
+                    <li><a href="">生活便利度</a></li>
+                    <li><a href="">给咱的生活添点绿</a></li>
+                    <li class="active"><a href="heat.html">活力东城</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="top-box c-bg">
+            <div class="fix-row">
+                <h1>活力东城</h1>
+                <div class="slide-wrap">
+                    <div id="banner" class='dnSlide-main'>
+                        <img src="assets/img/dc/park-slider/s1.jpg" width="100%" data-href="index.html">
+                        <img src="assets/img/dc/park-slider/s2.jpg" width="100%">
+                        <img src="assets/img/dc/park-slider/s3.jpg" width="100%" data-href="index.html">
+                        <img src="assets/img/dc/park-slider/s4.jpg" width="100%" data-href="index.html">
+                        <img src="assets/img/dc/park-slider/s5.jpg" width="100%" data-href="index.html">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="f2 common-bg">
+            <div class="fix-row">
+                <div class="f2-box">
+                    <!-- <ul class="heat-map-switch abs r0">
+                        <li class="active" data-cat="nature">文化活力</li>
+                        <li data-cat="pop">人口活力</li>
+                    </ul> -->
+                    <div class="map-wrap">
+                        <div id="main_map" class="w_h_per_100"></div>
+                        <div id="timeline" class="timeline"></div>
+                        <!-- 活力图层图例 -->
+                        <div id="vitality_legend" class="map_legend population_legend">
+                            <div class="input-item">
+                                <input type='checkbox' name='vitalityLegend' value='culture' class="legend_wenhua population_difficult_icon">
+                                <span class="input-text">文化活力</span>
+                            </div>
+                            <div class="input-item">
+                                <input type='checkbox' name='vitalityLegend' value='population' class="legend_jiuye population_difficult_icon">
+                                <span class="input-text">人口活力</span>
+                            </div>
+                        </div>
+                        <!-- <img src="assets/img/dc/heat-map.jpg" class="map-bg ofc" /> -->
+                        <div class="point-brief-box">
+                            <h1 class="title">东城热力点</h1>
+                            <div class="brief-content-box">
+                                <div class="brief-content">
+                                    <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
+                                    <div><b>介绍：</b></div>
+                                    <div class="text-wrap">
+                                        <div id="current_vitality_potion_text" class="text">
+                                           <!--  <p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一。</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="show-more rtext">
+                                        <span>展开更多&nbsp;&nbsp;</span><img src="assets/img/dc/icon-arrow-down.png" />
+                                    </div>
+                                </div>
+                                <div id="culture_coverage_content" class="chart_content_box culture_coverage_content"></div>
+                                <!-- <div id="linePath" class="linePath"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="heat-sidebar">
+                        <div class="siderbar-box">
+                            <div class="search-box w100">
+                                <input id="search_text" type="text" class="search w100" name="keyword" placeholder="搜索" /><i
+                                    class="iconfont icon-search1 search-btn"></i>
+                            </div>
+                            <ul class="catalog clearfix">
+                                <li class="active" data-cat="文化遗产">文化遗产</li>
+                                <li data-cat="历史街区">历史街区</li>
+                                <li data-cat="公园">公园</li>
+                                <li data-cat="商圈">商圈</li>
+                            </ul>
+                            <div class="hr-with-triangle w100">
+                                <div class="triangle-bottom"></div>
+                            </div>
+                            <ul id="vitality_point" class="pointers">
+                                <!-- <li class="active">青年湖公园</li>
+                                <li>青年湖公园</li>
+                                <li>活力地2</li>
+                                <li>活力地3</li> -->
+                            </ul>
+                        </div>
+                        <div class="abs l0 b0 w100 source-text">
+                            活力地来源：携程旅行网目的地攻略<br /><br />
+                            文化活力数据：豆瓣17年上半年-18年上半年
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="fix-row rel">
+                <img class="logo-footer" src="assets/img/logo-footer2.png" />
+                <ul class="footer-nav-links">
+                    <li><a href="aboutus.html">关于我们</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js?V2019103001"></script>
+    <script src="assets/js/slide.js?V2019103001"></script>
+    <script src="assets/js/ofi.min.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/vitality.js?V2019103001"></script>
+    <script>
+        $(document).ready(function () {
+            objectFitImages();
+
+            //展示点简介示例，线上删除
+            // showPointBrief(1);
+            $(".point-brief-box").addClass("show");
+
+            //点简介显示更多
+            $(".show-more").on("click", function () {
+                $(".brief-content").removeClass("less");
+            });
+
+            // $(".dnSlide-main").dnSlide({
+            //     width: 1080,
+            //     height: 265,
+            //     verticalAlign: "middle",
+            //     precentWidth: "56%",
+            //     scale: 0.75,
+            //     autoPlay: true,
+            //     response: true,
+            //     afterClickBtnFn: function (i) {
+            //         //console.log(i)
+            //     }
+
+            // });
+            //搜索触发
+            $(".search-btn").on("click", function () {
+            });
+
+            $(".heat-sidebar .catalog li").on("click", function () {
+                // if ($(this).hasClass("active")) return;
+                // $(".heat-sidebar .catalog li").removeClass("active");
+                // $(this).addClass("active");
+                // var cat = $(this).data("cat");
+                // var pointNum = randomInt(3,20);
+                // var arr = Array.apply(null, Array(pointNum));
+                // var points = arr.map(function(v, i) {
+                //     return '<li>cat' + cat + '-活力点' + (i+1) + '</li>';
+                // });
+                // $(".pointers").html(points.join(''));
+                // function randomInt(min, max) {
+                //     return Math.floor(Math.random() * (max - min + 1)) + min;
+                // }
+            });
+
+            // $(".heat-sidebar .pointers li").on("click", function () {
+            //     console.log('左侧栏热力点按钮点击');
+            // });
+        });
+        //展示点的简介侧边栏
+        function showPointBrief(pointId) {
+            updatePointBrief(pointId);
+            $(".point-brief-box").addClass("show");
+        }
+
+        function hidePointBrief() {
+            $(".point-brief-box").removeClass("show");
+        }
+
+        //更新点简介内容
+        function updatePointBrief(pointId) {
+            var content = "<p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一，与法国凡尔俄罗斯克里姆林宫并称世界五大宫殿。</p>\
+            <p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一，与法国凡尔俄罗斯克里姆林宫并称世界五大宫殿。</p>\
+            <p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一，与法国凡尔俄罗斯克里姆林宫并称世界五大宫殿。</p>\
+            <p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一，与法国凡尔俄罗斯克里姆林宫并称世界五大宫殿。</p>";
+
+            $(".point-brief-box .text").html(content);
+            $(".brief-content").removeClass("less");
+            if ($(".point-brief-box .text").height() > 150) {
+                //内容高度超过150，截取内容, 显示『显示更多』 按钮
+                $(".brief-content").addClass("less");
+            }
+        }
+
+        //地图内点简介效果展示, 线上删除
+        $(".map-bg").on("click", function () {
+            $(".point-brief-box").toggleClass("show");
+        });
+
+        // $(".heat-map-switch li").on("click", function () {
+        //     if ($(this).hasClass("active")) {
+        //         return false;
+        //     }
+        //     var cat = $(this).data("cat"); //nature 文化省略 pop 人口活力
+        //     console.log(cat); //更新相应类别的地图
+        //     $(".heat-map-switch li").removeClass("active");
+        //     $(this).addClass("active")
+        // });
+
+        
+    </script>
+</body>
+
+</html>

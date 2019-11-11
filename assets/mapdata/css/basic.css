@@ -1,0 +1,141 @@
+
+/* 清除浮动 */
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+    overflow: hidden;
+}
+.clearfix {
+    zoom: 1;
+    /* for ie6 & ie7 */
+}
+.clear {
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+.fl{
+    float: left;
+}
+.w_h_per_100{
+    width: 100%;
+    height: 100%;
+}
+/* 首行缩进 */
+.text_indent{
+    text-indent:2em;
+}
+/* 地图图例 */
+.map_legend{
+    position: absolute;
+    left: -150px;
+    bottom: 6px;
+    width: 150px;
+    padding: 15px 15px;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    opacity: 0;
+    box-sizing: border-box;
+    transition: all 0.6s;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(188, 142, 94, 1);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(188, 142, 94, 1);
+    box-shadow: 0px 0px 8px 0px rgba(188, 142, 94, 1);
+}
+.map_legend.map_legend_animation {
+    opacity: 1;
+    left: 6px;
+}
+.legend_toggle,
+.legend_juzhu,
+.legend_jiuye,
+.legend_wenhua{
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    appearance: none;/*关键代码*/
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+.legend_toggle::after{
+   content: url('../images/no_checked.png');
+}
+.legend_toggle:checked::after{
+    content: url('../images/checked.png');
+}
+.input-item .parking_difficult_icon::after{
+    content: url('../images/parking/0.png');
+}
+.input-item:nth-child(1) .parking_difficult_icon:checked::after{
+     content: url('../images/parking/1.png');
+}
+.input-item:nth-child(2) .parking_difficult_icon:checked::after{
+     content: url('../images/parking/2.png');
+}
+.input-item:nth-child(3) .parking_difficult_icon:checked::after{
+     content: url('../images/parking/3.png');
+}
+.input-item:nth-child(4) .parking_difficult_icon:checked::after{
+     content: url('../images/parking/4.png');
+}
+.input-item:nth-child(5) .parking_difficult_icon:checked::after{
+     content: url('../images/parking/5.png');
+}
+/*人口图层图例*/
+.population_legend{
+    top: 6px;
+    height: 65px;
+}
+.legend_juzhu::after{
+   content: url('../images/parking/juzhu_1.png');
+}
+.legend_juzhu:checked::after{
+    content: url('../images/parking/juzhu_2.png');
+}
+.legend_jiuye::after{
+   content: url('../images/parking/jiuye_1.png');
+}
+.legend_jiuye:checked::after{
+   content: url('../images/parking/jiuye_2.png');
+}
+.legend_wenhua::after{
+   content: url('../images/vitality/wenhua_1.png');
+}
+.legend_wenhua:checked::after{
+   content: url('../images/vitality/wenhua_2.png');
+}
+/*活力图层图例*/
+
+/*东城活力--时间轴*/
+.timeline{
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 702px;
+    height: 70px;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+}
+/*信息窗体*/
+.info_window{
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #000;
+}
+/*图表区*/
+.chart_content_box{
+    padding: 10px 10px;
+}
+.culture_coverage_content{
+    width: 240px;
+    height: 400px;
+    margin-left: -40px;
+}
