@@ -159,7 +159,17 @@
 
             //点简介显示更多
             $(".show-more").on("click", function () {
-                $(".brief-content").removeClass("less");
+                // $(".brief-content").removeClass("less");
+                var ele = $(this).parent();
+                if(ele.hasClass("less")) {
+                    ele.removeClass("less");
+                    $(this).find("span").html("收起内容&nbsp;&nbsp;");
+                    $(this).children("img").attr("src", "assets/img/dc/icon-arrow-up.png");
+                } else {
+                    ele.addClass("less");
+                    $(this).find("span").html("展开更多&nbsp;&nbsp;");
+                    $(this).children("img").attr("src", "assets/img/dc/icon-arrow-down.png");
+                }
             });
 
             // $(".dnSlide-main").dnSlide({

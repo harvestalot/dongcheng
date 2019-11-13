@@ -333,10 +333,10 @@ Vitality.prototype.loadCurrentVitalityPointBorderLayer= function(){
                     lnglat: 'lnglat',
                 });
                 $("#current_vitality_potion_text").html(item.properties.introduce_text);
-                $(".brief-content").removeClass("less");
-                if ($(".point-brief-box .text").height() > 150) {
+                $(".brief-content").removeClass("less with-btn");
+                if ($(".point-brief-box .text").height() > 100) {
                     //内容高度超过150，截取内容, 显示『显示更多』 按钮
-                    $(".brief-content").addClass("less");
+                    $(".brief-content").addClass("less with-btn");
                 }
             }else{
             }

@@ -548,7 +548,7 @@ a {
 }
 
 .brief-content.less .text-wrap {
-    height: 150px;
+    height: 100px;
     overflow: hidden;
 }
 
