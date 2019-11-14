@@ -428,7 +428,7 @@ Vitality.prototype.load_radar_chart = function(){
             left:20,
             top:0,
             textStyle: {
-                "fontSize": 14,
+                "fontSize": 12,
                 "color": "#222"
             },
             "data": this.lenged_data,

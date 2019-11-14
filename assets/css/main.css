@@ -336,7 +336,9 @@ a {
     opacity: 1;
 }
 
-.page-park .top-box, .page-heat .top-box {
+.page-park .top-box,
+.page-heat .top-box,
+.page-tp1 .top-box {
     height: 316px;
     background-image: url("../img/dc/park-slide-bg.jpg");
     background-size: 1920px 316px;
@@ -344,14 +346,18 @@ a {
     box-sizing: border-box;
 }
 
-.page-park .top-box .fix-row>h1,.page-heat .top-box .fix-row>h1 {
+.page-park .top-box .fix-row>h1,
+.page-heat .top-box .fix-row>h1,
+.page-tp1 .top-box .fix-row>h1 {
     padding-left: 20px;
     font-size: 18px;
     line-height: 1;
     color: #000;
 }
 
-.page-park .top-box .fix-row>h1::before,.page-heat .top-box .fix-row>h1::before {
+.page-park .top-box .fix-row>h1::before,
+.page-heat .top-box .fix-row>h1::before,
+.page-tp1 .top-box .fix-row>h1::before  {
     content: "";
     width: 8px;
     height: 18px;
@@ -372,7 +378,8 @@ a {
     margin: 0 auto;
 }
 
-.page-park .f2 {
+.page-park .f2,
+.page-tp1 .f2 {
     height: 422px;
     background-image: url("../img/dc/park-f2-bg.jpg");
     background-size: 1920px;
@@ -380,6 +387,7 @@ a {
     background-repeat: no-repeat;
     padding: 36px 0 0 0;
     box-sizing: border-box;
+    position: relative;
 }
 
 .park-info-box {
@@ -442,11 +450,13 @@ a {
     margin-left:30px;
 }
 
-.page-park .f3 .fix-row {
+.page-park .f3 .fix-row,
+.page-tp1 .f3 .fix-row {
     padding: 26px 0 70px 0;
 }
 
-.page-park .map-wrap {
+.page-park .map-wrap ,
+.page-tp1 .map-wrap{
     height: 600px;
     box-sizing: border-box;
     border: 14px solid #8f735b;
@@ -517,6 +527,7 @@ a {
     line-height: 1.5;
     font-size: 12px;
     position: relative;
+    margin-bottom: 5px;
 }
 
 .show-more {
@@ -937,4 +948,195 @@ a {
 }
 .top-btn:hover{
     transform:scale(1.1);
+}
+
+/*page tour咱在东城玩点啥*/
+.page-tour .heat-sidebar .pointer{
+    margin-top:15px;
+    display: block;
+    font-size:0;
+    max-height:344px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding-right:5px;
+}
+.method-to-dest{
+    position: absolute;
+    bottom:10px;
+    left:15px;
+}
+.method-to-dest li{
+    display:inline-block;
+    padding:4px 10px;
+    background-color:#7aa675;
+    color:#fff;
+    font-size:14px;
+    border-radius:5px;
+    cursor:pointer;
+    height: 25px;
+    line-height: 25px;
+}
+.map-center-info{
+    position: absolute;
+    width:552px;
+    height:320px;
+    background-color:rgba(122,166,117,0.9);
+    border-radius:5px;
+    top:116px;
+    left:90px;
+    padding:20px;
+    box-sizing: border-box;
+}
+.map-center-info>h5{
+    font-size:24px;
+    color:#fff;
+    margin-bottom:16px;
+}
+.map-center-info .mc-c{
+    height:228px;
+    overflow:hidden;
+    position: relative;
+}
+.map-center-info .mc-t{
+    margin-left:240px;
+    color:#fff;
+    font-size:14px;
+    text-align:justify;
+    line-height:1.5;
+    height:100%;
+    overflow:auto;
+}
+.map-center-info .mc-t h6{
+    font-size:18px;
+    color:#fff;
+}
+.map-center-info .pointer-cover{
+    width:224px;
+    height:228px;
+    position: absolute;
+    left:0;
+    top:0;
+}
+.map-center-info .pointer-cover img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+.map-center-info .close-btn{
+    position: absolute;
+    right:2px;
+    top:2px;
+    color:#fff;
+    font-size:32px;
+    cursor:pointer;
+    -ms-transition: .5s all;
+    -webkit-transition: .5s all;
+    transition: .5s all;
+}
+.map-center-info .close-btn:hover{
+    -ms-transform:scale(1.1);
+    -webkit-transform:scale(1.1);
+    transform:scale(1.1);
+}
+.hide{
+    display:none;
+}
+.page-tour .brief-content.less .text-wrap,.page-eat .brief-content.less .text-wrap {
+    height: 50px;
+    overflow: hidden;
+}
+.text-wrap .text p{
+    margin:0;
+}
+.page-tour .text-wrap, .page-eat .text-wrap,  .page-park .text-wrap{
+    max-height:none;
+}
+
+/*page eat 舌尖上的东城*/
+.page-eat .pointers{
+    max-height:440px;
+}
+
+/*page convenient 生活便利度*/
+.page-tp1 .f2{
+    background-image:none;
+    overflow:hidden;
+}
+.page-f2-bg{
+    position: absolute;
+    width:1920px;
+    bottom:0;
+    left:50%;
+    margin-left:-960px;
+}
+.elevator{
+    box-sizing: border-box;
+    position: fixed;
+    left:50%;
+    margin-left:-680px;
+    top:230px;
+    background-color:#fff;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(238,238,238,0.75);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(238,238,238,0.75);
+    box-shadow: 0px 0px 20px 0px rgba(238,238,238,0.75);
+}
+.elevator li{
+    display:block;
+    text-align:center;
+    position: relative;
+}
+.elevator li a::after{
+    content:"";
+    position: absolute;
+    bottom:-1px;
+    left:10%;
+    width:80%;
+    height:1px;
+    background:-webkit-gradient(linear,right top,left top,from(white),color-stop(#adadad),color-stop(#adadad),to(white));
+    background:linear-gradient(270deg,white,#adadad,#adadad,white);
+
+}
+.elevator li:last-child a::after{
+    display:none;
+}
+.elevator li a{
+    display:block;
+    width:100%;
+    height: 100%;
+    color:#434343;
+    padding:18px 10px;
+    font-size:14px;
+    width:30px;
+    line-height:1.3;
+    /* transition:all .5s; */
+}
+.elevator li.active a{
+    color:#86100f;
+    cursor: default;
+}
+.elevator li.active::after{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 6px;
+    border-color: transparent transparent transparent #86100f;
+    position: absolute;
+    content:"";
+    right:2px;
+    top:50%;
+    margin-top:-6px;
+}
+.elevator li.active:hover::after{
+    display:none;
+}
+.elevator li a:hover{
+    background-color:#86100f;
+    color:#fff;
+}
+@media screen and (max-width: 1320px) {
+    .elevator{
+        margin-left: 0;
+        left:0;
+    }
 }

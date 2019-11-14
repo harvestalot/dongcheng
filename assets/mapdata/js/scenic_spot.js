@@ -13,7 +13,7 @@ ScenicSpot.prototype.init = function(){
 //地图初始化
 ScenicSpot.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
-        features: ['bg', 'road',"building"],
+        mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
 	    center: [116.412255,39.908886],
 	    zoom: 12,
     });

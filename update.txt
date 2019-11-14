@@ -1,0 +1,75 @@
+1012
+替换 assets/img/dc/park-f2-bg.jpg
+
+CSS文件assets/css/main.css
+399行 颜色替换
+420行 颜色替换
+640行 删除
+651行 更换颜色
+652行 margin修改
+655行 添加分类选中css选择器 active
+656行 更换颜色
+658-660 新增
+673行 修改为auto
+689行 添加选中css选择器 active
+693-695行 新增
+704-734 新增
+
+heat.html 修改
+
+
+
+
+『活力东城』添加收起按钮
+assets/css/main.css
+735-743行 新增
+525行删除
+
+heat.html
+144行js代码添加按钮展示逻辑
+218行 221行 添加with-btn
+
+assets/img/dc/icon-arrow-up.png 添加图片
+assets/img/dc/index-t1.png 更新图片
+
+『首页』banner添加跳转图标
+index.html
+35行添加链接
+
+assets/css/main.css
+744行至752行 新增
+
+
+添加『新闻』页面news.html
+
+添加图片
+assets/img/dc/btn-top.jpg
+assets/img/dc/news-c1.jpg
+assets/img/dc/news-c2.jpg
+assets/img/dc/news-c3.jpg
+
+assets/css/main.css添加新闻页样式
+
+
+
+
+1112
+添加『咱在东城玩点啥』页面tour.html
+assets/css/main.css 尾部添加tour页面的样式
+添加图片assets/img/dc/pointer-cover.jpg
+
+添加『舌尖上的东城』页面eat.html
+assets/css/main.css 尾部添加tour页面的样式
+
+修改park.html的收起功能，与活力页面保持一致
+
+1113
+添加生活便利度页面，包括教育设施页(convenient.html)，交通设施页(traffic.html)，医疗颐养设计页(medical.html)，便民设施页(people.html)，文体设施页(wt.html), 共5个页面
+assets/js/arrow_scroll.js 新增，将箭头控制滚动js文件抽取成公共js
+assets/css/main.css 添加页面样式
+assets/img/dc/page-f2-bg.jpg 添加图片
+
+添加给咱的生活添点绿页面，包括公园绿地页(green.html), 胡同环卫页(hthw.html)
+assets/img/dc/gyld-f2-bg.jpg 添加图片
+assets/img/dc/hthw-f2-bg.jpg 添加图片
+
