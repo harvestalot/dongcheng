@@ -1,258 +1,137 @@
-var data = [
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "安定门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.39825820922852,
-          39.94376548396171
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "北新桥"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41937255859374,
-          39.939685499484824
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "东直门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.43168926239014,
-          39.939850019695015
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "交道口"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.39911651611327,
-          39.935868519570306
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "景山"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.40010356903076,
-          39.9278390048698
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "东四"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41971588134766,
-          39.92866174435848
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "东华门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.39808654785156,
-          39.91322550436296
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "朝阳门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41791343688965,
-          39.920006029799595
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "建国门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41791343688965,
-          39.908485320941146
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "前门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.39684200286865,
-          39.89554690115957
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "崇外"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41173362731934,
-          39.89557982644766
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "东花市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.42898559570312,
-          39.89604077881996
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "天坛"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.40006065368652,
-          39.880893578347035
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "体育馆"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.41757011413576,
-          39.88346225232642
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "龙潭"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.42825603485107,
-          39.8790493428143
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "marker-color": "#7e7e7e",
-        "marker-size": "medium",
-        "marker-symbol": "",
-        "name": "永定门"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          116.39302253723143,
-          39.86501835593044
-        ]
-      }
-    }
-]
+var data = {"type":"FeatureCollection", "features": [
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41280943730578,39.920125006663795]},"properties":{"Id":1,"street_name":"朝阳门街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40892585984056,39.89398061041692]},"properties":{"Id":2,"street_name":"崇文门外街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40619785274873,39.9385837562354]},"properties":{"Id":3,"street_name":"交道口街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42095903433199,39.91380240036057]},"properties":{"Id":4,"street_name":"建国门街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40307768458752,39.93078071835549]},"properties":{"Id":5,"street_name":"景山街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41039956718635,39.93045678525249]},"properties":{"Id":6,"street_name":"景山街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39886516749357,39.929346973284225]},"properties":{"Id":7,"street_name":"景山街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40916450843542,39.957472548119654]},"properties":{"Id":8,"street_name":"和平里街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43241810231359,39.92976801967842]},"properties":{"Id":9,"street_name":"东直门街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4316992103503,39.88591396146023]},"properties":{"Id":10,"street_name":"龙潭街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42450764221394,39.927669686406944]},"properties":{"Id":11,"street_name":"东四街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41961020684562,39.8868991525739]},"properties":{"Id":12,"street_name":"体育馆路街道","type":"街道卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41182096816317,39.91777969707539]},"properties":{"Id":13,"street_name":"朝阳门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40892443351584,39.89401911758824]},"properties":{"Id":14,"street_name":"崇文门外街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41880810690861,39.89565172704562]},"properties":{"Id":15,"street_name":"崇文门外街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4438430733992,39.89091991532189]},"properties":{"Id":16,"street_name":"东花市街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43036643486312,39.89371367094918]},"properties":{"Id":17,"street_name":"东花市街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42796190851527,39.89666930004819]},"properties":{"Id":18,"street_name":"东花市街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43861649605446,39.89667628957915]},"properties":{"Id":19,"street_name":"东花市街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40185663097884,39.89572146407437]},"properties":{"Id":20,"street_name":"前门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40330477509531,39.93797250053052]},"properties":{"Id":21,"street_name":"交道口街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41569094248302,39.90414698029895]},"properties":{"Id":22,"street_name":"建国门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42282133423726,39.90914989355281]},"properties":{"Id":23,"street_name":"建国门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41789375809049,39.912629109745694]},"properties":{"Id":24,"street_name":"建国门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4241665221673,39.91279014684784]},"properties":{"Id":25,"street_name":"建国门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39832059202172,39.94677272737954]},"properties":{"Id":26,"street_name":"安定门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40361544589621,39.945615028310954]},"properties":{"Id":27,"street_name":"安定门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4172532708219,39.94721117475598]},"properties":{"Id":28,"street_name":"北新桥街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42399267871917,39.94296454727606]},"properties":{"Id":29,"street_name":"北新桥街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41713844178571,39.93942495869493]},"properties":{"Id":30,"street_name":"北新桥街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41156128622447,39.93257988315514]},"properties":{"Id":31,"street_name":"北新桥街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42271381399144,39.93435682570697]},"properties":{"Id":32,"street_name":"北新桥街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40890006458642,39.92060446132689]},"properties":{"Id":33,"street_name":"东华门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40155837531881,39.91525692876428]},"properties":{"Id":34,"street_name":"东华门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40886702709167,39.91498074516534]},"properties":{"Id":35,"street_name":"东华门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39929091104682,39.912092145236386]},"properties":{"Id":36,"street_name":"东华门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40902310353351,39.90385135425663]},"properties":{"Id":37,"street_name":"东华门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41430074348455,39.87278475531224]},"properties":{"Id":38,"street_name":"天坛街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39843068522805,39.872272021236824]},"properties":{"Id":39,"street_name":"天坛街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39976421974302,39.8876684074711]},"properties":{"Id":40,"street_name":"天坛街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.3972953217218,39.887014599444285]},"properties":{"Id":41,"street_name":"天坛街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40170922040431,39.861527989824936]},"properties":{"Id":42,"street_name":"永定门外街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.38341518346397,39.868308075857044]},"properties":{"Id":43,"street_name":"永定门外街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39126393028619,39.86552074678508]},"properties":{"Id":44,"street_name":"永定门外街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39144536581102,39.95593583247273]},"properties":{"Id":45,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.3946088830935,39.952239083766756]},"properties":{"Id":46,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40078261382666,39.95483174828661]},"properties":{"Id":47,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40353256797368,39.94974904088559]},"properties":{"Id":48,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41666675007048,39.95546828393418]},"properties":{"Id":49,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4204773502496,39.957021452677964]},"properties":{"Id":50,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40253205511033,39.96150603987189]},"properties":{"Id":51,"street_name":"和平里街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43288395473076,39.93447928818864]},"properties":{"Id":52,"street_name":"东直门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43269381107064,39.93828816166939]},"properties":{"Id":53,"street_name":"东直门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42849480269308,39.946998280046614]},"properties":{"Id":54,"street_name":"东直门街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4313854728614,39.88373999250672]},"properties":{"Id":55,"street_name":"龙潭街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43315870211245,39.87356029736986]},"properties":{"Id":56,"street_name":"龙潭街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43405930749111,39.88097128299836]},"properties":{"Id":57,"street_name":"龙潭街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42107911271091,39.923805538794625]},"properties":{"Id":58,"street_name":"东四街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4245314103963,39.927432740228824]},"properties":{"Id":59,"street_name":"东四街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41467007886115,39.928694013318136]},"properties":{"Id":60,"street_name":"东四街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4162458952319,39.925281961193605]},"properties":{"Id":61,"street_name":"东四街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41170740087591,39.93020495889181]},"properties":{"Id":62,"street_name":"东四街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41990526001985,39.87397511056298]},"properties":{"Id":63,"street_name":"体育馆路街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41591252464332,39.884911113057456]},"properties":{"Id":64,"street_name":"体育馆路街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41962670490852,39.87650745935184]},"properties":{"Id":65,"street_name":"体育馆路街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41962670490852,39.87650745935184]},"properties":{"Id":66,"street_name":"体育馆路街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41959220241824,39.88668679386052]},"properties":{"Id":67,"street_name":"体育馆路街道","type":"社区卫生服务站"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42213847630967,39.91778470809783]},"properties":{"Id":68,"street_name":"朝阳门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42159490268273,39.919793357377614]},"properties":{"Id":69,"street_name":"朝阳门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4153127892539,39.89774654576655]},"properties":{"Id":70,"street_name":"崇文门外街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.44205715831129,39.890896512264305]},"properties":{"Id":71,"street_name":"东花市街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43299858951332,39.896620217748875]},"properties":{"Id":72,"street_name":"东花市街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42814284041981,39.896664819625755]},"properties":{"Id":73,"street_name":"东花市街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40240682001877,39.89692706733035]},"properties":{"Id":74,"street_name":"前门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4014988833668,39.893224394790025]},"properties":{"Id":75,"street_name":"前门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39215302434263,39.93454338736751]},"properties":{"Id":76,"street_name":"交道口街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39753742101527,39.935803922113394]},"properties":{"Id":77,"street_name":"交道口街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4061286876888,39.93500448416967]},"properties":{"Id":78,"street_name":"交道口街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42080586000247,39.915524477972326]},"properties":{"Id":79,"street_name":"交道口街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41598036680057,39.904172734184385]},"properties":{"Id":80,"street_name":"建国门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40378177281059,39.94273904317237]},"properties":{"Id":81,"street_name":"安定门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39845606949211,39.94275841187124]},"properties":{"Id":82,"street_name":"安定门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39624327140996,39.945500854880606]},"properties":{"Id":83,"street_name":"安定门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41575500029307,39.944390363924185]},"properties":{"Id":84,"street_name":"北新桥街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41858933153253,39.938392465040295]},"properties":{"Id":85,"street_name":"北新桥街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41330333418159,39.938100884148525]},"properties":{"Id":86,"street_name":"北新桥街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42000590225064,39.93280848272536]},"properties":{"Id":87,"street_name":"北新桥街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40713236076988,39.921519829076885]},"properties":{"Id":88,"street_name":"东华门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4095965058741,39.916430317405286]},"properties":{"Id":89,"street_name":"东华门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40157095233769,39.91544450665873]},"properties":{"Id":90,"street_name":"东华门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39519207095736,39.87203639886076]},"properties":{"Id":91,"street_name":"天坛街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40573643578796,39.872228541713866]},"properties":{"Id":92,"street_name":"天坛街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39343790823295,39.8878715733145]},"properties":{"Id":93,"street_name":"天坛街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40283433253853,39.870132310158056]},"properties":{"Id":94,"street_name":"永定门外街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40747582534914,39.86106895696685]},"properties":{"Id":95,"street_name":"永定门外街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40459420685727,39.86076792509971]},"properties":{"Id":96,"street_name":"永定门外街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39919250363118,39.85945664610739]},"properties":{"Id":97,"street_name":"永定门外街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40957501657385,39.92833632596074]},"properties":{"Id":98,"street_name":"景山街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39559612106416,39.926969148707315]},"properties":{"Id":99,"street_name":"景山街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.3939437714879,39.928990469434666]},"properties":{"Id":100,"street_name":"景山街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42114099146363,39.95620183035027]},"properties":{"Id":101,"street_name":"和平里街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40252203306545,39.96142775029051]},"properties":{"Id":102,"street_name":"和平里街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40250420760322,39.971610632624675]},"properties":{"Id":103,"street_name":"和平里街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43389524237159,39.93258825854133]},"properties":{"Id":104,"street_name":"东直门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43282449515436,39.93548966211824]},"properties":{"Id":105,"street_name":"东直门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4285077951987,39.94671522382856]},"properties":{"Id":106,"street_name":"东直门街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42795813136274,39.88637111833248]},"properties":{"Id":107,"street_name":"龙潭街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43474640302418,39.87274309601713]},"properties":{"Id":108,"street_name":"龙潭街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42761660572182,39.89182074912833]},"properties":{"Id":109,"street_name":"龙潭街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43543151465269,39.89002628958167]},"properties":{"Id":110,"street_name":"龙潭街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42216705136843,39.92333907753647]},"properties":{"Id":111,"street_name":"东四街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42069046619213,39.92588544675601]},"properties":{"Id":112,"street_name":"东四街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42134872046711,39.92989792764729]},"properties":{"Id":113,"street_name":"东四街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41808597199008,39.93046429818884]},"properties":{"Id":114,"street_name":"东四街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42471307704693,39.9278611412787]},"properties":{"Id":115,"street_name":"东四街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41562222978212,39.882843361232176]},"properties":{"Id":116,"street_name":"体育馆路街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4196482778458,39.88663622228387]},"properties":{"Id":117,"street_name":"体育馆路街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41863462768595,39.877023199860844]},"properties":{"Id":118,"street_name":"体育馆路街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41993619310085,39.8751410456228]},"properties":{"Id":119,"street_name":"体育馆路街道","type":"社区养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42082767215936,39.897997786668554]},"properties":{"Id":120,"street_name":"崇文门外街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.44006387035142,39.89405026380871]},"properties":{"Id":121,"street_name":"东花市街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.4023091725303,39.89760949987857]},"properties":{"Id":122,"street_name":"前门街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.38933941078528,39.94187816354645]},"properties":{"Id":123,"street_name":"安定门街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39383443101428,39.94434170160832]},"properties":{"Id":124,"street_name":"安定门街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42415579055739,39.94268584287738]},"properties":{"Id":125,"street_name":"北新桥街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41713067074397,39.93553947826439]},"properties":{"Id":126,"street_name":"北新桥街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39810914701957,39.910238319642815]},"properties":{"Id":127,"street_name":"东华门街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40673935433779,39.92919137348315]},"properties":{"Id":128,"street_name":"景山街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40982443724806,39.92937819234976]},"properties":{"Id":129,"street_name":"景山街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39608610948642,39.92412896737801]},"properties":{"Id":130,"street_name":"景山街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.39623634123427,39.92560111619861]},"properties":{"Id":131,"street_name":"景山街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.40922293738868,39.949606235739225]},"properties":{"Id":132,"street_name":"和平里街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.43935193284551,39.94284941876572]},"properties":{"Id":133,"street_name":"东直门街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.42736224866894,39.891817101478125]},"properties":{"Id":134,"street_name":"龙潭街道","type":"机构养老设施"}},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[116.41743676759279,39.87311493510623]},"properties":{"Id":135,"street_name":"体育馆路街道","type":"机构养老设施"}}
+  ]}

@@ -10,31 +10,29 @@ GreenEnvironmental.prototype.init = function(){
 //地图初始化
 GreenEnvironmental.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
-	    // mapStyle: 'amap://styles/twilight',
-	    // viewMode: '3D',
-	    // pitch: 50,
-        // 隐藏默认楼块--区域面（bg）/道路（road）/建筑物（building）/标注（point）
-        features: ['bg', 'road',"building"],
+        mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
 	    center: [116.412255,39.908886],
 	    zoom: 12,
-	    // zIndex: 10
     });
 }
 //图层初始化
 GreenEnvironmental.prototype.layerInit = function(){
     this.loadBoundaryLayer();
+    this.loadGreenLandLayer();
     this.loadGreenEnvironmentalLayer();
 }
 //各个社区边界范围图层
 GreenEnvironmental.prototype.loadBoundaryLayer = function(){
-    var boundaryLayer = new Loca.PolygonLayer({
+    var boundaryLayer = new Loca.LineLayer({
         map: this.mainMap,
         zIndex: 13,
         // fitView: true,
         // eventSupport:true,
     });
-    $.get(service_config.file_server_url+'boundary_data.js', function (data) {
-        boundaryLayer.setData(boundary_data,{lnglat: 'lnglat'})
+    $.get(service_config.file_server_url+'boundary_data.json', function (result) {
+        // var data = JSON.parse(result);
+        var data = result;
+        boundaryLayer.setData(data,{lnglat: 'lnglat'})
         // boundaryLayer.setData(JSON.parse(Decrypt(data)), {
         //     lnglat: 'coordinates'
         // });
@@ -44,11 +42,39 @@ GreenEnvironmental.prototype.loadBoundaryLayer = function(){
                 height: function () {
                     return Math.random() * 20000;
                 },
-                opacity: 0.8,
-                // color:"#3ba0f3",
-                color: function () {
-                    return echarts_colors[idx++];
-                }
+                opacity: 1,
+                color:"#d66349",
+            },
+            // selectStyle:{
+            //     color:"#13EFDC",
+            // }
+        });
+        boundaryLayer.render();
+    }); 
+}
+//各个社区绿地分部图层
+GreenEnvironmental.prototype.loadGreenLandLayer = function(){
+    var boundaryLayer = new Loca.PolygonLayer({
+        map: this.mainMap,
+        zIndex: 13,
+        // fitView: true,
+        // eventSupport:true,
+    });
+    $.get(service_config.file_server_url+'green_land_data.json', function (result) {
+        // var data = JSON.parse(result);
+        var data = result;
+        boundaryLayer.setData(data,{lnglat: 'lnglat'})
+        // boundaryLayer.setData(JSON.parse(Decrypt(data)), {
+        //     lnglat: 'coordinates'
+        // });
+        var idx = 0;
+        boundaryLayer.setOptions({
+            style: {
+                height: function () {
+                    return Math.random() * 20000;
+                },
+                opacity: 1,
+                color:"#5e61aa",
             },
             // selectStyle:{
             //     color:"#13EFDC",
@@ -61,8 +87,9 @@ GreenEnvironmental.prototype.loadBoundaryLayer = function(){
 GreenEnvironmental.prototype.loadGreenEnvironmentalLayer = function(){
     var _this = this;
     // _this.markers = [];
-    $.get(service_config.file_server_url+'recycle_bin_data.js', function (result) {
-        var data = JSON.parse(result);
+    $.get(service_config.file_server_url+'recycle_bin_data.json', function (result) {
+        // var data = JSON.parse(result);
+        var data = result;
 		for(var i = 0; i < data.length; i++){
             var item = data[i];
             var marker = new AMap.Marker({

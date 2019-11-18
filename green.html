@@ -15,6 +15,7 @@
     <link href="assets/css/normalize.min.css" rel="stylesheet">
     <link type="text/css" href="assets/css/main.css?v3" rel="stylesheet">
     <link type="text/css" href="assets/css/slide.css" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019103001" rel="stylesheet">
 </head>
 
 <body>
@@ -112,7 +113,8 @@
         <div class="f3 common-bg">
             <div class="fix-row">
                 <div class="map-wrap">
-                    <img src="assets/img/dc/map-bg.jpg" class="map-bg ofc" />
+                    <div id="main_map" class="w_h_per_100"></div>
+                    <!-- <img src="assets/img/dc/map-bg.jpg" class="map-bg ofc" /> -->
                     <div class="point-brief-box">
                         <h1 class="title">公园绿地</h1>
                         <div class="brief-content-box">
@@ -159,6 +161,8 @@
     <script src="assets/js/slide.js"></script>
     <script src="assets/js/arrow_scroll.js"></script>
     <script src="assets/js/ofi.min.js"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/green_environmental.js?V2019103001"></script>
     <script>
         $(document).ready(function () {
             objectFitImages();
