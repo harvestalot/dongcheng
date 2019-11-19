@@ -11,10 +11,11 @@
     <meta name="viewport" content="width=1200">
     <meta name=" title" content="北京老城保护数字文化平台">
     <meta name="desc" content="北京老城保护数字文化平台">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css" />
-    <link href="assets/css/normalize.min.css" rel="stylesheet">
-    <link type="text/css" href="assets/css/main.css?v3" rel="stylesheet">
-    <link type="text/css" href="assets/css/slide.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css?V2019103001" />
+    <link href="assets/css/normalize.min.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/slide.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019103001" rel="stylesheet">
 </head>
 
 <body>
@@ -111,7 +112,8 @@
         <div class="f3 common-bg">
             <div class="fix-row">
                 <div class="map-wrap">
-                    <img src="assets/img/dc/map-bg.jpg" class="map-bg ofc" />
+                    <div id="main_map" class="w_h_per_100"></div>
+                    <!-- <img src="assets/img/dc/map-bg.jpg" class="map-bg ofc" /> -->
                     <div class="point-brief-box">
                         <h1 class="title">便民设施</h1>
                         <div class="brief-content-box">
@@ -157,10 +159,12 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/slide.js"></script>
-    <script src="assets/js/arrow_scroll.js"></script>
-    <script src="assets/js/ofi.min.js"></script>
+    <script src="assets/js/jquery.min.js?V2019103001"></script>
+    <script src="assets/js/slide.js?V2019103001"></script>
+    <script src="assets/js/arrow_scroll.js?V2019103001"></script>
+    <script src="assets/js/ofi.min.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/convenience_people_facilities.js?V2019103001"></script>
     <script>
         $(document).ready(function () {
             objectFitImages();

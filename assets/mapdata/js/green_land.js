@@ -1,14 +1,14 @@
-//绿化环境(给生活添一点绿)
-function GreenEnvironmental(){
+//公园绿地
+function GreenLand(){
     this.mainMap = "";
     this.parkingMarkers = [];
 }
-GreenEnvironmental.prototype.init = function(){
+GreenLand.prototype.init = function(){
     this.mapInit();
     this.layerInit();
 }
 //地图初始化
-GreenEnvironmental.prototype.mapInit = function(){
+GreenLand.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
         mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
 	    center: [116.412255,39.908886],
@@ -16,13 +16,12 @@ GreenEnvironmental.prototype.mapInit = function(){
     });
 }
 //图层初始化
-GreenEnvironmental.prototype.layerInit = function(){
+GreenLand.prototype.layerInit = function(){
     this.loadBoundaryLayer();
     this.loadGreenLandLayer();
-    this.loadGreenEnvironmentalLayer();
 }
 //各个社区边界范围图层
-GreenEnvironmental.prototype.loadBoundaryLayer = function(){
+GreenLand.prototype.loadBoundaryLayer = function(){
     var boundaryLayer = new Loca.LineLayer({
         map: this.mainMap,
         zIndex: 13,
@@ -53,7 +52,7 @@ GreenEnvironmental.prototype.loadBoundaryLayer = function(){
     }); 
 }
 //各个社区绿地分部图层
-GreenEnvironmental.prototype.loadGreenLandLayer = function(){
+GreenLand.prototype.loadGreenLandLayer = function(){
     var boundaryLayer = new Loca.PolygonLayer({
         map: this.mainMap,
         zIndex: 13,
@@ -84,7 +83,7 @@ GreenEnvironmental.prototype.loadGreenLandLayer = function(){
     }); 
 }
 //加载所有再生资源回收站点标识图层
-GreenEnvironmental.prototype.loadGreenEnvironmentalLayer = function(){
+GreenLand.prototype.loadGreenEnvironmentalLayer = function(){
     var _this = this;
     // _this.markers = [];
     $.get(service_config.file_server_url+'recycle_bin_data.json', function (result) {
@@ -108,7 +107,7 @@ GreenEnvironmental.prototype.loadGreenEnvironmentalLayer = function(){
 	})
 }
 //获取Marker对应图标
-GreenEnvironmental.prototype.getMarkerIcon = function(){
+GreenLand.prototype.getMarkerIcon = function(){
     var icon = new AMap.Icon({
         size: new AMap.Size(16, 16),
         image: service_config.icon_url + 'green/recovery.png',
@@ -118,7 +117,7 @@ GreenEnvironmental.prototype.getMarkerIcon = function(){
     return icon;
 }
 //加载信息窗体
-GreenEnvironmental.prototype.loadInfo = function(name, introduction_text, center){
+GreenLand.prototype.loadInfo = function(name, introduction_text, center){
     var info = [];
     info.push('<div class="info_window">'+name+'</div>');
     info.push(introduction_text?'<div class="info_window text_indent">'+introduction_text+'</div>':"");
@@ -127,5 +126,5 @@ GreenEnvironmental.prototype.loadInfo = function(name, introduction_text, center
     });
     infoWindow.open(this.mainMap, center);
 }
-var start_parking_difficult = new GreenEnvironmental();
-start_parking_difficult.init();
+var start_green_land = new GreenLand();
+start_green_land.init();
