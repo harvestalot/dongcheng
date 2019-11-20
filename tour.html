@@ -65,18 +65,18 @@
                     <div class="map-wrap">
                         <div id="main_map" class="w_h_per_100"></div>
                         <!-- <img src="assets/img/dc/heat-map.jpg" class="map-bg ofc" /> -->
-                        <ul class="method-to-dest">
-                            <li>骑行</li>
-                            <li>步行</li>
-                            <li>公交</li>
-                            <li>驾车</li>
+                        <ul id="line_path_type" class="method-to-dest">
+                            <li class="active" data_type="walking">步行</li>
+                            <li data_type="rading">骑行</li>
+                            <li data_type="transfer">公交</li>
+                            <li data_type="driving">驾车</li>
                         </ul>
-                        <div class="map-center-info tour-intro">
-                            <h5>北京故宫</h5>
+                        <div id="scenic_spot_info" class="map-center-info tour-intro hide">
+                            <h5 class="name">北京故宫</h5>
                             <div class="mc-c">
                                 <div class="mc-t">
                                     <h6>介绍</h6>
-                                    <div>
+                                    <div class="info">
                                         北京故宫是中国明清两代的皇家宫殿，旧称紫禁城，位于北京中轴线的中心，是中国古代宫廷建筑之精华。北京故宫以三大殿为中心，占地面积72万平方米，建筑面积约15万平方米，有大小宫殿七十多座，房屋九千余间。是世界上现存规模最大、保存最为完整的木质结构古建筑之一。
                                     </div>
                                 </div>
@@ -128,7 +128,8 @@
                                     <div><b>出行路线</b></div>
                                     <div class="text-wrap">
                                         <div class="text">
-                                            <p>
+                                            <div id="linePath" class="linePath"></div>
+                                            <!-- <p>
                                                     步行 28分钟<br />
                                                     沿王府井大街往西走40米<br />
                                                     过马路右转<br />
@@ -136,7 +137,7 @@
                                                     走479米右转<br />
                                                     走479米右转<br />
                                                     走479米右转<br />
-                                            </p>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="show-more rtext">
@@ -292,7 +293,7 @@
         //地图中心弹窗关闭
         $(".map-center-info .close-btn").on("click", function(){
             $(this).parent().addClass("hide");
-            $(".method-to-dest").addClass("hide");
+            // $(".method-to-dest").addClass("hide");
             console.log('xx');
         });
 

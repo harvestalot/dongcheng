@@ -8,7 +8,7 @@ document.write('<script type="text/javascript" src= "./assets/mapdata/lib/encryp
 document.write('<script type="text/javascript" src= "./assets/mapdata/lib/encryption/pad-zeropadding.js"></script>');
 document.write('<script type="text/javascript" src= "./assets/mapdata/lib/encryption/security.js"></script>');
 document.write('<script type="text/javascript" src="//webapi.amap.com/maps?v=1.4.15&key=ecde469412ea3b8c4b8a640687c68c2b&'+
-        'plugin=AMap.PlaceSearch,AMap.Walking"></script>');
+        'plugin=AMap.PlaceSearch,AMap.Walking,AMap.Riding,AMap.Transfer,AMap.Driving"></script>');
 document.write('<script type="text/javascript" src="//webapi.amap.com/loca?v=1.3.0&key=ecde469412ea3b8c4b8a640687c68c2b"></script>');
 document.write('<script type="text/javascript" src="https://cache.amap.com/lbs/static/PlaceSearchRender.js"></script>');
 // document.write('<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>');

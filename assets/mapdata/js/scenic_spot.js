@@ -1,7 +1,10 @@
 //景点(咱在东城玩点啥)
 function ScenicSpot(){
     this.mainMap = "";
-    this.walkingPathLayer = "";
+    this.walkingPathLayer = "";//步行
+    this.ridingPathLayer = "";//骑行
+    this.transferPathLayer = "";//公交
+    this.drivingPathLayer = "";//驾车
     this.scenicSpotMarkers = [];
     this.startLocation = [];
     this.arriveLocation = [];
@@ -9,6 +12,7 @@ function ScenicSpot(){
 ScenicSpot.prototype.init = function(){
     this.mapInit();
     this.layerInit();
+    this.linePathPlanning();
 }
 //地图初始化
 ScenicSpot.prototype.mapInit = function(){
@@ -16,11 +20,6 @@ ScenicSpot.prototype.mapInit = function(){
         mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
 	    center: [116.412255,39.908886],
 	    zoom: 12,
-    });
-    //步行导航
-    this.walkingPathLayer = new AMap.Walking({
-        map: this.mainMap,
-        panel: "linePath"
     });
     var _this = this;
     //定位当前位置
@@ -43,6 +42,54 @@ ScenicSpot.prototype.mapInit = function(){
 ScenicSpot.prototype.layerInit = function(){
     // this.loadBoundaryLayer();
     this.loadScenicSpotLayer(); 
+}
+//选择不同类型出行方式规划相对应线路
+ScenicSpot.prototype.linePathPlanning = function(){
+    //步行导航
+    this.walkingPathLayer = new AMap.Walking({
+        map: this.mainMap,
+        panel: "linePath"
+    });
+    //骑行导航
+    this.ridingPathLayer = new AMap.Riding({
+        map: this.mainMap,
+        panel: "linePath"
+    });
+    //公交导航
+    this.transferPathLayer = new AMap.Transfer({
+        map: this.mainMap,
+        panel: "linePath",
+        city: '北京市',
+        // policy: AMap.TransferPolicy.LEAST_TIME
+    });
+    //驾车导航
+    this.drivingPathLayer = new AMap.Driving({
+        map: this.mainMap,
+        panel: "linePath"
+    });
+    var _this = this;
+    $("#line_path_type li").on("click",function(){
+        _this.walkingPathLayer.clear();
+        _this.ridingPathLayer.clear();
+        _this.transferPathLayer.clear();
+        _this.drivingPathLayer.clear();
+        $(this).addClass("active").siblings("li").removeClass("active");
+        var type = $(this).attr("data_type");
+        switch (type){
+            case "walking":
+                _this.loadWalkingPathLayer();
+            break;
+            case "rading":
+                _this.loadRidingPathLayer();
+            break;
+            case "transfer":
+                _this.loadTransferPathLayer();
+            break;
+            case "driving":
+                _this.loadDrivingPathLayer();
+            break;
+        }
+    })
 }
 //各个社区边界范围图层
 ScenicSpot.prototype.loadBoundaryLayer = function(){
@@ -90,7 +137,10 @@ ScenicSpot.prototype.loadScenicSpotLayer = function(){
                 });
                 marker.on('click', function (ev) {
                     var properties = ev.target.B.extData;
-                    _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
+                    // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
+                    $("#scenic_spot_info .name").html(properties.name);
+                    $("#scenic_spot_info .info").html(properties.introduction);
+                    $("#scenic_spot_info").removeClass("hide");
                     _this.arriveLocation = ev.lnglat;
                     _this.loadWalkingPathLayer();//规划步行线路
                 });
@@ -102,6 +152,39 @@ ScenicSpot.prototype.loadScenicSpotLayer = function(){
 ScenicSpot.prototype.loadWalkingPathLayer = function(){
     //根据起终点坐标规划步行路线
     this.walkingPathLayer.search(this.startLocation, this.arriveLocation, 
+        function(status, result) {
+            if (status === 'complete') {
+                // console.log(result)
+            } else {
+            } 
+    });
+}
+//骑行线路
+ScenicSpot.prototype.loadRidingPathLayer = function(){
+    //根据起终点坐标规划步行路线
+    this.ridingPathLayer.search(this.startLocation, this.arriveLocation, 
+        function(status, result) {
+            if (status === 'complete') {
+                // console.log(result)
+            } else {
+            } 
+    });
+}
+//公交线路
+ScenicSpot.prototype.loadTransferPathLayer = function(){
+    //根据起终点坐标规划步行路线
+    this.transferPathLayer.search(this.startLocation, this.arriveLocation, 
+        function(status, result) {
+            if (status === 'complete') {
+                // console.log(result)
+            } else {
+            } 
+    });
+}
+//驾车线路
+ScenicSpot.prototype.loadDrivingPathLayer = function(){
+    //根据起终点坐标规划步行路线
+    this.drivingPathLayer.search(this.startLocation, this.arriveLocation, 
         function(status, result) {
             if (status === 'complete') {
                 // console.log(result)
