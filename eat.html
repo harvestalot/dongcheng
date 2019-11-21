@@ -11,10 +11,11 @@
     <meta name="viewport" content="width=1200">
     <meta name=" title" content="北京老城保护数字文化平台">
     <meta name="desc" content="北京老城保护数字文化平台">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css" />
-    <link href="assets/css/normalize.min.css" rel="stylesheet">
-    <link type="text/css" href="assets/css/main.css?v3" rel="stylesheet">
-    <link type="text/css" href="assets/css/slide.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css?V2019103001" />
+    <link href="assets/css/normalize.min.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="assets/css/slide.css?V2019103001" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019103001" rel="stylesheet">
 </head>
 
 <body>
@@ -62,19 +63,20 @@
             <div class="fix-row">
                 <div class="f2-box">
                     <div class="map-wrap">
-                        <img src="assets/img/dc/heat-map.jpg" class="map-bg ofc" />
-                        <ul class="method-to-dest">
-                            <li>骑行</li>
-                            <li>步行</li>
-                            <li>公交</li>
-                            <li>驾车</li>
+                        <div id="main_map" class="w_h_per_100"></div>
+                        <!-- <img src="assets/img/dc/heat-map.jpg" class="map-bg ofc" /> -->
+                        <ul id="line_path_type" class="method-to-dest">
+                            <li class="active" data_type="walking">步行</li>
+                            <li data_type="rading">骑行</li>
+                            <li data_type="transfer">公交</li>
+                            <li data_type="driving">驾车</li>
                         </ul>
-                        <div class="map-center-info tour-intro">
-                            <h5>全聚德</h5>
+                        <div id="scenic_spot_info" class="map-center-info tour-intro hide">
+                            <h5 class="name">全聚德</h5>
                             <div class="mc-c">
                                 <div class="mc-t">
                                     <h6>介绍</h6>
-                                    <div>
+                                    <div class="info">
                                         餐馆地址：北京市东城区某某路<br />
                                         菜系：京菜
                                     </div>
@@ -117,7 +119,8 @@
                                     <div><b>出行路线</b></div>
                                     <div class="text-wrap">
                                         <div class="text">
-                                            <p>
+                                            <div id="linePath" class="linePath"></div>
+                                            <!-- <p>
                                                 步行 28分钟<br />
                                                 沿王府井大街往西走40米<br />
                                                 过马路右转<br />
@@ -125,7 +128,7 @@
                                                 走479米右转<br />
                                                 走479米右转<br />
                                                 走479米右转<br />
-                                            </p>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="show-more rtext">
@@ -180,9 +183,11 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/slide.js"></script>
-    <script src="assets/js/ofi.min.js"></script>
+    <script src="assets/js/jquery.min.js?V2019103001"></script>
+    <script src="assets/js/slide.js?V2019103001"></script>
+    <script src="assets/js/ofi.min.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019103001"></script>
+    <script src="./assets/mapdata/js/eat.js"></script>
     <script>
         $(document).ready(function () {
             objectFitImages();
@@ -283,7 +288,7 @@
         //地图中心弹窗关闭
         $(".map-center-info .close-btn").on("click", function () {
             $(this).parent().addClass("hide");
-            $(".method-to-dest").addClass("hide");
+            // $(".method-to-dest").addClass("hide");
             console.log('xx');
         });
     </script>
