@@ -108,5 +108,15 @@ EducationFacilities.prototype.getMarkerIcon = function(markerType){
     }
     return icon;
 }
+//加载信息窗体
+EducationFacilities.prototype.loadInfo = function(name, introduction_text, center){
+    var info = [];
+    info.push('<div class="info_window">'+name+'</div>');
+    info.push(introduction_text?'<div class="info_window text_indent">'+introduction_text+'</div>':"");
+    infoWindow = new AMap.InfoWindow({
+        content: info.join(""),  //使用默认信息窗体框样式，显示信息内容
+    });
+    infoWindow.open(this.mainMap, center);
+}
 var start_education_facilities = new EducationFacilities();
 start_education_facilities.init();
