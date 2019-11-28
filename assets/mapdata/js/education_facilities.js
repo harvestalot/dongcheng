@@ -87,10 +87,10 @@ EducationFacilities.prototype.loadEducationPointLayer = function(){
                     offset: new AMap.Pixel(-10, -10),
                     extData:item.properties
                 });
-                // marker.on('click', function (ev) {
-                //     var properties = ev.target.B.extData;
-                //     _this.loadInfo(properties, ev.lnglat);
-                // });
+                marker.on('click', function (ev) {
+                    var properties = ev.target.B.extData;
+                    _this.loadInfo(properties, ev.lnglat);
+                });
                 _this.parkingMarkers.push(marker);
             // }
         }
@@ -136,10 +136,10 @@ EducationFacilities.prototype.getMarkerIcon = function(markerType){
     return icon;
 }
 //加载信息窗体
-EducationFacilities.prototype.loadInfo = function(name, introduction_text, center){
+EducationFacilities.prototype.loadInfo = function(properties, center){
     var info = [];
-    info.push('<div class="info_window">'+name+'</div>');
-    info.push(introduction_text?'<div class="info_window text_indent">'+introduction_text+'</div>':"");
+    info.push('<div class="info_window">'+properties.type+'</div>');
+    info.push('<div class="info_window text_indent">'+properties.street_name+'</div>');
     infoWindow = new AMap.InfoWindow({
         content: info.join(""),  //使用默认信息窗体框样式，显示信息内容
     });

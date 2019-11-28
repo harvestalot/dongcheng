@@ -68,6 +68,7 @@ Eat.prototype.mapInit = function(){
 //图层初始化
 Eat.prototype.layerInit = function(){
     // this.loadBoundaryLayer();
+    this.loadScenicSpotLayer();
 }
 //选择不同类型出行方式规划相对应线路
 Eat.prototype.linePathPlanning = function(){
@@ -146,6 +147,36 @@ Eat.prototype.loadBoundaryLayer = function(){
         boundaryLayer.render();
     }); 
 }
+//加载所有餐馆点标识图层
+Eat.prototype.loadScenicSpotLayer = function(){
+    var _this = this;
+    // _this.markers = [];
+    $.get(service_config.file_server_url+'time_honored_restaurant.json', function (result) {
+        var data = result;
+		for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            var marker = new AMap.Marker({
+                    map: _this.mainMap,
+                    icon: _this.getMarkerIcon(),
+                    position: item.lnglat,
+                    offset: new AMap.Pixel(-10, -10),
+                    extData:item.properties
+                });
+                marker.on('click', function (ev) {
+                    var properties = ev.target.B.extData;
+                    // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
+                    $("#scenic_spot_info .name").html(properties.name);
+                    $("#scenic_spot_info .info").html("菜系："+ properties.cuisine);
+                    $("#scenic_spot_info .info").html("餐馆地址："+ properties.address);
+                    // $("#scenic_spot_info .pointer-cover").html('<img src='+properties.url+' />');
+                    $("#scenic_spot_info").removeClass("hide");
+                    _this.arriveLocation = ev.lnglat;
+                    _this.loadWalkingPathLayer();//规划步行线路
+                });
+                _this.scenicSpotMarkers.push(marker);
+		}
+	})
+}
 //步行线路
 Eat.prototype.loadWalkingPathLayer = function(){
     //根据起终点坐标规划步行路线
@@ -194,7 +225,7 @@ Eat.prototype.loadDrivingPathLayer = function(){
 Eat.prototype.getMarkerIcon = function(){
     var icon = new AMap.Icon({
         size: new AMap.Size(16, 16),
-        image: service_config.icon_url + 'scenic_spot/jingdian.png',
+        image: service_config.icon_url + 'eat.png',
         imageOffset: new AMap.Pixel(0, 0), 
         imageSize: new AMap.Size(-8, -8)
     });
