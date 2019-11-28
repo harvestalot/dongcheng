@@ -4,8 +4,35 @@ function GreenLand(){
     this.parkingMarkers = [];
 }
 GreenLand.prototype.init = function(){
+    this.loadBanner();
     this.mapInit();
     this.layerInit();
+}
+//加载banner
+GreenLand.prototype.loadBanner = function(){
+    serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"green" },function(result){
+        var data = result.data.resultKey;
+        var banner_str = '';
+        var toUrl = "./assets/bannerSubPage/green_land/banner_"
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            banner_str += '<img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ toUrl+(i+1)+".html" +' >'
+        }
+        $("#banner").html(banner_str);
+        $("#banner").dnSlide({
+            width: 1080,
+            height: 265,
+            verticalAlign: "middle",
+            precentWidth: "56%",
+            scale: 0.75,
+            autoPlay: true,
+            response: true,
+            afterClickBtnFn: function (i) {
+                //console.log(i)
+            }
+
+        });
+    })
 }
 //地图初始化
 GreenLand.prototype.mapInit = function(){
