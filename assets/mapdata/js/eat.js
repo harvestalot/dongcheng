@@ -67,7 +67,7 @@ Eat.prototype.mapInit = function(){
 }
 //图层初始化
 Eat.prototype.layerInit = function(){
-    // this.loadBoundaryLayer();
+    this.loadBoundaryLayer();
     this.loadScenicSpotLayer();
 }
 //选择不同类型出行方式规划相对应线路
@@ -120,29 +120,23 @@ Eat.prototype.linePathPlanning = function(){
 }
 //各个社区边界范围图层
 Eat.prototype.loadBoundaryLayer = function(){
-    var boundaryLayer = new Loca.PolygonLayer({
+    var boundaryLayer = new Loca.LineLayer({
         map: this.mainMap,
     });
-    $.get(service_config.file_server_url+'boundary.js', function (data) {
+    $.get(service_config.file_server_url+'boundary_data.json', function (data) {
+        var boundary_data = data;
         boundaryLayer.setData(boundary_data,{lnglat: 'lnglat'})
         // boundaryLayer.setData(JSON.parse(Decrypt(data)), {
         //     lnglat: 'coordinates'
         // });
-        var idx = 0;
         boundaryLayer.setOptions({
             style: {
                 height: function () {
                     return Math.random() * 20000;
                 },
-                opacity: 0.8,
-                // color:"#3ba0f3",
-                color: function () {
-                    return echarts_colors[idx++];
-                }
+                opacity: 1,
+                color:"#d66349",
             },
-            // selectStyle:{
-            //     color:"#13EFDC",
-            // }
         });
         boundaryLayer.render();
     }); 
