@@ -1,16 +1,23 @@
 //景点(咱在东城玩点啥)
 function ScenicSpot(){
     this.mainMap = "";
+    this.current_line_path_type  = "walking";
     this.walkingPathLayer = "";//步行
     this.ridingPathLayer = "";//骑行
     this.transferPathLayer = "";//公交
     this.drivingPathLayer = "";//驾车
     this.scenicSpotMarkers = [];
-    this.startLocation = [];
-    this.arriveLocation = [];
+    this.startLocation = [];//起点经纬度
+    this.arriveLocation = [];//终点经纬度
+    this.tourist_attractions_params = {//旅游景点分类搜索条件
+        type:"",
+        name:"",
+    }
 }
 ScenicSpot.prototype.init = function(){
     this.loadBanner();
+    this.loadTouristAttractions();
+    this.handleDomElement();
     this.mapInit();
     this.layerInit();
     this.linePathPlanning();
@@ -41,6 +48,78 @@ ScenicSpot.prototype.loadBanner = function(){
         });
     })
 }
+//加载景点数据
+ScenicSpot.prototype.loadScenicSpot = function(){
+    serveRequest("get", service_config.data_server_url+"scenicSpot/getScenicSpotList",{ },function(result){
+        var data = result.data.resultKey;
+        var scenic_spot_art_space_list_str = "";
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            scenic_spot_art_space_list_str += "<li>"+ item.name +"</li>";
+        }
+        $("#scenic_spot_art_space_list").html(scenic_spot_art_space_list_str);
+    })
+}
+//加载除景点外的所有分类数据
+ScenicSpot.prototype.loadTouristAttractions = function(){
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+"culturalSpace/getculturalSpaceList",this.tourist_attractions_params,function(result){
+        var data = result.data.resultKey;
+        var scenic_spot_art_space_list_str = "";
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            scenic_spot_art_space_list_str += "<li data_row="+JSON.stringify(item)+">"+ item.name +"</li>";
+        }
+        $("#scenic_spot_art_space_list").html(scenic_spot_art_space_list_str);
+        var marker = "";
+        $("#scenic_spot_art_space_list li").on("click", function(){
+            _this.initClear();
+            marker? _this.mainMap.remove(marker):"";
+            marker = new AMap.Marker({
+                map: _this.mainMap,
+                icon:new AMap.Icon({
+                    size: new AMap.Size(32, 32),
+                    image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
+                    imageOffset: new AMap.Pixel(0, 0), 
+                    imageSize: new AMap.Size(-16, -16)
+                }),
+                position: wgs84togcj02(JSON.parse($(this).attr("data_row")).x, JSON.parse($(this).attr("data_row")).y),
+                offset: new AMap.Pixel(-10, -10),
+                extData:JSON.parse($(this).attr("data_row"))
+            });
+            marker.on('click', function (ev) {
+                var properties = ev.target.B.extData;
+                $("#scenic_spot_info .name").html(properties.name);
+                $("#scenic_spot_info .info").html(properties.address);
+                $("#scenic_spot_info").removeClass("hide");
+                _this.arriveLocation = ev.lnglat;
+                _this.loadWalkingPathLayer();//规划步行线路
+            });
+        })
+    })
+}
+//左侧筛选操作DOM
+ScenicSpot.prototype.handleDomElement = function(){
+    var _this = this;
+    //搜索输入框enter触发
+    $("#search_text").on("keydown",function(event){
+        if(event.keyCode==13){
+            $("#search_btn").trigger("click");
+        }
+    })
+    //搜索触发
+    $("#search_btn").on("click", function () {
+        _this.tourist_attractions_params.name = $("#search_text").val();
+        _this.loadTouristAttractions()
+    });
+    //点击分类类型筛选对应数据
+    $("#scenic_spot_type li").on("click", function () {
+        if ($(this).hasClass("active")) return;
+        $(this).addClass("active").siblings("li").removeClass("active");
+        _this.tourist_attractions_params.type= $(this).attr("data-cat");
+        _this.loadTouristAttractions()
+    });
+}
 //地图初始化
 ScenicSpot.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
@@ -49,6 +128,13 @@ ScenicSpot.prototype.mapInit = function(){
 	    zoom: 12,
     });
     var _this = this;
+    
+    // var start_location_marker = ""
+    //点击地图区域
+    this.mainMap.on('click', function(event){
+        _this.startLocation = [event.lnglat.lng, event.lnglat.lat];
+        _this.loadLinePath();
+    });
     //定位当前位置
     this.mainMap.plugin('AMap.Geolocation', function() {
         _this.mainMap.addControl(new AMap.Geolocation());
@@ -96,27 +182,28 @@ ScenicSpot.prototype.linePathPlanning = function(){
     });
     var _this = this;
     $("#line_path_type li").on("click",function(){
-        _this.walkingPathLayer.clear();
-        _this.ridingPathLayer.clear();
-        _this.transferPathLayer.clear();
-        _this.drivingPathLayer.clear();
         $(this).addClass("active").siblings("li").removeClass("active");
-        var type = $(this).attr("data_type");
-        switch (type){
-            case "walking":
-                _this.loadWalkingPathLayer();
-            break;
-            case "rading":
-                _this.loadRidingPathLayer();
-            break;
-            case "transfer":
-                _this.loadTransferPathLayer();
-            break;
-            case "driving":
-                _this.loadDrivingPathLayer();
-            break;
-        }
+        _this.current_line_path_type = $(this).attr("data_type");
+        _this.loadLinePath();
     })
+}
+//根据出行方式获取线路数据
+ScenicSpot.prototype.loadLinePath = function(){
+    this.initClear();
+    switch (this.current_line_path_type){
+        case "walking":
+            this.loadWalkingPathLayer();
+        break;
+        case "rading":
+            this.loadRidingPathLayer();
+        break;
+        case "transfer":
+            this.loadTransferPathLayer();
+        break;
+        case "driving":
+            this.loadDrivingPathLayer();
+        break;
+    }
 }
 //各个社区边界范围图层
 ScenicSpot.prototype.loadBoundaryLayer = function(){
@@ -234,5 +321,12 @@ ScenicSpot.prototype.loadInfo = function(name, introduction_text, center){
     });
     infoWindow.open(this.mainMap, center);
 }
+//清除图层
+ScenicSpot.prototype.initClear = function(){
+    this.walkingPathLayer.clear();
+    this.ridingPathLayer.clear();
+    this.transferPathLayer.clear();
+    this.drivingPathLayer.clear();
+} 
 var start_parking_difficult = new ScenicSpot();
 start_parking_difficult.init();
