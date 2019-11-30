@@ -38,12 +38,12 @@ function serveRequest(type,url,params_arguments,callBack){
 };
 //服务接口配置
 var service_config = {
-    data_server_url : "http://47.96.71.167:8901/",
-    file_server_url : "http://47.96.71.167:8089/web/assets/mapdata/json/",
+    data_server_url : "www.igeoai.com:8901/",
+    file_server_url : "www.igeoai.com:8909/web/assets/mapdata/json/",
     // file_server_url : "http://127.0.0.1:5500/assets/mapdata/json/",
-    icon_url: "http://47.96.71.167:8089/web/assets/mapdata/images/",
+    icon_url: "www.igeoai.com:8090/web/assets/mapdata/images/",
     // icon_url: "http://127.0.0.1:5500/assets/mapdata/images/",
-    server_img_url: "http://47.96.71.167:8089/",
+    server_img_url: "www.igeoai.com:8090/",
 }
 //颜色配置
 var echarts_colors = ["#85ccc8",'#a7add7',"#d8a79b",'#85b6db',"#b4d89c","#ceb1a8",
