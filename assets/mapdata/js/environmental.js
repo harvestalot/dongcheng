@@ -13,9 +13,10 @@ HutongSanitation.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"Sanitation" },function(result){
         var data = result.data.resultKey;
         var banner_str = '';
+        var toUrl = "./assets/bannerSubPage/sanitation/banner_"
         for(var i = 0; i < data.length; i++){
             var item = data[i];
-            banner_str += '<img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ item.toUrl +' >'
+            banner_str += '<img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ toUrl+(i+1)+".html" +' >'
         }
         $("#banner").html(banner_str);
         $("#banner").dnSlide({
