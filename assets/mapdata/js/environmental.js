@@ -5,6 +5,9 @@ function HutongSanitation(){
 }
 HutongSanitation.prototype.init = function(){
     this.loadBanner();
+    this.loadProblemSection();
+    this.loadMeasuresSection();
+    this.loadFutureSection();
     this.loadReproducibleChart();
     this.mapInit();
     this.layerInit();
@@ -37,7 +40,7 @@ HutongSanitation.prototype.loadBanner = function(){
 }
 //加载问题栏目
 HutongSanitation.prototype.loadProblemSection = function(){
-    serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"CARPORT" },function(result){
+    serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"Sanitation" },function(result){
         var data = result.data.resultKey;
         var problem_str = '';
         for(var i = 0; i < data.length; i++){
@@ -49,7 +52,7 @@ HutongSanitation.prototype.loadProblemSection = function(){
 }
 //加载措施栏目
 HutongSanitation.prototype.loadMeasuresSection = function(){
-    serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"CARPORT" },function(result){
+    serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"Sanitation" },function(result){
         var data = result.data.resultKey;
         var measures_str = '';
         for(var i = 0; i < data.length; i++){
@@ -61,7 +64,7 @@ HutongSanitation.prototype.loadMeasuresSection = function(){
 }
 //加载未来栏目
 HutongSanitation.prototype.loadFutureSection = function(){
-    serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"CARPORT" },function(result){
+    serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"Sanitation" },function(result){
         var data = result.data.resultKey;
         var future_str = '';
         for(var i = 0; i < data.length; i++){
@@ -197,7 +200,7 @@ HutongSanitation.prototype.loadReproducibleChart = function(){
                 ])
             },
             barWidth: 10,
-            data: [20, 56, 89, 52, 56]
+            data: [20, 56, 89, 52, 56,20, 56, 89, 52, 56,20, 56, 89, 52, 56,51]
         }
         ]
     };
