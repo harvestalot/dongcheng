@@ -170,7 +170,7 @@ Introduction.prototype.loadPopulationChart = function(){
         ],
         "series": [{
                 "type": "pictorialBar",
-                "symbol": spirit2,
+                "symbol": 'image://http://121.41.72.180:8089/web/assets/mapdata/images/population.png',
                 "symbolRepeat": "fixed",
                 "symbolMargin": "5%",
                 "symbolClip": true,

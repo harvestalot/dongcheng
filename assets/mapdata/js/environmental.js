@@ -5,6 +5,7 @@ function HutongSanitation(){
 }
 HutongSanitation.prototype.init = function(){
     this.loadBanner();
+    this.loadReproducibleChart();
     this.mapInit();
     this.layerInit();
 }
@@ -32,6 +33,42 @@ HutongSanitation.prototype.loadBanner = function(){
             }
 
         });
+    })
+}
+//加载问题栏目
+HutongSanitation.prototype.loadProblemSection = function(){
+    serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"CARPORT" },function(result){
+        var data = result.data.resultKey;
+        var problem_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            problem_str += '<li>'+ item.description +'</li>'
+        }
+        $("#problem_box ul").html(problem_str);
+    })
+}
+//加载措施栏目
+HutongSanitation.prototype.loadMeasuresSection = function(){
+    serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"CARPORT" },function(result){
+        var data = result.data.resultKey;
+        var measures_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            measures_str += '<li>'+ item.description +'</li>'
+        }
+        $("#measures_box ul").html(measures_str);
+    })
+}
+//加载未来栏目
+HutongSanitation.prototype.loadFutureSection = function(){
+    serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"CARPORT" },function(result){
+        var data = result.data.resultKey;
+        var future_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            future_str += '<li>'+ item.description +'</li>'
+        }
+        $("#future_box ul").html(future_str);
     })
 }
 //地图初始化
@@ -103,6 +140,76 @@ HutongSanitation.prototype.loadSanitationPotionLayer = function(){
             // }
         }
 	})
+}
+//加载右侧可再生资源统计图
+HutongSanitation.prototype.loadReproducibleChart = function(){
+    var population_bar_chart = echarts.init(document.getElementById("reproducible_bar_chart"));
+    var seriesLabel = {
+        normal: {
+            show: true,
+            textBorderColor: '#333',
+            textBorderWidth: 2
+        }
+    }
+    var bar_option = {
+        color: echarts_colors,
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        grid: {
+            containLabel:false,
+            left: 50,
+            top: 10,
+            right:30,
+            bottom:40,
+        },
+        xAxis: {
+            type: 'value',
+            name: '个',
+            axisLabel: coordinate_axis_style.axisLabel,
+            axisLine: coordinate_axis_style.axisLine,
+            splitLine: coordinate_axis_style.splitLine,
+        },
+        yAxis: {
+            type: 'category',
+            axisLabel: coordinate_axis_style.axisLabel,
+            axisLine: coordinate_axis_style.axisLine,
+            splitLine: coordinate_axis_style.splitLine,
+            inverse: true,
+            data: street_names,
+        },
+        series: [{
+            name: "可再生资源",
+            type: 'bar',
+            itemStyle: {
+                barBorderRadius: 10,
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 0,
+                        color: 'rgba(0,222,215,0.2)'
+                    },
+                    {
+                        offset: 1,
+                        color: '#FFFC00'
+                    }
+                ])
+            },
+            barWidth: 10,
+            data: [20, 56, 89, 52, 56]
+        }
+        ]
+    };
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+"parking/geParkingList",{ },function(result){
+        var englishParking = ["jobParking", "commercialParking", "roadsideParking", "communityParking", "othres"];
+        var data = result.data.resultKey;
+        population_bar_chart.setOption(bar_option, true);
+        window.onresize = function(){
+            population_bar_chart.resize();
+        }
+    })
 }
 var start_sanitation = new HutongSanitation();
 start_sanitation.init();
