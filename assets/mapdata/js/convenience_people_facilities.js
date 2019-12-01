@@ -2,9 +2,20 @@
 function ConveniencePeopleFacilities (){
     this.mainMap = "";
     this.markers = [];
+	this.lenged_data = ["超市", "菜站"];
+    this.communityName = [];
+    this.radar_chart_indicator_data = [];
+    this.pie_comprehensive_data = {
+        "超市":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "菜站":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    };
 }
 ConveniencePeopleFacilities.prototype.init = function(){
     this.loadBanner();
+    this.loadProblemSection();
+    this.loadMeasuresSection();
+    this.loadFutureSection();
+    this.loadFacilitiesCoverage();
     this.mapInit();
     this.layerInit();
 }
@@ -33,6 +44,75 @@ ConveniencePeopleFacilities.prototype.loadBanner = function(){
 
         });
     })
+}
+//加载问题栏目
+ConveniencePeopleFacilities.prototype.loadProblemSection = function(){
+    serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"facilitate" },function(result){
+        var data = result.data.resultKey;
+        var problem_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            problem_str += '<li>'+ item.description +'</li>'
+        }
+        $("#problem_box ul").html(problem_str);
+    })
+}
+//加载措施栏目
+ConveniencePeopleFacilities.prototype.loadMeasuresSection = function(){
+    serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"facilitate" },function(result){
+        var data = result.data.resultKey;
+        var measures_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            measures_str += '<li>'+ item.description +'</li>'
+        }
+        $("#measures_box ul").html(measures_str);
+    })
+}
+//加载未来栏目
+ConveniencePeopleFacilities.prototype.loadFutureSection = function(){
+    serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"facilitate" },function(result){
+        var data = result.data.resultKey;
+        var future_str = '';
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            future_str += '<li>'+ item.description +'</li>'
+        }
+        $("#future_box ul").html(future_str);
+    })
+}
+//加载设施覆盖率
+ConveniencePeopleFacilities.prototype.loadFacilitiesCoverage = function(){
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+ "/Coverage/getCoverageByCategory",{ category: "convenient" },function(result){
+        _this.get_view_data(JSON.parse(Decrypt(result.data.coverageKey)));
+        // _this.load_chart("");
+        // _this.click_dom();
+        // _this.load_bar_chart();//柱状图
+    });
+}
+//分类拆分数据
+ConveniencePeopleFacilities.prototype.get_view_data = function(result_data){
+	for(var i = 0; i < result_data.length; i++){
+	    for(var key in result_data[i]){
+	        this.communityName.push(key.replace("街道",""));
+	        this.radar_chart_indicator_data.push({
+                name: key.replace("街道",""),
+                max:100,
+                color:'#222',
+                rotate:90
+	        })
+	        if(result_data[i][key].length > 0){
+	            for(var j = 0; j < result_data[i][key].length; j++){
+	                this.pie_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].COVERAGE.toFixed(2);
+	                // this.pie_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i].value = result_data[i][key][j].COVERAGE.toFixed(2);
+	                // this.bar_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].QUANTITY;
+	            }
+	        }
+	    }
+	}
+    this.load_radar_chart();//加载覆盖率图表
+    this.load_bar_stack_chart();//加载设施柱状图表
 }
 //地图初始化
 ConveniencePeopleFacilities.prototype.mapInit = function(){
@@ -100,6 +180,161 @@ ConveniencePeopleFacilities.prototype.loadConveniencePeoplePointLayer = function
             // }
         }
 	})
+}
+//加载覆盖率雷达图图表数据
+ConveniencePeopleFacilities.prototype.load_radar_chart = function(){
+    var radarChart = echarts.init(document.getElementById("facilities_coverage_content"));
+    var radar_option = {
+        color: echarts_colors,
+        title:get_object_assign({
+            text:"各街道便民设施覆盖率对比",
+        },echart_title),
+        legend: {
+            show: true,
+            left:10,
+            top:20,
+            textStyle: {
+                "fontSize": 12,
+                "color": "#222"
+            },
+            "data": this.lenged_data,
+            selected: {
+                '超市': true,
+                '菜站': false,
+            }
+        },
+        tooltip: {
+            show: true,
+            trigger: "item"
+        },
+        radar: {
+            center: ["50%", "60%"],
+            radius: "59%",
+            startAngle: 90,
+            splitNumber: 4,
+            shape: "circle",
+            splitArea: {
+                "areaStyle": {
+                    "color": ["transparent"]
+                }
+            },
+            axisLine: {
+                "show": true,
+                "lineStyle": {
+                    "color": "grey"//
+                }
+            },
+            splitLine: {
+                "show": true,
+                "lineStyle": {
+                    "color": "grey"//
+                }
+            },
+            indicator: this.radar_chart_indicator_data
+        },
+        "series": []
+    };
+    for(var i = 0; i < this.lenged_data.length; i++){
+        radar_option.series.push(
+            {
+                "name": this.lenged_data[i],
+                "type": "radar",
+                "symbol": "circle",
+                "symbolSize": 5,
+                "areaStyle": {
+                    "normal": {
+                        "color": echarts_colors[i],
+                        opacity:0.5,
+                    }
+                },
+                itemStyle:{
+                    color:echarts_colors[i],
+                    borderColor:echarts_colors[i],
+                    borderWidth:5,
+                    opacity:0.5,
+                },
+                "lineStyle": {
+                    "normal": {
+                        "type": "dashed",
+                        "color": echarts_colors[i],
+                        "width": 2,
+                        opacity:0.3,
+                    }
+                },
+                "data": [
+                    this.pie_comprehensive_data[this.lenged_data[i]]
+                ]
+            }); 
+    }
+    radarChart.setOption(radar_option, true);
+    window.onresize = function(){
+        radarChart.resize();
+    }
+}
+//加载各社区设施数量堆积柱状图表数据
+ConveniencePeopleFacilities.prototype.load_bar_stack_chart = function(){
+    var barChart = echarts.init(document.getElementById("facilities_bar_content"));
+    var bar_option = {
+        color: echarts_colors,
+        title:get_object_assign({
+            text:"各街道便民设施数量统计",
+        },echart_title),
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            
+                type : 'shadow'       
+            }
+        },
+        legend:get_object_assign(facilities_bar_config.legend, {
+            data: this.lenged_data
+        }),
+        grid: facilities_bar_config.grid,
+        xAxis:{
+            type : 'category',
+            inverse: true,
+            data: this.communityName,
+            axisLabel: get_object_assign(coordinate_axis_style.axisLabel,{
+		        formatter:function(val){
+		            return val.split("").join("\n");
+		        }
+    		}),
+            axisLine: coordinate_axis_style.axisLine,
+            splitLine: coordinate_axis_style.splitLine,
+        },
+        yAxis: {
+            type : 'value',
+            name: '数量',
+            // minInterval:100,//设置左侧Y轴最小刻度
+            axisLabel: coordinate_axis_style.axisLabel,
+            axisLine: coordinate_axis_style.axisLine,
+            splitLine: coordinate_axis_style.splitLine,
+        },
+        series : [
+            {
+            name:'九年一贯制',
+            type:'bar',
+            stack: '排名',
+            data:[120, 132, 101, 134, 90],
+            barWidth:8
+            },
+            {
+            name:'系统内部',
+            type:'bar',
+            stack: '排名',
+            data:[220, 182, 191, 234, 290],
+            barWidth:8,
+            itemStyle:{
+                normal:{
+                barBorderRadius: [30, 30, 0, 0],
+                }
+            }
+            },
+        ]
+    };
+    barChart.setOption(bar_option, true);
+    window.onresize = function(){
+        barChart.resize();
+    }
 }
 var start_convenience_people_facilities = new ConveniencePeopleFacilities();
 start_convenience_people_facilities.init();

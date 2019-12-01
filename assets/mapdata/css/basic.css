@@ -139,6 +139,16 @@
     height: 400px;
     margin-left: -40px;
 }
+.fraction_coverage_content{
+    width: 240px;
+    height: 260px;
+    margin-left: -40px;
+}
+.facilities_bar_content{
+    width: 240px;
+    height: 200px;
+    margin-left: -40px;
+}
 /* 东城简介 */
 .chart_content{
     width: 100%;
@@ -170,6 +180,9 @@
     /* top: 10px;
     right: 10px; */
     /* width: 280px; */
+}
+.eatLinePath{
+    height: 430px;
 }
 .linePath .amap-call {
     display: none;

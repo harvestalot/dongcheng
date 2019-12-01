@@ -10,13 +10,16 @@ function ScenicSpot(){
     this.startLocation = [];//起点经纬度
     this.arriveLocation = [];//终点经纬度
     this.tourist_attractions_params = {//旅游景点分类搜索条件
-        type:"",
+        type:"东城景点",
         name:"",
     }
+    this.tourist_attractions_list_data = [];
 }
 ScenicSpot.prototype.init = function(){
+    $(".point-brief-box").addClass("show");
     this.loadBanner();
-    this.loadTouristAttractions();
+    this.loadScenicSpot();
+    // this.loadTouristAttractions();
     this.handleDomElement();
     this.mapInit();
     this.layerInit();
@@ -50,14 +53,16 @@ ScenicSpot.prototype.loadBanner = function(){
 }
 //加载景点数据
 ScenicSpot.prototype.loadScenicSpot = function(){
-    serveRequest("get", service_config.data_server_url+"scenicSpot/getScenicSpotList",{ },function(result){
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+"scenicSpot/getScenicSpotList",this.tourist_attractions_params,function(result){
         var data = result.data.resultKey;
+        _this.tourist_attractions_list_data = data;
         var scenic_spot_art_space_list_str = "";
         for(var i = 0; i < data.length; i++){
             var item = data[i];
             scenic_spot_art_space_list_str += "<li>"+ item.name +"</li>";
         }
-        $("#scenic_spot_art_space_list").html(scenic_spot_art_space_list_str);
+        _this.loadTouristAttractionsList(scenic_spot_art_space_list_str);
     })
 }
 //加载除景点外的所有分类数据
@@ -65,37 +70,62 @@ ScenicSpot.prototype.loadTouristAttractions = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"culturalSpace/getculturalSpaceList",this.tourist_attractions_params,function(result){
         var data = result.data.resultKey;
+        _this.tourist_attractions_list_data = data;
         var scenic_spot_art_space_list_str = "";
         for(var i = 0; i < data.length; i++){
             var item = data[i];
             scenic_spot_art_space_list_str += "<li data_row="+JSON.stringify(item)+">"+ item.name +"</li>";
         }
-        $("#scenic_spot_art_space_list").html(scenic_spot_art_space_list_str);
-        var marker = "";
-        $("#scenic_spot_art_space_list li").on("click", function(){
-            _this.initClear();
-            marker? _this.mainMap.remove(marker):"";
-            marker = new AMap.Marker({
-                map: _this.mainMap,
-                icon:new AMap.Icon({
-                    size: new AMap.Size(32, 32),
-                    image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
-                    imageOffset: new AMap.Pixel(0, 0), 
-                    imageSize: new AMap.Size(-16, -16)
-                }),
-                position: wgs84togcj02(JSON.parse($(this).attr("data_row")).x, JSON.parse($(this).attr("data_row")).y),
-                offset: new AMap.Pixel(-10, -10),
-                extData:JSON.parse($(this).attr("data_row"))
-            });
-            marker.on('click', function (ev) {
-                var properties = ev.target.B.extData;
-                $("#scenic_spot_info .name").html(properties.name);
-                $("#scenic_spot_info .info").html(properties.address);
-                $("#scenic_spot_info").removeClass("hide");
-                _this.arriveLocation = ev.lnglat;
-                _this.loadWalkingPathLayer();//规划步行线路
-            });
-        })
+        _this.loadTouristAttractionsList(scenic_spot_art_space_list_str);
+    })
+}
+//加载左侧搜索景点列表并操作点击事件
+ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
+    var _this = this;
+    $("#scenic_spot_art_space_list").html(list_dom_str);
+    var marker = "";
+    $("#scenic_spot_art_space_list li").on("click", function(){
+        $(this).addClass("active").siblings("li").removeClass("active");
+        $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
+        _this.initClear();
+        marker? _this.mainMap.remove(marker):"";
+        var data_row = {};
+        for(var i = 0; i < _this.tourist_attractions_list_data.length; i++){
+            var item = _this.tourist_attractions_list_data[i];
+            if(item.name === $(this).html()){
+                item.lnglat  = wgs84togcj02(item.x, item.y)
+                data_row = item;
+                $("#strategy p").html(data_row.guide);
+                $("#ticket_rates p").html(data_row.ticket);
+                $("#arrival_pattern p").html(data_row.howgo);
+                $(".brief-content").removeClass("less with-btn");
+                if ($(".point-brief-box .text-wrap .text").height() > 50) {
+                    //内容高度超过150，截取内容, 显示『显示更多』 按钮
+                    $(".brief-content").addClass("less with-btn");
+                }
+                break;
+            }
+        }
+        marker = new AMap.Marker({
+            map: _this.mainMap,
+            icon:new AMap.Icon({
+                size: new AMap.Size(32, 32),
+                image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
+                imageOffset: new AMap.Pixel(0, 0), 
+                imageSize: new AMap.Size(-16, -16)
+            }),
+            position: data_row.lnglat,
+            offset: new AMap.Pixel(-10, -10),
+            extData:data_row
+        });
+        marker.on('click', function (ev) {
+            var properties = ev.target.B.extData;
+            $("#scenic_spot_info .name").html(properties.name);
+            $("#scenic_spot_info .info").html(properties.address);
+            $("#scenic_spot_info").removeClass("hide");
+            _this.arriveLocation = ev.lnglat;
+            _this.loadWalkingPathLayer();//规划步行线路
+        });
     })
 }
 //左侧筛选操作DOM
@@ -110,14 +140,26 @@ ScenicSpot.prototype.handleDomElement = function(){
     //搜索触发
     $("#search_btn").on("click", function () {
         _this.tourist_attractions_params.name = $("#search_text").val();
-        _this.loadTouristAttractions()
+        if(_this.tourist_attractions_params.type === "东城景点"){
+            _this.loadScenicSpot();
+            $(".intro-content, .price-content, .line-content").show();
+        }else{
+            _this.loadTouristAttractions();
+            $(".intro-content, .price-content, .line-content").hide();
+        }
     });
     //点击分类类型筛选对应数据
     $("#scenic_spot_type li").on("click", function () {
         if ($(this).hasClass("active")) return;
         $(this).addClass("active").siblings("li").removeClass("active");
         _this.tourist_attractions_params.type= $(this).attr("data-cat");
-        _this.loadTouristAttractions()
+        if(_this.tourist_attractions_params.type === "东城景点"){
+            _this.loadScenicSpot();
+            $(".intro-content, .price-content, .line-content").show();
+        }else{
+            _this.loadTouristAttractions();
+            $(".intro-content, .price-content, .line-content").hide();
+        }
     });
 }
 //地图初始化

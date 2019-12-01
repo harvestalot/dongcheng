@@ -55,11 +55,29 @@ var map_colors = ["#5abfba", "#5e61aa", "#c6826f", "#70a8da", "#8ec76c", "#b5928
 //图表title
 var echart_title = {
     left:10,
-    top:10,
+    // top:10,
     textStyle:{
-        color: '#fff',
-        fontSize: 15
+        color: '#222',
+        fontSize: 14
     }
+}
+var facilities_bar_config ={
+    legend: {
+        show: true,
+        icon:"circle",
+        left:10,
+        top:20,
+        textStyle: {
+            fontSize: 12,
+            color: "#222"
+        },
+    },
+    grid: {
+        containLabel:false,
+        left: 30,
+        top: 80,
+        bottom:50,
+    },
 }
 // 时间轴
 var timeLine = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00",

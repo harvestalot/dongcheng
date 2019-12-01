@@ -461,7 +461,7 @@ a {
     box-sizing: border-box;
     border: 14px solid #8f735b;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .info-box-wrap .move-btn-box{
     position: absolute;

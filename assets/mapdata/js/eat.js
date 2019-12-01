@@ -1,6 +1,7 @@
 //吃(咱在东城吃点啥)
 function Eat(){
     this.mainMap = "";
+    this.current_line_path_type  = "walking";
     this.walkingPathLayer = "";//步行
     this.ridingPathLayer = "";//骑行
     this.transferPathLayer = "";//公交
@@ -8,9 +9,17 @@ function Eat(){
     this.scenicSpotMarkers = [];
     this.startLocation = [];
     this.arriveLocation = [];
+    this.restaurant_params = {//旅游景点分类搜索条件
+        type:"京城老字号",
+        name:"",
+    }
+    this.restaurant_list_data = [];
+    this.current_marker = "";//当前的marker
 }
 Eat.prototype.init = function(){
     this.loadBanner();
+    this.loadTimeHonoredRestaurants();
+    this.handleDomElement();
     this.mapInit();
     this.layerInit();
     this.linePathPlanning();
@@ -41,6 +50,118 @@ Eat.prototype.loadBanner = function(){
         });
     })
 }
+//加载京城老字号数据
+Eat.prototype.loadTimeHonoredRestaurants = function(){
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+"honored/getHonoredList",this.restaurant_params,function(result){
+        var data = result.data.resultKey;
+        _this.restaurant_list_data = data;
+        var restaurant_list_str = "";
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            restaurant_list_str += "<li>"+ item.name +"</li>";
+        }
+        _this.loadRestaurantList(restaurant_list_str);
+    })
+}
+//加载人气前100餐馆数据
+Eat.prototype.loadRankingListRestaurants = function(){
+    var _this = this;
+    serveRequest("get", service_config.data_server_url+"honored/getTopList",this.restaurant_params,function(result){
+        var data = result.data.resultKey;
+        _this.restaurant_list_data = data;
+        var restaurant_list_str = "";
+        for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            restaurant_list_str += "<li>"+ item.name +"</li>";
+        }
+        _this.loadRestaurantList(restaurant_list_str);
+    })
+}
+//加载左侧搜索景点列表并操作点击事件
+Eat.prototype.loadRestaurantList = function(list_dom_str){
+    var _this = this;
+    $("#restaurant_list").html(list_dom_str);
+    var marker = "";
+    $("#restaurant_list li").on("click", function(){
+        $(this).addClass("active").siblings("li").removeClass("active");
+        $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
+        _this.initClear();
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
+        var data_row = {};
+        for(var i = 0; i < _this.restaurant_list_data.length; i++){
+            var item = _this.restaurant_list_data[i];
+            if(item.name === $(this).html()){
+                item.lnglat  = wgs84togcj02(item.lng, item.lat)
+                data_row = item;
+                $(".brief-content").removeClass("less with-btn");
+                if ($(".point-brief-box .text-wrap .text").height() > 50) {
+                    //内容高度超过150，截取内容, 显示『显示更多』 按钮
+                    $(".brief-content").addClass("less with-btn");
+                }
+                break;
+            }
+        }
+        _this.current_marker = new AMap.Marker({
+            map: _this.mainMap,
+            icon:new AMap.Icon({
+                size: new AMap.Size(32, 32),
+                image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
+                imageOffset: new AMap.Pixel(0, 0), 
+                imageSize: new AMap.Size(-16, -16)
+            }),
+            position: data_row.lnglat,
+            offset: new AMap.Pixel(-10, -10),
+            extData:data_row
+        });
+        _this.current_marker.on('click', function (ev) {
+            var properties = ev.target.B.extData;
+            $("#scenic_spot_info .name").html(properties.name);
+            $("#scenic_spot_info .info").html(properties.address);
+            $("#scenic_spot_info").removeClass("hide");
+            _this.arriveLocation = ev.lnglat;
+            _this.loadWalkingPathLayer();//规划步行线路
+        });
+    })
+}
+//左侧筛选操作DOM
+Eat.prototype.handleDomElement = function(){
+    var _this = this;
+    //搜索输入框enter触发
+    $("#search_text").on("keydown",function(event){
+        if(event.keyCode==13){
+            $("#search_btn").trigger("click");
+        }
+    })
+    //搜索触发
+    $("#search_btn").on("click", function () {
+        _this.initClear();
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
+        _this.restaurant_params.name = $("#search_text").val();
+        if(_this.restaurant_params.type === "京城老字号"){
+            _this.loadTimeHonoredRestaurants();
+            // $(".intro-content, .price-content, .line-content").show();
+        }else{
+            _this.loadRankingListRestaurants();
+            // $(".intro-content, .price-content, .line-content").hide();
+        }
+    });
+    //点击分类类型筛选对应数据
+    $("#scenic_spot_type li").on("click", function () {
+        if ($(this).hasClass("active")) return;
+        _this.initClear();
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
+        $(this).addClass("active").siblings("li").removeClass("active");
+        _this.restaurant_params.type= $(this).attr("data-cat");
+        if(_this.restaurant_params.type === "京城老字号"){
+            _this.loadTimeHonoredRestaurants();
+            // $(".intro-content, .price-content, .line-content").show();
+        }else{
+            _this.loadRankingListRestaurants();
+            // $(".intro-content, .price-content, .line-content").hide();
+        }
+    });
+}
 //地图初始化
 Eat.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
@@ -49,6 +170,11 @@ Eat.prototype.mapInit = function(){
 	    zoom: 12,
     });
     var _this = this;
+    //点击地图区域
+    this.mainMap.on('click', function(event){
+        _this.startLocation = [event.lnglat.lng, event.lnglat.lat];
+        _this.loadLinePath();
+    });
     //定位当前位置
     this.mainMap.plugin('AMap.Geolocation', function() {
         _this.mainMap.addControl(new AMap.Geolocation());
@@ -96,27 +222,28 @@ Eat.prototype.linePathPlanning = function(){
     });
     var _this = this;
     $("#line_path_type li").on("click",function(){
-        _this.walkingPathLayer.clear();
-        _this.ridingPathLayer.clear();
-        _this.transferPathLayer.clear();
-        _this.drivingPathLayer.clear();
         $(this).addClass("active").siblings("li").removeClass("active");
-        var type = $(this).attr("data_type");
-        switch (type){
-            case "walking":
-                _this.loadWalkingPathLayer();
-            break;
-            case "rading":
-                _this.loadRidingPathLayer();
-            break;
-            case "transfer":
-                _this.loadTransferPathLayer();
-            break;
-            case "driving":
-                _this.loadDrivingPathLayer();
-            break;
-        }
+        _this.current_line_path_type = $(this).attr("data_type");
+        _this.loadLinePath();
     })
+}
+//根据出行方式获取线路数据
+Eat.prototype.loadLinePath = function(){
+    this.initClear();
+    switch (this.current_line_path_type){
+        case "walking":
+            this.loadWalkingPathLayer();
+        break;
+        case "rading":
+            this.loadRidingPathLayer();
+        break;
+        case "transfer":
+            this.loadTransferPathLayer();
+        break;
+        case "driving":
+            this.loadDrivingPathLayer();
+        break;
+    }
 }
 //各个社区边界范围图层
 Eat.prototype.loadBoundaryLayer = function(){
@@ -235,5 +362,12 @@ Eat.prototype.loadInfo = function(name, introduction_text, center){
     });
     infoWindow.open(this.mainMap, center);
 }
+//清除图层
+Eat.prototype.initClear = function(){
+    this.walkingPathLayer.clear();
+    this.ridingPathLayer.clear();
+    this.transferPathLayer.clear();
+    this.drivingPathLayer.clear();
+} 
 var start_eat = new Eat();
 start_eat.init();

@@ -89,7 +89,7 @@
                         <div class="point-brief-box">
                             <h1 class="title">舌尖上的东城</h1>
                             <div class="brief-content-box">
-                                <div class="brief-content intro-content">
+                                <!-- <div class="brief-content intro-content">
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>简介：</b></div>
                                     <div class="text-wrap">
@@ -110,14 +110,14 @@
                                             <p>公交车：1、2、5、7、9、10、1支、特、859、922 地铁：1号线天安门东、天安门西</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="brief-content method-content with-btn less">
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>出行路线</b></div>
                                     <div class="text-wrap">
                                         <div class="text">
-                                            <div id="linePath" class="linePath"></div>
+                                            <div id="linePath" class="linePath eatLinePath"></div>
                                             <!-- <p>
                                                 步行 28分钟<br />
                                                 沿王府井大街往西走40米<br />
@@ -140,18 +140,18 @@
                     <div class="heat-sidebar">
                         <div class="siderbar-box">
                             <div class="search-box w100">
-                                <input type="text" class="search w100" name="keyword" placeholder="搜索" /><i
-                                    class="iconfont icon-search1 search-btn"></i>
+                                <input type="text" id="search_text" class="search w100" name="keyword" placeholder="搜索" />
+                                <i id="search_btn"  class="iconfont icon-search1 search-btn"></i>
                             </div>
-                            <ul class="catalog clearfix">
-                                <li class="active" data-cat=1>京城老字号</li>
-                                <li data-cat=2>人气前100</li>
+                            <ul id="scenic_spot_type" class="catalog clearfix">
+                                <li class="active" data-cat="京城老字号">京城老字号</li>
+                                <li data-cat="人气前100">人气前100</li>
                             </ul>
                             <div class="hr-with-triangle w100">
                                 <div class="triangle-bottom"></div>
                             </div>
-                            <ul class="pointers">
-                                <li class="active">安定门京城陈列室</li>
+                            <ul id="restaurant_list" class="pointers">
+                                <!-- <li class="active">安定门京城陈列室</li>
                                 <li>北京胡同人四合院</li>
                                 <li>Voyage coffee</li>
                                 <li>Mplus Coffice</li>
@@ -160,7 +160,7 @@
                                 <li>ZOOYOO CAFE</li>
                                 <li>方家胡同46号</li>
                                 <li>好白商店</li>
-                                <li>ZOOYOO CAFE</li>
+                                <li>ZOOYOO CAFE</li> -->
 
                             </ul>
                         </div>
@@ -185,6 +185,7 @@
     <script src="assets/js/slide.js?V2019112401"></script>
     <script src="assets/js/ofi.min.js?V2019112401"></script>
     <script src="./assets/mapdata/js/basic_config.js?V2019112401"></script>
+    <script src="./assets/mapdata/js/lnglat_transformation.js?V2019112401"></script>
     <script src="./assets/mapdata/js/eat.js"></script>
     <script>
         $(document).ready(function () {
@@ -226,28 +227,28 @@
                 console.log('搜索按钮点击');
             });
 
-            $(".heat-sidebar .catalog li").on("click", function () {
-                console.log('左侧栏分类按钮点击');
-                if ($(this).hasClass("active")) return;
-                $(".heat-sidebar .catalog li").removeClass("active");
-                $(this).addClass("active");
+            // $(".heat-sidebar .catalog li").on("click", function () {
+            //     console.log('左侧栏分类按钮点击');
+            //     if ($(this).hasClass("active")) return;
+            //     $(".heat-sidebar .catalog li").removeClass("active");
+            //     $(this).addClass("active");
 
-                var cat = $(this).data("cat");
-                var pointNum = randomInt(3, 20);
-                var arr = Array.apply(null, Array(pointNum));
-                var points = arr.map(function (v, i) {
-                    return '<li>cat' + cat + '-点' + (i + 1) + '</li>';
-                });
-                $(".pointers").html(points.join(''));
+            //     var cat = $(this).data("cat");
+            //     var pointNum = randomInt(3, 20);
+            //     var arr = Array.apply(null, Array(pointNum));
+            //     var points = arr.map(function (v, i) {
+            //         return '<li>cat' + cat + '-点' + (i + 1) + '</li>';
+            //     });
+            //     $(".pointers").html(points.join(''));
 
-                function randomInt(min, max) {
-                    return Math.floor(Math.random() * (max - min + 1)) + min;
-                }
-            });
+            //     function randomInt(min, max) {
+            //         return Math.floor(Math.random() * (max - min + 1)) + min;
+            //     }
+            // });
 
-            $(".heat-sidebar .pointers li").on("click", function () {
-                console.log('左侧栏景点按钮点击');
-            });
+            // $(".heat-sidebar .pointers li").on("click", function () {
+            //     console.log('左侧栏景点按钮点击');
+            // });
         });
 
 

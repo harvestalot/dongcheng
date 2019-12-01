@@ -94,8 +94,8 @@
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>攻略：</b></div>
                                     <div class="text-wrap">
-                                        <div class="text">
-                                            <p>北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一。</p>
+                                        <div id="strategy" class="text">
+                                            <p></p>
                                         </div>
                                     </div>
                                     <div class="show-more rtext">
@@ -107,8 +107,8 @@
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>票价：</b></div>
                                     <div class="text-wrap">
-                                        <div class="text">
-                                            <p>故宫全部网上售票，可在官网或现场扫码买票。</p>
+                                        <div id="ticket_rates" class="text">
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
@@ -117,9 +117,12 @@
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>到达方式：</b></div>
                                     <div class="text-wrap">
-                                        <div class="text">
-                                            <p>公交车：1、2、5、7、9、10、1支、特、859、922 地铁：1号线天安门东、天安门西</p>
+                                        <div id="arrival_pattern" class="text">
+                                            <p></p>
                                         </div>
+                                    </div>
+                                    <div class="show-more rtext">
+                                        <span>展开更多&nbsp;&nbsp;</span><img src="assets/img/dc/icon-arrow-down.png" />
                                     </div>
                                 </div>
 
@@ -200,7 +203,7 @@
             objectFitImages();
 
             //展示点简介示例，线上删除
-            showPointBrief(1);
+            // showPointBrief(1);
 
             //点简介显示更多
             $(".show-more").on("click", function () {
@@ -295,7 +298,7 @@
         $(".map-center-info .close-btn").on("click", function(){
             $(this).parent().addClass("hide");
             // $(".method-to-dest").addClass("hide");
-            console.log('xx');
+            // console.log('xx');
         });
 
         
