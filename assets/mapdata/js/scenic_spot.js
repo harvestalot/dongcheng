@@ -14,6 +14,7 @@ function ScenicSpot(){
         name:"",
     }
     this.tourist_attractions_list_data = [];
+    this.current_marker = "";
 }
 ScenicSpot.prototype.init = function(){
     $(".point-brief-box").addClass("show");
@@ -83,12 +84,11 @@ ScenicSpot.prototype.loadTouristAttractions = function(){
 ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
     var _this = this;
     $("#scenic_spot_art_space_list").html(list_dom_str);
-    var marker = "";
     $("#scenic_spot_art_space_list li").on("click", function(){
         $(this).addClass("active").siblings("li").removeClass("active");
         $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
         _this.initClear();
-        marker? _this.mainMap.remove(marker):"";
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
         var data_row = {};
         for(var i = 0; i < _this.tourist_attractions_list_data.length; i++){
             var item = _this.tourist_attractions_list_data[i];
@@ -106,7 +106,7 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
                 break;
             }
         }
-        marker = new AMap.Marker({
+        _this.current_marker = new AMap.Marker({
             map: _this.mainMap,
             icon:new AMap.Icon({
                 size: new AMap.Size(32, 32),
@@ -118,7 +118,7 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
             offset: new AMap.Pixel(-10, -10),
             extData:data_row
         });
-        marker.on('click', function (ev) {
+        _this.current_marker.on('click', function (ev) {
             var properties = ev.target.B.extData;
             $("#scenic_spot_info .name").html(properties.name);
             $("#scenic_spot_info .info").html(properties.address);
@@ -139,6 +139,8 @@ ScenicSpot.prototype.handleDomElement = function(){
     })
     //搜索触发
     $("#search_btn").on("click", function () {
+        _this.initClear();
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
         _this.tourist_attractions_params.name = $("#search_text").val();
         if(_this.tourist_attractions_params.type === "东城景点"){
             _this.loadScenicSpot();
@@ -151,6 +153,8 @@ ScenicSpot.prototype.handleDomElement = function(){
     //点击分类类型筛选对应数据
     $("#scenic_spot_type li").on("click", function () {
         if ($(this).hasClass("active")) return;
+        _this.initClear();
+        _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
         $(this).addClass("active").siblings("li").removeClass("active");
         _this.tourist_attractions_params.type= $(this).attr("data-cat");
         if(_this.tourist_attractions_params.type === "东城景点"){
