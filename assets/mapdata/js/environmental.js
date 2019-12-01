@@ -146,6 +146,25 @@ HutongSanitation.prototype.loadSanitationPotionLayer = function(){
 }
 //加载右侧可再生资源统计图
 HutongSanitation.prototype.loadReproducibleChart = function(){
+    var data = [
+        {"name":"安定门街道","value":"0"},
+        {"name":"北新桥街道","value":"0"},
+        {"name":"朝阳门街道","value":"1"},
+        {"name":"崇文门外街道","value":"1"},
+        {"name":"东花市街道","value":"0"},
+        {"name":"东华门街道","value":"1"},
+        {"name":"东四街道","value":"0"},
+        {"name":"东直门街道","value":"0"},
+        {"name":"和平里街道","value":"0"},
+        {"name":"建国门街道","value":"8"},
+        {"name":"交道口街道","value":"1"},
+        {"name":"景山街道","value":"2"},
+        {"name":"龙潭街道","value":"0"},
+        {"name":"前门街道","value":"1"},
+        {"name":"体育馆街道","value":"0"},
+        {"name":"天坛街道","value":"0"},
+        {"name":"永定门街道","value":"0"}
+    ]
     var population_bar_chart = echarts.init(document.getElementById("reproducible_bar_chart"));
     var seriesLabel = {
         normal: {
@@ -182,9 +201,9 @@ HutongSanitation.prototype.loadReproducibleChart = function(){
             axisLine: coordinate_axis_style.axisLine,
             splitLine: coordinate_axis_style.splitLine,
             inverse: true,
-            data: street_names,
+            data: [],
         },
-        series: [{
+        series: {
             name: "可再生资源",
             type: 'bar',
             itemStyle: {
@@ -200,19 +219,27 @@ HutongSanitation.prototype.loadReproducibleChart = function(){
                 ])
             },
             barWidth: 10,
-            data: [20, 56, 89, 52, 56,20, 56, 89, 52, 56,20, 56, 89, 52, 56,51]
+            data: []
         }
-        ]
     };
-    var _this = this;
-    serveRequest("get", service_config.data_server_url+"parking/geParkingList",{ },function(result){
-        var englishParking = ["jobParking", "commercialParking", "roadsideParking", "communityParking", "othres"];
-        var data = result.data.resultKey;
-        population_bar_chart.setOption(bar_option, true);
-        window.onresize = function(){
-            population_bar_chart.resize();
-        }
-    })
+    for(var i = 0; i < data.length; i++){
+        var item = data[i];
+        bar_option.yAxis.data.push(item.name.replace("街道",""));
+        bar_option.series.data.push(item.value);
+    }
+    population_bar_chart.setOption(bar_option, true);
+    window.onresize = function(){
+        population_bar_chart.resize();
+    }
+    // var _this = this;
+    // serveRequest("get", service_config.data_server_url+"parking/geParkingList",{ },function(result){
+    //     var englishParking = ["jobParking", "commercialParking", "roadsideParking", "communityParking", "othres"];
+    //     var data = result.data.resultKey;
+    //     population_bar_chart.setOption(bar_option, true);
+    //     window.onresize = function(){
+    //         population_bar_chart.resize();
+    //     }
+    // })
 }
 var start_sanitation = new HutongSanitation();
 start_sanitation.init();
