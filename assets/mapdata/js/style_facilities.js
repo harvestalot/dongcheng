@@ -9,6 +9,10 @@ function StyleFacilities (){
         "室内体育设施":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         "室外活动场所":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     };
+	this.bar_comprehensive_data = {
+        "室内体育设施":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "室外活动场所":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    };
 }
 StyleFacilities.prototype.init = function(){
     this.loadBanner();
@@ -105,8 +109,7 @@ StyleFacilities.prototype.get_view_data = function(result_data){
 	        if(result_data[i][key].length > 0){
 	            for(var j = 0; j < result_data[i][key].length; j++){
 	                this.pie_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].COVERAGE.toFixed(2);
-	                // this.pie_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i].value = result_data[i][key][j].COVERAGE.toFixed(2);
-	                // this.bar_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].QUANTITY;
+	                this.bar_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].QUANTITY;
 	            }
 	        }
 	    }
@@ -310,25 +313,20 @@ StyleFacilities.prototype.load_bar_stack_chart = function(){
             splitLine: coordinate_axis_style.splitLine,
         },
         series : [
-            {
-            name:'九年一贯制',
-            type:'bar',
-            stack: '排名',
-            data:[120, 132, 101, 134, 90],
-            barWidth:8
-            },
-            {
-            name:'系统内部',
-            type:'bar',
-            stack: '排名',
-            data:[220, 182, 191, 234, 290],
-            barWidth:8,
-            itemStyle:{
-                normal:{
-                barBorderRadius: [30, 30, 0, 0],
-                }
-            }
-            },
+	        {
+                name: this.lenged_data[0],
+                type: 'bar',
+                stack: 'a',
+                barWidth: 15,
+                data: this.bar_comprehensive_data[this.lenged_data[0]]
+	        },
+	        {
+                name: this.lenged_data[1],
+                type: 'bar',
+                stack: 'a',
+                barWidth: 15,
+                data: this.bar_comprehensive_data[this.lenged_data[1]]
+	        },
         ]
     };
     barChart.setOption(bar_option, true);
