@@ -341,7 +341,7 @@ EducationFacilities.prototype.load_bar_stack_chart = function(){
         legend:get_object_assign(facilities_bar_config.legend, {
             data: this.lenged_data
         }),
-        grid: facilities_bar_config.grid,
+        grid: get_object_assign(facilities_bar_config.grid,{top:95}),
         xAxis:{
             type : 'category',
             inverse: true,
@@ -367,28 +367,28 @@ EducationFacilities.prototype.load_bar_stack_chart = function(){
                 name: this.lenged_data[0],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[0]]
 	        },
 	        {
                 name: this.lenged_data[1],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[1]]
 	        },
 	        {
                 name: this.lenged_data[2],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[2]]
 	        },
 	        {
                 name: this.lenged_data[3],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[3]]
 	        },
         ]

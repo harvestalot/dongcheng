@@ -62,6 +62,7 @@ Eat.prototype.loadTimeHonoredRestaurants = function(){
             restaurant_list_str += "<li>"+ item.name +"</li>";
         }
         _this.loadRestaurantList(restaurant_list_str);
+        _this.loadScenicSpotLayer();
     })
 }
 //加载人气前100餐馆数据
@@ -76,6 +77,7 @@ Eat.prototype.loadRankingListRestaurants = function(){
             restaurant_list_str += "<li>"+ item.name +"</li>";
         }
         _this.loadRestaurantList(restaurant_list_str);
+        _this.loadScenicSpotLayer();
     })
 }
 //加载左侧搜索景点列表并操作点击事件
@@ -88,11 +90,13 @@ Eat.prototype.loadRestaurantList = function(list_dom_str){
         $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
         _this.initClear();
         _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
+        _this.mainMap.setFitView();
         var data_row = {};
         for(var i = 0; i < _this.restaurant_list_data.length; i++){
             var item = _this.restaurant_list_data[i];
             if(item.name === $(this).html()){
                 item.lnglat  = wgs84togcj02(item.lng, item.lat)
+                _this.arriveLocation = item.lnglat;
                 data_row = item;
                 $(".brief-content").removeClass("less with-btn");
                 if ($(".point-brief-box .text-wrap .text").height() > 50) {
@@ -106,12 +110,12 @@ Eat.prototype.loadRestaurantList = function(list_dom_str){
             map: _this.mainMap,
             icon:new AMap.Icon({
                 size: new AMap.Size(32, 32),
-                image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
+                image: service_config.icon_url + 'eat_1.png',
                 imageOffset: new AMap.Pixel(0, 0), 
                 imageSize: new AMap.Size(-16, -16)
             }),
             position: data_row.lnglat,
-            offset: new AMap.Pixel(-10, -10),
+            offset: new AMap.Pixel(-16, -16),
             extData:data_row
         });
         _this.current_marker.on('click', function (ev) {
@@ -166,6 +170,7 @@ Eat.prototype.handleDomElement = function(){
 Eat.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
         mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
+        resizeEnable:true,
 	    center: [116.412255,39.908886],
 	    zoom: 12,
     });
@@ -194,7 +199,7 @@ Eat.prototype.mapInit = function(){
 //图层初始化
 Eat.prototype.layerInit = function(){
     this.loadBoundaryLayer();
-    this.loadScenicSpotLayer();
+    // this.loadScenicSpotLayer();
 }
 //选择不同类型出行方式规划相对应线路
 Eat.prototype.linePathPlanning = function(){
@@ -271,32 +276,34 @@ Eat.prototype.loadBoundaryLayer = function(){
 //加载所有餐馆点标识图层
 Eat.prototype.loadScenicSpotLayer = function(){
     var _this = this;
+    _this.mainMap.clearMap();
     // _this.markers = [];
-    $.get(service_config.file_server_url+'time_honored_restaurant.json', function (result) {
-        var data = result;
+    // $.get(service_config.file_server_url+'time_honored_restaurant.json', function (result) {
+        var data = _this.restaurant_list_data;
 		for(var i = 0; i < data.length; i++){
             var item = data[i];
             var marker = new AMap.Marker({
                     map: _this.mainMap,
                     icon: _this.getMarkerIcon(),
-                    position: item.lnglat,
+                    position: wgs84togcj02(item.lng, item.lat),
                     offset: new AMap.Pixel(-10, -10),
-                    extData:item.properties
+                    extData:item
                 });
                 marker.on('click', function (ev) {
                     var properties = ev.target.B.extData;
                     // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
                     $("#scenic_spot_info .name").html(properties.name);
-                    $("#scenic_spot_info .info").html("菜系："+ properties.cuisine);
+                    $("#scenic_spot_info .info").html("菜系："+ properties.cookingStyle);
                     $("#scenic_spot_info .info").html("餐馆地址："+ properties.address);
                     // $("#scenic_spot_info .pointer-cover").html('<img src='+properties.url+' />');
                     $("#scenic_spot_info").removeClass("hide");
-                    _this.arriveLocation = ev.lnglat;
+                    _this.arriveLocation =  wgs84togcj02(properties.lng, properties.lat);
                     _this.loadWalkingPathLayer();//规划步行线路
                 });
                 _this.scenicSpotMarkers.push(marker);
+                // _this.mainMap.setFitView();
 		}
-	})
+	// })
 }
 //步行线路
 Eat.prototype.loadWalkingPathLayer = function(){

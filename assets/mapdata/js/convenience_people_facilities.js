@@ -317,14 +317,14 @@ ConveniencePeopleFacilities.prototype.load_bar_stack_chart = function(){
                 name: this.lenged_data[0],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[0]]
 	        },
 	        {
                 name: this.lenged_data[1],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[1]]
 	        },
         ]

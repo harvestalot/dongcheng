@@ -64,6 +64,7 @@ ScenicSpot.prototype.loadScenicSpot = function(){
             scenic_spot_art_space_list_str += "<li>"+ item.name +"</li>";
         }
         _this.loadTouristAttractionsList(scenic_spot_art_space_list_str);
+        _this.loadScenicSpotLayer();//加载景点图层
     })
 }
 //加载除景点外的所有分类数据
@@ -78,6 +79,7 @@ ScenicSpot.prototype.loadTouristAttractions = function(){
             scenic_spot_art_space_list_str += "<li data_row="+JSON.stringify(item)+">"+ item.name +"</li>";
         }
         _this.loadTouristAttractionsList(scenic_spot_art_space_list_str);
+        _this.loadScenicSpotLayer();//加载处景点外的各类型图层
     })
 }
 //加载左侧搜索景点列表并操作点击事件
@@ -89,11 +91,13 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
         $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
         _this.initClear();
         _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
+        _this.mainMap.setFitView();
         var data_row = {};
         for(var i = 0; i < _this.tourist_attractions_list_data.length; i++){
             var item = _this.tourist_attractions_list_data[i];
             if(item.name === $(this).html()){
-                item.lnglat  = wgs84togcj02(item.x, item.y)
+                item.lnglat  = wgs84togcj02(item.x, item.y);
+                _this.arriveLocation = item.lnglat;
                 data_row = item;
                 $("#strategy p").html(data_row.guide);
                 $("#ticket_rates p").html(data_row.ticket);
@@ -115,13 +119,18 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
                 imageSize: new AMap.Size(-16, -16)
             }),
             position: data_row.lnglat,
-            offset: new AMap.Pixel(-10, -10),
+            offset: new AMap.Pixel(-16, -16),
             extData:data_row
         });
         _this.current_marker.on('click', function (ev) {
             var properties = ev.target.B.extData;
+            var img_url = "images/play/scenicspot/";
+            if(_this.tourist_attractions_params.type !== "东城景点"){
+                img_url = "images/play/culturalspace/";
+            }
             $("#scenic_spot_info .name").html(properties.name);
-            $("#scenic_spot_info .info").html(properties.address);
+            $("#scenic_spot_info .info").html(properties.description);
+            $("#scenic_spot_info .pointer-cover").html('<img src='+service_config.server_img_url+ img_url +properties.name+".jpg"+' />');
             $("#scenic_spot_info").removeClass("hide");
             _this.arriveLocation = ev.lnglat;
             _this.loadWalkingPathLayer();//规划步行线路
@@ -170,6 +179,7 @@ ScenicSpot.prototype.handleDomElement = function(){
 ScenicSpot.prototype.mapInit = function(){
 	this.mainMap = new AMap.Map("main_map", {
         mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
+        resizeEnable:true,
 	    center: [116.412255,39.908886],
 	    zoom: 12,
     });
@@ -200,7 +210,7 @@ ScenicSpot.prototype.mapInit = function(){
 //图层初始化
 ScenicSpot.prototype.layerInit = function(){
     this.loadBoundaryLayer();
-    this.loadScenicSpotLayer(); 
+    // this.loadScenicSpotLayer(); 
 }
 //选择不同类型出行方式规划相对应线路
 ScenicSpot.prototype.linePathPlanning = function(){
@@ -278,30 +288,32 @@ ScenicSpot.prototype.loadBoundaryLayer = function(){
 //加载所有旅游点标识图层
 ScenicSpot.prototype.loadScenicSpotLayer = function(){
     var _this = this;
+    _this.mainMap.clearMap();
     // _this.markers = [];
-    $.get(service_config.file_server_url+'scenic_spot_data.json', function (result) {
-        var data = result;
+    // $.get(service_config.file_server_url+'scenic_spot_data.json', function (result) {
+        var data = _this.tourist_attractions_list_data;
 		for(var i = 0; i < data.length; i++){
             var item = data[i];
             var marker = new AMap.Marker({
                     map: _this.mainMap,
                     icon: _this.getMarkerIcon(),
-                    position: item.lnglat,
+                    position: wgs84togcj02(item.x, item.y),
                     offset: new AMap.Pixel(-10, -10),
-                    extData:item.properties
+                    extData:item
                 });
                 marker.on('click', function (ev) {
                     var properties = ev.target.B.extData;
                     // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
                     $("#scenic_spot_info .name").html(properties.name);
-                    $("#scenic_spot_info .info").html(properties.introduction);
+                    $("#scenic_spot_info .info").html(properties.description);
                     $("#scenic_spot_info").removeClass("hide");
-                    _this.arriveLocation = ev.lnglat;
+                    _this.arriveLocation = wgs84togcj02(properties.x, properties.y);
                     _this.loadWalkingPathLayer();//规划步行线路
                 });
                 _this.scenicSpotMarkers.push(marker);
+                // _this.mainMap.setFitView();
 		}
-	})
+	// })
 }
 //步行线路
 ScenicSpot.prototype.loadWalkingPathLayer = function(){
@@ -373,6 +385,7 @@ ScenicSpot.prototype.initClear = function(){
     this.ridingPathLayer.clear();
     this.transferPathLayer.clear();
     this.drivingPathLayer.clear();
+    $("#scenic_spot_info").addClass("hide");
 } 
 var start_parking_difficult = new ScenicSpot();
 start_parking_difficult.init();

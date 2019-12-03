@@ -2,14 +2,16 @@
 function MedicalFacilities (){
     this.mainMap = "";
     this.markers = [];
-	this.lenged_data = ["社区卫生服务站"];
+	this.lenged_data = ["社区卫生服务站", "社区机构养老设施"];
     this.communityName = [];
     this.radar_chart_indicator_data = [];
     this.pie_comprehensive_data = {
         "社区卫生服务站":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "社区机构养老设施":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     };
 	this.bar_comprehensive_data = {
         "社区卫生服务站":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "社区机构养老设施":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     };
 }
 MedicalFacilities.prototype.init = function(){
@@ -87,10 +89,22 @@ MedicalFacilities.prototype.loadFutureSection = function(){
 MedicalFacilities.prototype.loadFacilitiesCoverage = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+ "/Coverage/getCoverageByCategory",{ category: "medical_care" },function(result){
-        _this.get_view_data(JSON.parse(Decrypt(result.data.coverageKey)));
-        // _this.load_chart("");
-        // _this.click_dom();
-        // _this.load_bar_chart();//柱状图
+        var data_1 = JSON.parse(Decrypt(result.data.coverageKey));
+        serveRequest("get", service_config.data_server_url+ "/Coverage/getCoverageByCategory",{ category: "pension" },function(result_2){
+            var data_2 = JSON.parse(Decrypt(result_2.data.coverageKey));
+            var data = [];
+            for(var i = 0; i < data_1.length; i++){
+                var item_1 = data_1[i];
+                data.push(item_1);
+                for(var j =  0; j < data_2.length; j++){
+                    var item_2 = data_2[j];
+                    if(Object.keys(item_1)[0] === Object.keys(item_2)[0]){
+                        data[i][Object.keys(item_1)[0]].push(item_2[Object.keys(item_1)[0]][0])
+                    }
+                }
+            }
+            _this.get_view_data(data);
+        })
     });
 }
 //分类拆分数据
@@ -106,6 +120,7 @@ MedicalFacilities.prototype.get_view_data = function(result_data){
 	        })
 	        if(result_data[i][key].length > 0){
 	            for(var j = 0; j < result_data[i][key].length; j++){
+                    console.log(result_data[i][key][j].CATEGORY_NAME)
 	                this.pie_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].COVERAGE.toFixed(2);
 	                this.bar_comprehensive_data[result_data[i][key][j].CATEGORY_NAME][i] = result_data[i][key][j].QUANTITY;
 	            }
@@ -201,6 +216,7 @@ MedicalFacilities.prototype.load_radar_chart = function(){
             "data": this.lenged_data,
             selected: {
                 '社区卫生服务站': true,
+                '社区机构养老设施': false,
             }
         },
         tooltip: {
@@ -208,7 +224,7 @@ MedicalFacilities.prototype.load_radar_chart = function(){
             trigger: "item"
         },
         radar: {
-            center: ["50%", "60%"],
+            center: ["50%", "62%"],
             radius: "59%",
             startAngle: 90,
             splitNumber: 4,
@@ -288,7 +304,7 @@ MedicalFacilities.prototype.load_bar_stack_chart = function(){
         legend:get_object_assign(facilities_bar_config.legend, {
             data: this.lenged_data
         }),
-        grid: facilities_bar_config.grid,
+        grid: get_object_assign(facilities_bar_config.grid,{top:95}),
         xAxis:{
             type : 'category',
             inverse: true,
@@ -314,8 +330,15 @@ MedicalFacilities.prototype.load_bar_stack_chart = function(){
                 name: this.lenged_data[0],
                 type: 'bar',
                 stack: 'a',
-                barWidth: 15,
+                barCategoryGap:5,
                 data: this.bar_comprehensive_data[this.lenged_data[0]]
+	        },
+	        {
+                name: this.lenged_data[1],
+                type: 'bar',
+                stack: 'a',
+                barCategoryGap:5,
+                data: this.bar_comprehensive_data[this.lenged_data[1]]
 	        },
         ]
     };
