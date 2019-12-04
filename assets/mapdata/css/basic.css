@@ -28,6 +28,15 @@
     width: 100%;
     height: 100%;
 }
+.c_fa{
+    color: #fafafa;
+}
+.ft_12{
+    font-size: 12px;
+}
+.mt_10{
+    margin-top: 10px;
+}
 /* 首行缩进 */
 .text_indent{
     text-indent:2em;
@@ -143,10 +152,11 @@
     width: 240px;
     height: 260px;
     margin-left: -40px;
+    margin-top: -20px;
 }
 .facilities_bar_content{
     width: 240px;
-    height: 200px;
+    height: 230px;
     margin-left: -40px;
 }
 /* 东城简介 */

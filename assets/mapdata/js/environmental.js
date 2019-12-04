@@ -175,6 +175,9 @@ HutongSanitation.prototype.loadReproducibleChart = function(){
     }
     var bar_option = {
         color: echarts_colors,
+        title:get_object_assign({
+            text:"各街道再生资源回收站数量统计",
+        },echart_title),
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -184,7 +187,7 @@ HutongSanitation.prototype.loadReproducibleChart = function(){
         grid: {
             containLabel:false,
             left: 50,
-            top: 10,
+            top: 40,
             right:30,
             bottom:40,
         },

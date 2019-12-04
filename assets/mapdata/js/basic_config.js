@@ -66,7 +66,7 @@ var facilities_bar_config ={
         show: true,
         icon:"circle",
         left:10,
-        top:20,
+        top:25,
         textStyle: {
             fontSize: 12,
             color: "#222"
@@ -75,7 +75,7 @@ var facilities_bar_config ={
     grid: {
         containLabel:false,
         left: 30,
-        top: 80,
+        top: 90,
         bottom:50,
     },
 }

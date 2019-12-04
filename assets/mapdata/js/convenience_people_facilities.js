@@ -190,12 +190,12 @@ ConveniencePeopleFacilities.prototype.load_radar_chart = function(){
     var radar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"各街道便民设施覆盖率对比",
+            text:"各街道便民设施覆盖率对比图",
         },echart_title),
         legend: {
             show: true,
             left:10,
-            top:20,
+            top:25,
             textStyle: {
                 "fontSize": 12,
                 "color": "#222"

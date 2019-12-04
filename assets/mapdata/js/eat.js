@@ -84,6 +84,7 @@ Eat.prototype.loadRankingListRestaurants = function(){
 Eat.prototype.loadRestaurantList = function(list_dom_str){
     var _this = this;
     $("#restaurant_list").html(list_dom_str);
+    _this.mainMap.setFitView();
     var marker = "";
     $("#restaurant_list li").on("click", function(){
         $(this).addClass("active").siblings("li").removeClass("active");
@@ -121,7 +122,8 @@ Eat.prototype.loadRestaurantList = function(list_dom_str){
         _this.current_marker.on('click', function (ev) {
             var properties = ev.target.B.extData;
             $("#scenic_spot_info .name").html(properties.name);
-            $("#scenic_spot_info .info").html(properties.address);
+            $("#scenic_spot_info .type").html("菜系："+properties.cookingStyle);
+            $("#scenic_spot_info .info").html("餐馆地址："+properties.address);
             $("#scenic_spot_info").removeClass("hide");
             _this.arriveLocation = ev.lnglat;
             _this.loadWalkingPathLayer();//规划步行线路
@@ -375,6 +377,7 @@ Eat.prototype.initClear = function(){
     this.ridingPathLayer.clear();
     this.transferPathLayer.clear();
     this.drivingPathLayer.clear();
+    $("#scenic_spot_info").addClass("hide");
 } 
 var start_eat = new Eat();
 start_eat.init();

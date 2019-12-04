@@ -238,12 +238,12 @@ EducationFacilities.prototype.load_radar_chart = function(){
     var radar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"各街道教育设施覆盖率对比",
+            text:"各街道教育设施覆盖率对比图",
         },echart_title),
         legend: {
             show: true,
             left:10,
-            top:20,
+            top:25,
             textStyle: {
                 "fontSize": 12,
                 "color": "#222"
@@ -261,7 +261,7 @@ EducationFacilities.prototype.load_radar_chart = function(){
             trigger: "item"
         },
         radar: {
-            center: ["50%", "60%"],
+            center: ["50%", "65%"],
             radius: "59%",
             startAngle: 90,
             splitNumber: 4,
@@ -341,7 +341,7 @@ EducationFacilities.prototype.load_bar_stack_chart = function(){
         legend:get_object_assign(facilities_bar_config.legend, {
             data: this.lenged_data
         }),
-        grid: get_object_assign(facilities_bar_config.grid,{top:95}),
+        grid: get_object_assign(facilities_bar_config.grid,{top:110}),
         xAxis:{
             type : 'category',
             inverse: true,

@@ -213,29 +213,29 @@ GreenLand.prototype.loadInfo = function(name, introduction_text, center){
 //加载各街道500米服务半径绿地面积图表数据
 GreenLand.prototype.load_green_land_area_chart = function(){
     var data = [
-        {"name":"安定门街道","value":"1477273.66"},
-        {"name":"北新桥街道","value":"1731099.92"},
-        {"name":"朝阳门街道","value":"725687.41"},
-        {"name":"崇外街道","value":"793457.66"},
-        {"name":"东花市街道","value":"1257021.45"},
-        {"name":"东华门街道","value":"4808251.77"},
-        {"name":"东四街道","value":"906321.41"},
-        {"name":"东直门街道","value":"964918.05"},
-        {"name":"和平里街道","value":"3656739.07"},
-        {"name":"建国门街道","value":"1572063.3"},
-        {"name":"交道口街道","value":"879479.86"},
-        {"name":"景山街道","value":"882614.19"},
-        {"name":"龙潭街道","value":"2476785"},
-        {"name":"前门街道","value":"332825.42"},
-        {"name":"体育馆街道","value":"1440826.64"},
-        {"name":"天坛街道","value":"3776947.39"},
-        {"name":"永定门街道","value":"2116273.85"}
+        {"name":"安定门街道","value":"83.24535698"},
+        {"name":"北新桥街道","value":"64.87039533"},
+        {"name":"朝阳门街道","value":"55.84170105"},
+        {"name":"崇外街道","value":"66.31813528"},
+        {"name":"东花市街道","value":"70.93509696"},
+        {"name":"东华门街道","value":"89.02332249"},
+        {"name":"东四街道","value":"63.61750913"},
+        {"name":"东直门街道","value":"47.08230329"},
+        {"name":"和平里街道","value":"74.64925791"},
+        {"name":"建国门街道","value":"54.75731373"},
+        {"name":"交道口街道","value":"55.3354134"},
+        {"name":"景山街道","value":"59.98824568"},
+        {"name":"龙潭街道","value":"81.80579307"},
+        {"name":"前门街道","value":"31.12823581"},
+        {"name":"体育馆街道","value":"73.10850882"},
+        {"name":"天坛街道","value":"93.76551365"},
+        {"name":"永定门街道","value":"62.12940867"}
     ]
     var barChart = echarts.init(document.getElementById("green_land_coverage_content"));
     var bar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"各街道绿地500米覆盖面积",
+            text:"绿地500米覆盖率",
         },echart_title),
         tooltip : {
             trigger: 'axis',
@@ -243,7 +243,7 @@ GreenLand.prototype.load_green_land_area_chart = function(){
                 type : 'shadow'       
             }
         },
-        grid: get_object_assign(facilities_bar_config.grid, { left:65 }),
+        grid: get_object_assign(facilities_bar_config.grid, { top:60 }),
         xAxis:{
             type : 'category',
             inverse: true,
@@ -258,16 +258,17 @@ GreenLand.prototype.load_green_land_area_chart = function(){
         },
         yAxis: {
             type : 'value',
-            name: '平方米',
+            name: '%',
             // minInterval:100,//设置左侧Y轴最小刻度
             axisLabel: coordinate_axis_style.axisLabel,
             axisLine: coordinate_axis_style.axisLine,
             splitLine: coordinate_axis_style.splitLine,
         },
         series :{
+            name:'绿地500米覆盖率',
             type:'bar',
             data:[],
-            barWidth:8,
+            barCategoryGap:5,
             itemStyle:{
               normal:{
                 barBorderRadius: [30, 30, 0, 0],
@@ -288,29 +289,29 @@ GreenLand.prototype.load_green_land_area_chart = function(){
 //加载各社区绿地覆盖面积和人均绿地面积图表数据
 GreenLand.prototype.load_bar_stack_chart = function(){
     var data = [
-        {"name":"安定门街道","per_capita":"1.756 ","value":"93188.81"},
-        {"name":"北新桥街道","per_capita":"0.078 ","value":"68402.07"},
-        {"name":"朝阳门街道","per_capita":"0.376 ","value":"16292.94"},
-        {"name":"崇外街道","per_capita":"0.022 ","value":"893.99"},
-        {"name":"东花市街道","per_capita":"0.442 ","value":"20070.81"},
-        {"name":"东华门街道","per_capita":"8.833 ","value":"598885.03"},
-        {"name":"东四街道","per_capita":"0.426 ","value":"19378.08"},
-        {"name":"东直门街道","per_capita":"0.240 ","value":"10146.11"},
-        {"name":"和平里街道","per_capita":"5.744 ","value":"721431.4"},
-        {"name":"建国门街道","per_capita":"2.857 ","value":"133556.2"},
-        {"name":"交道口街道","per_capita":"0.171 ","value":"9229.43"},
-        {"name":"景山街道","per_capita":"0.511 ","value":"20564.84"},
-        {"name":"龙潭街道","per_capita":"13.878 ","value":"889057.36"},
-        {"name":"前门街道","per_capita":"0.744 ","value":"14896.16"},
-        {"name":"体育馆街道","per_capita":"3.413 ","value":"151022.16"},
-        {"name":"天坛街道","per_capita":"39.588 ","value":"2023270.84"},
-        {"name":"永定门街道","per_capita":"0.838 ","value":"69929.85"}
+        {"name":"安定门街道","value":"5.251251657"},
+        {"name":"北新桥街道","value":"2.563265858"},
+        {"name":"朝阳门街道","value":"1.253742965"},
+        {"name":"崇外街道","value":"0.074720748"},
+        {"name":"东花市街道","value":"1.132617787"},
+        {"name":"东华门街道","value":"11.0881746"},
+        {"name":"东四街道","value":"1.360207502"},
+        {"name":"东直门街道","value":"0.495070258"},
+        {"name":"和平里街道","value":"14.72741632"},
+        {"name":"建国门街道","value":"4.651962007"},
+        {"name":"交道口街道","value":"0.58070042"},
+        {"name":"景山街道","value":"1.397721324"},
+        {"name":"龙潭街道","value":"29.36469755"},
+        {"name":"前门街道","value":"1.393196412"},
+        {"name":"体育馆街道","value":"7.662965557"},
+        {"name":"天坛街道","value":"50.22919569"},
+        {"name":"永定门街道","value":"2.052995282"}
     ]
     var barChart = echarts.init(document.getElementById("green_land_bar_content"));
     var bar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"各街道绿地覆盖面积和人均绿地面积",
+            text:"绿地覆盖率",
         },echart_title),
         tooltip : {
             trigger: 'axis',
@@ -318,14 +319,7 @@ GreenLand.prototype.load_bar_stack_chart = function(){
                 type : 'shadow'       
             }
         },
-        grid: get_object_assign(facilities_bar_config.grid, { left:65 }),
-        legend: {
-            data: ["街道绿地面积", "人均绿地面积"],
-            top: "10%",
-            textStyle: {
-                color: "#222"
-            }
-        },
+        grid: get_object_assign(facilities_bar_config.grid, { top:60 }),
         xAxis:{
             type : 'category',
             inverse: true,
@@ -341,54 +335,24 @@ GreenLand.prototype.load_bar_stack_chart = function(){
         yAxis:[
             {
                 type : 'value',
-                name: '平方米',
+                name: '%',
                 // minInterval:100,//设置左侧Y轴最小刻度
                 axisLabel: coordinate_axis_style.axisLabel,
                 axisLine: coordinate_axis_style.axisLine,
                 splitLine: coordinate_axis_style.splitLine,
-            },
-            {
-                type: 'value',
-                name: '平方公里',
-                position: 'right',
-                splitLine: {
-                    show: false
-                },
-                axisTick: {
-                    show: false
-                },
-                axisLine: {
-                    show: false
-                },
-                axisLabel: coordinate_axis_style.axisLabel,
             }
         ],
         series : [
             {
                 type:'bar',
-                name:'街道绿地面积',
+                name:'街道绿地覆盖率',
                 data:[],
-                barWidth:8,
+                barCategoryGap:5,
                 itemStyle:{
                     normal:{
                     barBorderRadius: [30, 30, 0, 0],
                     }
                 }
-            },
-            {
-                name:'人均绿地面积',
-                type:'line',
-                smooth: true,
-                showAllSymbol: true,
-                symbol: 'emptyCircle',
-                symbolSize: 3,
-                yAxisIndex: 1,
-                itemStyle:{
-                    normal:{
-                        color:'#ff9933'
-                    }
-                },
-                data:[],
             }
         ]
     };
@@ -396,7 +360,6 @@ GreenLand.prototype.load_bar_stack_chart = function(){
         var item = data[i];
         bar_option.xAxis.data.push(item.name.replace("街道",""));
         bar_option.series[0].data.push(item.value);
-        bar_option.series[1].data.push(item.per_capita);
     }
     barChart.setOption(bar_option, true);
     window.onresize = function(){
