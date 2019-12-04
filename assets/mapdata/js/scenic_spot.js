@@ -76,7 +76,7 @@ ScenicSpot.prototype.loadTouristAttractions = function(){
         var scenic_spot_art_space_list_str = "";
         for(var i = 0; i < data.length; i++){
             var item = data[i];
-            scenic_spot_art_space_list_str += "<li data_row="+JSON.stringify(item)+">"+ item.name +"</li>";
+            scenic_spot_art_space_list_str += "<li>"+ item.name +"</li>";
         }
         _this.loadTouristAttractionsList(scenic_spot_art_space_list_str);
         _this.loadScenicSpotLayer();//加载处景点外的各类型图层
