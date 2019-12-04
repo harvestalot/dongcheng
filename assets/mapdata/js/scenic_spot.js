@@ -130,7 +130,7 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
             }
             $("#scenic_spot_info .name").html(properties.name);
             $("#scenic_spot_info .info").html(properties.description);
-            $("#scenic_spot_info .pointer-cover").html('<img src='+service_config.server_img_url+ img_url +properties.name+".jpg"+' />');
+            $("#scenic_spot_info .pointer-cover").html('<img src='+service_config.server_img_url+ img_url +((properties.name).replace(/\s*/g,""))+".jpg"+' />');
             $("#scenic_spot_info").removeClass("hide");
             _this.arriveLocation = ev.lnglat;
             _this.loadWalkingPathLayer();//规划步行线路
