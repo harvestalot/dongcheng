@@ -81,43 +81,43 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="./assets/mapdata/js/basic_config.js?V2019120601"></script>
     <script>
-        var data = [{
-            "id": 14852,
-            "title": null,
-            "icon": "119.299634",
-            "lat": "26.094848",
-            "createTime": "2019-11-10 09:36:54.000",
-            "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
-            "likenumber": 0,
-            "collectionnumber": 0,
-            "userid": "1942",
-            "content": "能补天巷的尽头是马球场故址？",
-            "address": "中山大院",
-            "groupid": "86071",
-            "remark": null,
-            "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
-            "audio": null,
-            "video": null
-        },{
-            "id": 14852,
-            "title": null,
-            "icon": "119.299634",
-            "lat": "26.094848",
-            "createTime": "2019-11-10 09:36:54.000",
-            "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
-            "likenumber": 0,
-            "collectionnumber": 0,
-            "userid": "1942",
-            "content": "能补天巷的尽头是马球场故址？",
-            "address": "中山大院",
-            "groupid": "86071",
-            "remark": null,
-            "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
-            "audio": null,
-            "video": null
-        }]
-        // serveRequest("get", service_config.data_server_url+"historicalCulture/getHistoricalCultureList",{},function(result){
-            // var data = result.data.resultKey;
+        // var data = [{
+        //     "id": 14852,
+        //     "title": null,
+        //     "icon": "119.299634",
+        //     "lat": "26.094848",
+        //     "createTime": "2019-11-10 09:36:54.000",
+        //     "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
+        //     "likenumber": 0,
+        //     "collectionnumber": 0,
+        //     "userid": "1942",
+        //     "content": "能补天巷的尽头是马球场故址？",
+        //     "address": "中山大院",
+        //     "groupid": "86071",
+        //     "remark": null,
+        //     "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
+        //     "audio": null,
+        //     "video": null
+        // },{
+        //     "id": 14852,
+        //     "title": null,
+        //     "icon": "119.299634",
+        //     "lat": "26.094848",
+        //     "createTime": "2019-11-10 09:36:54.000",
+        //     "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
+        //     "likenumber": 0,
+        //     "collectionnumber": 0,
+        //     "userid": "1942",
+        //     "content": "能补天巷的尽头是马球场故址？",
+        //     "address": "中山大院",
+        //     "groupid": "86071",
+        //     "remark": null,
+        //     "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
+        //     "audio": null,
+        //     "video": null
+        // }]
+        serveRequest("get", service_config.data_server_url+"historicalCulture/getHistoricalCultureList",{},function(result){
+            var data = result.data.resultKey;
             var dynamic_str = "";
             for(var i = 0; i < data.length; i++){
                 var item = data[i], img_data = data[i].image.split("||");
