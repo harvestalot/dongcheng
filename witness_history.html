@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随行-东城区街区更新公众平台</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=1200">
+    <meta name=" title" content="北京老城保护数字文化平台">
+    <meta name="desc" content="北京老城保护数字文化平台">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css" />
+    <link href="assets/css/normalize.min.css" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?v3" rel="stylesheet">
+    <link type="text/css" href="assets/css/slide.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page page-news">
+        <div class="header">
+            <div class="fix-row h100">
+                <img src="assets/img/dc/logo.png" class="logo" />
+                <ul class="top-nav">
+                    <li><a href="index.html"><i class="iconfont icon-home2"></i><span>首页</span></a></li>
+                    <li><a href=""><i class="iconfont icon-map"></i><span>文化线路地图</span></a></li>
+                    <li><a href=""><i class="iconfont icon-bxq"></i><span>北新桥街道体检平台</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-nav">
+            <div class="fix-row">
+                <ul>
+                    <li><a href="park.html">咱家车往哪儿停</a></li>
+                    <li><a href="tour.html">咱在东城玩点啥</a></li>
+                    <li><a href="eat.html">舌尖上的东城</a></li>
+                    <li><a href="convenient.html">生活便利度</a></li>
+                    <li><a href="green.html">给咱的生活添点绿</a></li>
+                    <li><a href="heat.html">活力东城</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="f1 common-bg">
+            <div class="fix-row">
+                <div class="breads">位置：<a href="index.html">首页</a>&nbsp;&gt;&nbsp;随行</div>
+                <div id="dynamic" class="dynamic">
+                    <!-- <div class="clearfix title">
+                        <div class="user_pto"><img src="https://qlogo3.store.qq.com/qzone/799757778/799757778/50?1522387610"></div>
+                        <div class="user_info">
+                            <p class="user_name">终结者</p>
+                            <p class="create_time">2019-10-21 16:00</p>
+                        </div>
+                    </div>  
+                    <div class="address">湖北恩施土家族</div>
+                    <div class="content"></div>
+                    <div class="picture_container">
+                        <ul class="clearfix">
+                        </ul>
+                    </div> -->
+                </div>
+                <div class="ctext">
+                    <span class="close-page-btn ctext">关闭当前页</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="fix-row rel">
+                <img class="logo-footer" src="assets/img/logo-footer2.png" />
+                <ul class="footer-nav-links">
+                    <li><a href="aboutus.html">关于我们</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <img src="assets/img/dc//btn-top.jpg" class="top-btn" />
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019120601"></script>
+    <script>
+        // var data = [{
+        //     "id": 14852,
+        //     "title": null,
+        //     "icon": "119.299634",
+        //     "lat": "26.094848",
+        //     "createTime": "2019-11-10 09:36:54.000",
+        //     "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
+        //     "likenumber": 0,
+        //     "collectionnumber": 0,
+        //     "userid": "1942",
+        //     "content": "能补天巷的尽头是马球场故址？",
+        //     "address": "中山大院",
+        //     "groupid": "86071",
+        //     "remark": null,
+        //     "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
+        //     "audio": null,
+        //     "video": null
+        // },{
+        //     "id": 14852,
+        //     "title": null,
+        //     "icon": "119.299634",
+        //     "lat": "26.094848",
+        //     "createTime": "2019-11-10 09:36:54.000",
+        //     "iconurl": "http://59.110.214.118:8081/5,0be83c1ef29c",
+        //     "likenumber": 0,
+        //     "collectionnumber": 0,
+        //     "userid": "1942",
+        //     "content": "能补天巷的尽头是马球场故址？",
+        //     "address": "中山大院",
+        //     "groupid": "86071",
+        //     "remark": null,
+        //     "image": "http://59.110.214.118:8080/1,01005e10888b44||http://59.110.214.118:8081/4,01006080d8a145||http://59.110.214.118:8080/3,0100628b2abbbc||http://59.110.214.118:8080/3,010064338a800f||http://59.110.214.118:8080/3,01008c5109753e||http://59.110.214.118:8081/6,01008e47154def||http://59.110.214.118:8081/7,0100907d83d6fa",
+        //     "audio": null,
+        //     "video": null
+        // }]
+        serveRequest("get", service_config.data_server_url+"historicalCulture/getHistoricalCultureList",{},function(result){
+            var data = result.data.resultKey;
+            var dynamic_str = "";
+            for(var i = 0; i < data.length; i++){
+                var item = data[i], img_data = data[i].image.split("||");
+                dynamic_str += '<div class="info">'+
+                    '<div class="clearfix title">'+
+                    ' <div class="user_pto"><img src='+item.iconurl+'></div>'+
+                    ' <div class="user_info">'+
+                            ' <p class="user_name">'+item.userid+'</p>'+
+                            ' <p class="create_time">'+item.createTime.substring(0, 16)+'</p>'+
+                        ' </div>'+
+                    '</div>  '+
+                    '<div class="address"><a href="https://uri.amap.com/marker?position='+item.icon+','+item.lat+'"  target="_blank">'+item.address+'</a></div>'+
+                    '<div class="content">'+item.content+'</div>'+
+                    '<div class="picture_container">'+
+                        '<ul class="clearfix">';
+                            var img_str = "";
+                            for(var j = 0; j < img_data.length; j++){
+                                img_str += '<li><img src='+img_data[j]+'></li>'
+                            }
+                            dynamic_str += img_str;
+                        dynamic_str +='</ul>'+
+                    '</div>'+
+                    '</div>';
+            }
+            $("#dynamic").html(dynamic_str);
+        // })
+        /*关闭当前页*/
+        $(".close-page-btn").on("click", function(){
+            window.close();
+        });
+        /*到顶部*/
+        $(".top-btn").on("click", function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+        });
+
+
+    </script>
+</body>
+
+</html>
