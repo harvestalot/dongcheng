@@ -1143,16 +1143,12 @@ a {
 /* 见证历史--随行 */
 .index-banner-nav li a.witness_history{
     position: absolute;
-    right: -100px;
-    width: 70px;
-    height: 70px;
+    right: -132px;
+    width: 102px;
+    height: 116px;
     padding: 10px 0;
     line-height: 25px;
-    background-color: #FFB931;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 20px;
-    color: #fff;
+    background:url("../img/witness_history.png") left center no-repeat;
     cursor: pointer;
     box-sizing: border-box;
 }
