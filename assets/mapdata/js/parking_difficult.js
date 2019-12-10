@@ -1,9 +1,15 @@
 //停车难
 function ParkingDifficult(){
+    this.reachability_url = "http://114.64.228.103/reachcircle/walkServlet";
     this.mainMap = "";
     this.parkingMarkers = [];
     this.population_type = "";//人口图层类型
     this.populationHeatLayer = "";//人口热力图层
+    this.reachabilityLayer = "";//可达性范围图层
+    this.centerpoint = "";
+    this.time = 5;
+    this.reachability_data = [];
+    this.area_cultural_point_data = [];//符合范围内的点
     this.mapLegend = {//默认选中第一个图例
         "工作地停车场": true,
         "商业停车场": false,
@@ -96,11 +102,34 @@ ParkingDifficult.prototype.loadFutureSection = function(){
 ParkingDifficult.prototype.handleAccessibility = function(){
     var _this = this;
     $('#accessibility_btn').lc_switch("开启", "关闭");
+    // 时间选择
+    $("#accessibility_time").on("change",function(){
+        _this.time = $(this).val();
+        _this.accessibility_initialize();
+    })
+    // 停车场类型
+    $("#parking_type").on("change",function(){
+        _this.mainMap.clearMap();
+        _this.area_cultural_point_data = [];
+        _this.accessibility_resources();
+    })
     $('body').delegate('#accessibility_btn', 'lcs-statuschange', function() {
-        console.log($(this).is(':checked'));
         if($(this).is(':checked')){
+            $("#map_legend,#population_legend").removeClass("map_legend_animation");
             _this.reset();
+            //点击地图区域
+            _this.mainMap.on('click', function(event){
+                _this.centerpoint = event.lnglat.lng+","+event.lnglat.lat;
+                _this.accessibility_initialize();
+            });
+        }else{
+            $("#map_legend,#population_legend").addClass("map_legend_animation");
+            _this.mapLegend["工作地停车场"] = true;
+            _this.mainMap.clearMap();
+            _this.area_cultural_point_data = [];
+            _this.loadParkingLotLayer();
         }
+
     });
 }
 // 获取地图图例
@@ -136,6 +165,12 @@ ParkingDifficult.prototype.mapInit = function(){
 }
 //图层初始化
 ParkingDifficult.prototype.layerInit = function(){
+    this.reachabilityLayer = new Loca.PolygonLayer({
+        map: this.mainMap,
+        zIndex: 1,
+        fitView: true,
+        eventSupport:false,
+    });
     this.loadBoundaryLayer();
     this.loadParkingLotLayer();
     this.loadBoundaryNameLayer();
@@ -242,6 +277,7 @@ ParkingDifficult.prototype.loadParkingLotLayer = function(){
                 _this.parkingMarkers.push(marker);
             }
 		}
+        _this.mainMap.setFitView();
 	})
 }
 //人口热力图层
@@ -396,6 +432,98 @@ ParkingDifficult.prototype.loadParkingBarChart = function(){
             population_bar_chart.resize();
         }
     })
+}
+//初始化可达性gongju 
+ParkingDifficult.prototype.accessibility_initialize = function(){
+    var _this = this;
+        _this.mainMap.clearMap();
+        _this.area_cultural_point_data = [];
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(_this.centerpoint.split(",")[0], _this.centerpoint.split(",")[1]),
+            offset: new AMap.Pixel(0, 0),
+            icon: '//vdata.amap.com/icons/b18/1/2.png', // 添加 Icon 图标 URL
+        });
+        _this.mainMap.add(marker);
+        _this.accessibility_range(_this.centerpoint);
+}
+//获取可达性范围
+ParkingDifficult.prototype.accessibility_range = function(centerpoint){
+    var _this = this;
+    $.get(_this.reachability_url+"?centerpoint="+centerpoint+"&time="+_this.time,function(result){
+        var reachability_data = [];
+        for(var i = 0; i < JSON.parse(result).result.split(";").length; i++){
+            var item = JSON.parse(result).result.split(";")[i];
+            reachability_data.push([item.split(",")[0],item.split(",")[1]])
+        };
+        _this.reachability_data = reachability_data;
+        _this.load_reachability_layer();
+        _this.accessibility_resources();//获取文化资源点
+    });
+}
+// 加载可达性区域范围图层
+ParkingDifficult.prototype.load_reachability_layer = function(){
+    this.reachabilityLayer.setData([{lnglat: this.reachability_data}], {
+        lnglat: 'lnglat'
+    });
+    this.reachabilityLayer.setOptions({
+        style: {
+            color: "#35F8BA",
+            opacity:0.2,
+            // height: function () {
+            //     return Math.random() * 500 + 100;
+            // }
+        }
+    });
+    this.reachabilityLayer.render();
+}
+//如停车场类型选择，判断停车场点是否在可达性范围之内
+ParkingDifficult.prototype.accessibility_resources = function(){
+    var parking_type = $("#parking_type option:selected").val();
+    var _this = this;
+    $.get(service_config.file_server_url+'parking_lot_data.json', function (data) {
+        // var data = JSON.parse(data);
+        var data = data;
+		for(var i = 0; i < data.length; i++){
+            var items = data[i];
+            if(!parking_type){
+                var isPointInRing = AMap.GeometryUtil.isPointInRing(items.lnglat, _this.reachability_data);
+                isPointInRing? _this.area_cultural_point_data.push(get_object_assign(items,{
+                 icon: service_config.icon_url + 'parking/1.png',
+                })): "";
+            }else{
+                if(parking_type === items.properties.Type){
+                    var isPointInRing = AMap.GeometryUtil.isPointInRing(items.lnglat, _this.reachability_data);
+                    isPointInRing? _this.area_cultural_point_data.push(get_object_assign(items,{
+                     icon: service_config.icon_url + 'parking/1.png',
+                    })): "";
+                }
+            }
+		}
+        _this.render_point_layer();
+	})
+}
+//渲染可达性区域内的符合条件的点图层
+ParkingDifficult.prototype.render_point_layer = function(){
+    var _this = this;
+    _this.area_cultural_point_data.forEach(function(marker) {
+        var marker = new AMap.Marker({
+            map: _this.mainMap,
+            icon: marker.icon,
+             extData:marker,
+            position: marker.lnglat,
+            offset: new AMap.Pixel(-15, -10)
+        });
+        marker.on('click', function (ev) {
+            var properties = ev.target.B.extData;
+            var info = [];
+            info.push('<div class="info_window">'+properties.properties.poi_name+'</div>');
+            // info.push('<div class="info_window">地址：'+address+'</div>');
+            infoWindow = new AMap.InfoWindow({
+                content: info.join(""),  //使用默认信息窗体框样式，显示信息内容
+            });
+            infoWindow.open(_this.mainMap, properties.lnglat);
+        });
+    });
 }
 //重置
 ParkingDifficult.prototype.reset = function(){

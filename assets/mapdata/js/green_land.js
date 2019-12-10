@@ -235,7 +235,7 @@ GreenLand.prototype.load_green_land_area_chart = function(){
     var bar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"绿地500米覆盖率",
+            text:"各街道绿地500米覆盖率",
         },echart_title),
         tooltip : {
             trigger: 'axis',
@@ -265,7 +265,7 @@ GreenLand.prototype.load_green_land_area_chart = function(){
             splitLine: coordinate_axis_style.splitLine,
         },
         series :{
-            name:'绿地500米覆盖率',
+            name:'各街道绿地500米覆盖率',
             type:'bar',
             data:[],
             barCategoryGap:5,
@@ -311,10 +311,10 @@ GreenLand.prototype.load_bar_stack_chart = function(){
     var bar_option = {
         color: echarts_colors,
         title:get_object_assign({
-            text:"绿地覆盖率和人均绿地覆盖面积",
+            text:"各街道绿地覆盖率和人均绿地面积",
         },echart_title),
         legend: {
-            data: ['覆盖率', '人均覆盖面积'],
+            data: ['覆盖率', '人均绿地面积'],
             textStyle: {
                 color: '#B4B4B4'
             },
@@ -349,6 +349,7 @@ GreenLand.prototype.load_bar_stack_chart = function(){
                 splitLine: coordinate_axis_style.splitLine,
             },
             {
+                name: '平方公里',
                 splitLine: {show: false},
                 axisLine: {
                     lineStyle: {
@@ -372,7 +373,7 @@ GreenLand.prototype.load_bar_stack_chart = function(){
                     }
                 }
             },{
-                name: '人均覆盖面积',
+                name: '人均绿地面积',
                 type: 'line',
                 smooth: true,
                 showAllSymbol: true,

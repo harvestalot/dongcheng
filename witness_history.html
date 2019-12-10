@@ -79,7 +79,7 @@
     </div>
     <img src="assets/img/dc//btn-top.jpg" class="top-btn" />
     <script src="assets/js/jquery.min.js"></script>
-    <script src="./assets/mapdata/js/basic_config.js?V2019120901"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019121001"></script>
     <script>
         serveRequest("get", service_config.data_server_url+"historicalCulture/getHistoricalCultureList",{},function(result){
             var data = result.data.resultKey;
@@ -89,7 +89,7 @@
                 var img_data = item.image? item.image.split("||"): [];
                 dynamic_str += '<div class="info">'+
                     '<div class="clearfix title">'+
-                    ' <div class="user_pto"><img src='+item.iconurl+'></div>'+
+                    ' <div class="user_pto"><img src="'+item.iconurl+'"></div>'+
                     ' <div class="user_info">'+
                             ' <p class="user_name">'+(item.username? item.username: "")+'</p>'+
                             ' <p class="create_time">'+item.createTime.substring(0, 16)+'</p>'+
