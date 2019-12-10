@@ -91,12 +91,12 @@
                     '<div class="clearfix title">'+
                     ' <div class="user_pto"><img src='+item.iconurl+'></div>'+
                     ' <div class="user_info">'+
-                            ' <p class="user_name">'+item.username+'</p>'+
+                            ' <p class="user_name">'+(item.username? item.username: "")+'</p>'+
                             ' <p class="create_time">'+item.createTime.substring(0, 16)+'</p>'+
                         ' </div>'+
                     '</div>  '+
                     '<div class="address"><a href="https://uri.amap.com/marker?position='+item.lon+','+item.lat+'"  target="_blank">'+item.address+'</a></div>'+
-                    '<div class="content">'+item.content+'</div>'+
+                    '<div class="content">'+(item.content? item.content: "")+'</div>'+
                     '<div class="picture_container">'+
                         '<ul class="clearfix">';
                             var img_str = "";

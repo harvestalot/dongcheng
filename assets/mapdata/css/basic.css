@@ -120,7 +120,15 @@
 .legend_wenhua:checked::after{
    content: url('../images/vitality/wenhua_2.png');
 }
-/*活力图层图例*/
+/*停车场可达性*/
+.accessibility_container{
+    position: absolute;
+    top: 10px;
+    right: 300px;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+}
 
 /*东城活力--时间轴*/
 .timeline{

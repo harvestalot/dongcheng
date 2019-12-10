@@ -2,6 +2,8 @@
 function ParkingDifficult(){
     this.mainMap = "";
     this.parkingMarkers = [];
+    this.population_type = "";//人口图层类型
+    this.populationHeatLayer = "";//人口热力图层
     this.mapLegend = {//默认选中第一个图例
         "工作地停车场": true,
         "商业停车场": false,
@@ -22,9 +24,11 @@ ParkingDifficult.prototype.init = function(){
     this.loadProblemSection();
     this.loadMeasuresSection();
     this.loadFutureSection();
+    this.handleAccessibility();
     this.getMapLegend();
     this.mapInit();
     this.layerInit();
+    this.initPopulationHeat();
     this.loadParkingBarChart();
 }
 //加载banner
@@ -88,6 +92,17 @@ ParkingDifficult.prototype.loadFutureSection = function(){
         $("#future_box ul").html(future_str);
     })
 }
+//操作可达性工具
+ParkingDifficult.prototype.handleAccessibility = function(){
+    var _this = this;
+    $('#accessibility_btn').lc_switch("开启", "关闭");
+    $('body').delegate('#accessibility_btn', 'lcs-statuschange', function() {
+        console.log($(this).is(':checked'));
+        if($(this).is(':checked')){
+            _this.reset();
+        }
+    });
+}
 // 获取地图图例
 ParkingDifficult.prototype.getMapLegend = function(){
     var _this = this;
@@ -97,8 +112,8 @@ ParkingDifficult.prototype.getMapLegend = function(){
             $("#population_legend input").each(function(i){
                 if($(this).prop("checked")){
                     _this.reset();
-                    _this.mapInit();
-                    _this.layerInit();
+                    // _this.mapInit();
+                    // _this.layerInit();
                 }
                 $(this).prop("checked",false);
             });
@@ -124,6 +139,25 @@ ParkingDifficult.prototype.layerInit = function(){
     this.loadBoundaryLayer();
     this.loadParkingLotLayer();
     this.loadBoundaryNameLayer();
+}
+//初始化人口热力
+ParkingDifficult.prototype.initPopulationHeat = function(){
+    this.populationHeatLayer = new Loca.HeatmapLayer({
+        map: this.mainMap,
+    });
+    $("#map_legend,#population_legend").addClass("map_legend_animation");
+    var _this = this;
+    $("#population_legend input").each(function(i){
+        $(this).on("click",function(){
+            _this.reset();
+            //清除停车场所有选中图例
+            $("#map_legend input").each(function(i){
+                $(this).prop("checked",false);
+            });
+            _this.population_type = $(this).val();
+            _this.loadPopulationHeatLayer();
+        })
+    });
 }
 //各个社区边界范围图层
 ParkingDifficult.prototype.loadBoundaryLayer = function(){
@@ -156,32 +190,6 @@ ParkingDifficult.prototype.loadBoundaryLayer = function(){
         boundaryLayer.render();
     }); 
 }
-//加载所有停车厂点标识图层
-ParkingDifficult.prototype.loadParkingLotLayer = function(){
-    var _this = this;
-    $.get(service_config.file_server_url+'parking_lot_data.json', function (data) {
-        // var data = JSON.parse(data);
-        var data = data;
-		for(var i = 0; i < data.length; i++){
-            var item = data[i];
-            var marker;
-            if(_this.mapLegend[item.properties.Type]){
-                marker = new AMap.Marker({
-                    map: _this.mainMap,
-                    icon: _this.getMarkerIcon(item.properties.Type),
-                    position: item.lnglat,
-                    offset: new AMap.Pixel(-10, -10),
-                    extData:item.properties
-                });
-                marker.on('click', function (ev) {
-                    var properties = ev.target.B.extData;
-                    _this.loadInfo(properties, ev.lnglat);
-                });
-                _this.parkingMarkers.push(marker);
-            }
-		}
-	})
-}
 //加载街道名字图层
 ParkingDifficult.prototype.loadBoundaryNameLayer = function(){
     //社区名字文字图层
@@ -208,6 +216,56 @@ ParkingDifficult.prototype.loadBoundaryNameLayer = function(){
         }).render();
         layerLabels.setzIndex(100);
         layerLabels.show();
+    })
+}
+//加载所有停车厂点标识图层
+ParkingDifficult.prototype.loadParkingLotLayer = function(){
+    var _this = this;
+    $.get(service_config.file_server_url+'parking_lot_data.json', function (data) {
+        // var data = JSON.parse(data);
+        var data = data;
+		for(var i = 0; i < data.length; i++){
+            var item = data[i];
+            var marker;
+            if(_this.mapLegend[item.properties.Type]){
+                marker = new AMap.Marker({
+                    map: _this.mainMap,
+                    icon: _this.getMarkerIcon(item.properties.Type),
+                    position: item.lnglat,
+                    offset: new AMap.Pixel(-10, -10),
+                    extData:item.properties
+                });
+                marker.on('click', function (ev) {
+                    var properties = ev.target.B.extData;
+                    _this.loadInfo(properties, ev.lnglat);
+                });
+                _this.parkingMarkers.push(marker);
+            }
+		}
+	})
+}
+//人口热力图层
+ParkingDifficult.prototype.loadPopulationHeatLayer = function(){
+    var _this = this;
+    $.get(service_config.file_server_url+'population_data.json', function (data) {
+        _this.populationHeatLayer.setData(data[_this.population_type], {
+            lnglat: 'lnglat',
+            value: 'value'
+        });
+        _this.populationHeatLayer.setOptions({
+            style: {
+                radius: 20,
+                color: {
+                    0.5: '#2c7bb6',
+                    0.65: '#abd9e9',
+                    0.7: '#ffffbf',
+                    0.9: '#fde468',
+                    1.0: '#d7191c'
+                }
+            }
+        });
+        _this.populationHeatLayer.render();
+        _this.populationHeatLayer.show();
     })
 }
 //获取Marker对应图标
@@ -341,6 +399,8 @@ ParkingDifficult.prototype.loadParkingBarChart = function(){
 }
 //重置
 ParkingDifficult.prototype.reset = function(){
+    this.mainMap.remove(this.parkingMarkers);
+    this.populationHeatLayer.hide();
     this.mapLegend = {//默认选中第一个图例
         "工作地停车场": false,
         "商业停车场": false,

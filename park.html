@@ -16,6 +16,7 @@
     <link type="text/css" href="assets/css/main.css?V2019120901" rel="stylesheet">
     <link type="text/css" href="assets/css/slide.css?V2019120901" rel="stylesheet">
     <link type="text/css" href="./assets/mapdata/css/basic.css?V2019120901" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/switch.css?V2019120901" rel="stylesheet">
 </head>
 
 <body>
@@ -150,7 +151,30 @@
                             <span class="input-text">就业人口</span>
                         </div>
                     </div>
-
+                    <!-- 可达性工具 -->
+                    <div class="clearfix accessibility_container">
+                        <div class="fl">
+                            <select id="accessibility_time">
+                                <option value="5" selected>5分钟</option>
+                                <option value="10">10分钟</option>
+                                <option value="15">15分钟</option>
+                            </select>
+                        </div>
+                        <div class="fl">
+                            <select id="parking_type">
+                                <option value="" selected>全部</option>
+                                <option value="工作地停车场">工作地停车场</option>
+                                <option value="商业停车场">商业停车场</option>
+                                <option value="路边停车场">路边停车场</option>
+                                <option value="小区停车场">小区停车场</option>
+                                <option value="其他公共停车场">其他公共停车场</option>
+                            </select>
+                        </div>
+                        <div class="fl">
+                            <input type="checkbox" name="check" class="lcs_check" id="accessibility_btn" autocomplete="off" />
+                            <span>可达性计算</span>
+                        </div>
+                    </div>
                     <!-- <img src="assets/img/dc/map-bg.jpg" class="map-bg ofc" /> -->
                     <div class="point-brief-box">
                         <h1 class="title">各街道停车场数据</h1>
@@ -191,8 +215,10 @@
     <script src="assets/js/slide.js?V2019120901"></script>
     <script src="assets/js/ofi.min.js?V2019120901"></script>
     <script src="./assets/mapdata/js/basic_config.js?V2019120901"></script>
+    <script src="./assets/mapdata/lib/lc_switch.min.js?V2019120901"></script>
     <script src="./assets/mapdata/js/parking_difficult.js?V2019120901"></script><!--停车场-->
-    <script src="./assets/mapdata/js/population_heat_map.js?V2019120901"></script><!--人口热力图-->
+    <!-- <script src="./assets/mapdata/js/population_heat_map.js?V2019120901"></script>-->
+        <!--人口热力图--> 
     <script>
         $(document).ready(function () {
             objectFitImages();
