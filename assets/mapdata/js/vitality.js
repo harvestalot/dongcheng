@@ -13,6 +13,7 @@ function Vitality(){
     this.mainVitalityPointName = "";//重要活力点
     this.vitality_type = "";//活力图层类型
     this.isCheckedVitality = false;//是佛选中图层类型
+    this.current_type = "";
 }
 Vitality.prototype.init = function(){
     $("#vitality_legend").addClass("map_legend_animation");
@@ -101,6 +102,7 @@ Vitality.prototype.handleDom = function(){
         $(".heat-sidebar .catalog li").removeClass("active");
         $(this).addClass("active");
         var current_type = $(this).attr("data-cat");
+        _this.current_type = current_type;
          _this.loadVitalityPointList(current_type);
     });
     //搜索输入框enter触发
@@ -124,6 +126,17 @@ Vitality.prototype.handleDom = function(){
             $("#vitality_point").html(new_data);
             $("#vitality_point li").on("click", function () {
                 $(this).addClass("active").siblings("li").removeClass('active');
+                var img_url = "images/culturalheritage/";//文化遗产
+                if(_this.current_type === "历史街区"){
+                    img_url = "images/street/";
+                }else if(_this.current_type === "公园"){
+                    img_url = "images/park/";
+                }else if(_this.current_type === "商圈"){
+                    img_url = "images/business/";
+                }
+                $("#scenic_spot_info .name").html($(this).html());
+                $("#scenic_spot_info .pointer-cover").html('<img src='+service_config.server_img_url+ img_url +(($(this).html()).replace(/\s*/g,""))+".jpg"+' />');
+                $("#scenic_spot_info").removeClass("hide");
                 _this.mainVitalityPointName = $(this).html();
                 _this.loadCurrentVitalityPointBorderLayer()
             });
@@ -147,6 +160,17 @@ Vitality.prototype.loadVitalityPointList = function(name){
         $("#vitality_point").html(new_data);
         $("#vitality_point li").on("click", function () {
             $(this).addClass("active").siblings("li").removeClass('active');
+            var img_url = "images/culturalheritage/";//文化遗产
+            if(_this.current_type === "历史街区"){
+                img_url = "images/street/";
+            }else if(_this.current_type === "公园"){
+                img_url = "images/park/";
+            }else if(_this.current_type === "商圈"){
+                img_url = "images/business/";
+            }
+            $("#scenic_spot_info .name").html($(this).html());
+            $("#scenic_spot_info .pointer-cover").html('<img src='+service_config.server_img_url+ img_url +(($(this).html()).replace(/\s*/g,""))+".jpg"+' />');
+            $("#scenic_spot_info").removeClass("hide");
             _this.mainVitalityPointName = $(this).html();
             _this.loadCurrentVitalityPointBorderLayer()
         });

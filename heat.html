@@ -81,6 +81,21 @@
                             </div>
                         </div>
                         <!-- <img src="assets/img/dc/heat-map.jpg" class="map-bg ofc" /> -->
+                        <div id="scenic_spot_info" class="map-center-info tour-intro hide scenic_spot_info">
+                            <h5 class="name"></h5>
+                            <div class="mc-c">
+                                <!-- <div class="mc-t">
+                                    <h6>介绍</h6>
+                                    <div class="type"></div>
+                                    <div class="info"></div>
+                                </div> -->
+                                <div class="pointer-cover">
+                                    <img src="assets/mapdata/images/eat_default.jpg" />
+                                </div>
+
+                            </div>
+                            <i class="iconfont icon-close close-btn"></i>
+                        </div>
                         <div class="point-brief-box">
                             <h1 class="title">东城热力点</h1>
                             <div class="brief-content-box">
@@ -238,6 +253,10 @@
         //地图内点简介效果展示, 线上删除
         $(".map-bg").on("click", function () {
             $(".point-brief-box").toggleClass("show");
+        });
+        //地图中心弹窗关闭
+        $(".map-center-info .close-btn").on("click", function () {
+            $(this).parent().addClass("hide");
         });
 
         // $(".heat-map-switch li").on("click", function () {
