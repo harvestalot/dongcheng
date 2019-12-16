@@ -1049,10 +1049,13 @@ a {
 .text-wrap .text p{
     margin:0;
 }
-.page-tour .text-wrap, .page-eat .text-wrap,  .page-park .text-wrap{
+/* .page-tour .text-wrap, */
+.page-eat .text-wrap,  .page-park .text-wrap{
     max-height:none;
 }
-
+.text-wrap.mxh_120{
+    max-height: 120px;
+}
 /*page eat 舌尖上的东城*/
 .page-eat .pointers{
     max-height:380px;

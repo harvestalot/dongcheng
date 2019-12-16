@@ -89,6 +89,8 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
     $("#scenic_spot_art_space_list li").on("click", function(){
         $(this).addClass("active").siblings("li").removeClass("active");
         $("#line_path_type li").eq(0).addClass("active").siblings("li").removeClass("active");
+        $(".show-more").find("span").html("展开更多&nbsp;&nbsp;");
+        $(".show-more").children("img").attr("src", "assets/img/dc/icon-arrow-down.png");
         _this.initClear();
         _this.current_marker? _this.mainMap.remove(_this.current_marker):"";
         _this.mainMap.setFitView();
@@ -109,9 +111,10 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
                     $("#linePath").addClass("eatLinePath");
                     $(".brief-content").addClass("less with-btn");
                 }
-                // if ($(".brief-content .text-wrap .text").height() > 100) {
+                if ($(".brief-content .text-wrap .text").height() > 100) {
                     //内容高度超过150，截取内容, 显示『显示更多』 按钮
-                // }
+                    $(".brief-content").addClass("less with-btn");
+                }
                 break;
             }
         }
