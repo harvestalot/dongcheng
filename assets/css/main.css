@@ -1053,8 +1053,11 @@ a {
 .page-eat .text-wrap,  .page-park .text-wrap{
     max-height:none;
 }
+.scenic_spot .brief-content.less .show-more{
+    padding-top:66px;
+}
 .text-wrap.mxh_120{
-    max-height: 120px;
+    max-height: 90px;
 }
 /*page eat 舌尖上的东城*/
 .page-eat .pointers{

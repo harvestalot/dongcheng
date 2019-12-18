@@ -107,11 +107,13 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
                 if(_this.tourist_attractions_params.type === "东城景点"){
                     $("#linePath").removeClass("eatLinePath");
                     $(".brief-content").removeClass("less with-btn");
+                    $(".method-content .text-wrap").addClass("mxh_120");
                 }else{
                     $("#linePath").addClass("eatLinePath");
                     $(".brief-content").addClass("less with-btn");
+                    $(".method-content .text-wrap").removeClass("mxh_120");
                 }
-                if ($(".brief-content .text-wrap .text").height() > 100) {
+                if ($(".brief-content .text-wrap .text").height() > 90) {
                     //内容高度超过150，截取内容, 显示『显示更多』 按钮
                     $(".brief-content").addClass("less with-btn");
                 }
