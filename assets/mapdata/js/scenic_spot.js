@@ -120,11 +120,14 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
                 break;
             }
         }
+        var icon_type = "jingdian_1";
+        data_row.type === "博物馆"? icon_type= "bowuguan_1":( data_row.type === "咖啡馆"?
+            icon_type= "kafeiguan_1":( data_row.type === "茶/酒馆"? icon_type= "cha_1": icon_type= "jingdian_1" ) );
         _this.current_marker = new AMap.Marker({
             map: _this.mainMap,
             icon:new AMap.Icon({
                 size: new AMap.Size(32, 32),
-                image: service_config.icon_url + 'scenic_spot/jingdian_1.png',
+                image: service_config.icon_url + 'scenic_spot/'+icon_type+'.png',
                 imageOffset: new AMap.Pixel(0, 0), 
                 imageSize: new AMap.Size(-16, -16)
             }),
@@ -306,7 +309,7 @@ ScenicSpot.prototype.loadScenicSpotLayer = function(){
             var item = data[i];
             var marker = new AMap.Marker({
                     map: _this.mainMap,
-                    icon: _this.getMarkerIcon(),
+                    icon: _this.getMarkerIcon(item.type),
                     position: wgs84togcj02(item.x, item.y),
                     offset: new AMap.Pixel(-10, -10),
                     extData:item
@@ -370,10 +373,22 @@ ScenicSpot.prototype.loadDrivingPathLayer = function(){
     });
 }
 //获取Marker对应图标
-ScenicSpot.prototype.getMarkerIcon = function(){
+ScenicSpot.prototype.getMarkerIcon = function(type){
+    var icon_type = "jingdian";
+    switch (type){
+        case "博物馆":
+            icon_type = "bowuguan";
+        break;
+        case "咖啡馆":
+            icon_type = "kafeiguan";
+        break;
+        case "茶/酒馆":
+            icon_type = "cha";
+        break;
+    }
     var icon = new AMap.Icon({
         size: new AMap.Size(16, 16),
-        image: service_config.icon_url + 'scenic_spot/jingdian.png',
+        image: service_config.icon_url + 'scenic_spot/'+icon_type+'.png',
         imageOffset: new AMap.Pixel(0, 0), 
         imageSize: new AMap.Size(-8, -8)
     });

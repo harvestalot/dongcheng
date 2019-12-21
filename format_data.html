@@ -52,12 +52,13 @@
     // }
 
     //excel
-    for(var i = 0; i < data.length; i++){
-        var items = data[i];
-        new_data.push({
-            properties:items,
-            lnglat:wgs84togcj02(items.lng, items.lat)
-        })
+    for(var i = 0; i < data["00:00"].length; i++){
+        var items = data["00:00"][i];
+        new_data.push(items.count)
+        // new_data.push({
+        //     properties:items,
+        //     lnglat:wgs84togcj02(items.lng, items.lat)
+        // })
     }
     $("#demo_text").html(JSON.stringify(new_data))
 </script>

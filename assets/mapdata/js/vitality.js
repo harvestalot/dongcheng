@@ -238,7 +238,8 @@ Vitality.prototype.loadPopulationVitalityLayer = function(){
     $.get(service_config.file_server_url+'population_vitality_data.json', function (result) {
         // var data = JSON.parse(result);
         var data = result;
-        _this.populationVitalityLayer.setData(data[_this.currentTime], {
+
+        _this.populationVitalityLayer.setData(data["10:00"], {
             lnglat: 'lnglat',
             value: 'count'
         });
@@ -338,7 +339,24 @@ Vitality.prototype.loadVitalityPointBorderLayer= function(){
                 opacity: 1,
                 // color: '#86100F',
                 color: function(res){
-                    return '#86100F';
+                    console.log(res)
+                    var type = res.value.properties.type;
+                    var color ="#5abfba";
+                    switch (type){
+                        case "公园":
+                            color = "#5e61aa";
+                        break;
+                        case "文化遗产":
+                            color = "#c6826f";
+                        break;
+                        case "商圈":
+                            color = "#70a8da";
+                        break;
+                        case "历史街区":
+                            color = '#5abfba';
+                        break;
+                    }
+                    return color;
                 },
             }
         });
@@ -410,8 +428,8 @@ Vitality.prototype.timeline = function(){
     var _this = this;
     timelineChart.on("timelinechanged",function(params) {
         _this.currentTime = timeLine[params.currentIndex];
-        _this.vitality_type === "population" && _this.isCheckedVitality
-            ?_this.loadPopulationVitalityLayer():"";
+        // _this.vitality_type === "population" && _this.isCheckedVitality
+        //     ?_this.loadPopulationVitalityLayer():"";
     })
 }
 //分类拆分数据
