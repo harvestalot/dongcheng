@@ -41,7 +41,7 @@ Vitality.prototype.init = function(){
 //加载banner
 Vitality.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"VIGOUR" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/vitality/banner_"
         for(var i = 0; i < data.length; i++){
@@ -436,7 +436,7 @@ Vitality.prototype.timeline = function(){
 Vitality.prototype.get_view_chart_data = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"vigour/getVigourList",{},function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         for(var i = 0; i < data.length; i++){
             var item = data[i];
             _this.radar_chart_indicator_data.push({

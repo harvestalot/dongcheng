@@ -40,7 +40,7 @@ ParkingDifficult.prototype.init = function(){
 //加载banner
 ParkingDifficult.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"CARPORT" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/parking/banner_"
         for(var i = 0; i < data.length; i++){
@@ -66,7 +66,7 @@ ParkingDifficult.prototype.loadBanner = function(){
 //加载问题栏目
 ParkingDifficult.prototype.loadProblemSection = function(){
     serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"CARPORT" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var problem_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -78,7 +78,7 @@ ParkingDifficult.prototype.loadProblemSection = function(){
 //加载措施栏目
 ParkingDifficult.prototype.loadMeasuresSection = function(){
     serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"CARPORT" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var measures_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -90,7 +90,7 @@ ParkingDifficult.prototype.loadMeasuresSection = function(){
 //加载未来栏目
 ParkingDifficult.prototype.loadFutureSection = function(){
     serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"CARPORT" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var future_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -414,7 +414,7 @@ ParkingDifficult.prototype.loadParkingBarChart = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"parking/geParkingList",{ },function(result){
         var englishParking = ["jobParking", "commercialParking", "roadsideParking", "communityParking", "othres"];
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         for(var i = 0; i < englishParking.length; i++){
             bar_option.series[i] = {
                 name: _this.parkingTypeName[i],

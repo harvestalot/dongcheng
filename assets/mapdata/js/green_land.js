@@ -15,7 +15,7 @@ GreenLand.prototype.init = function(){
 //加载banner
 GreenLand.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"green" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/green_land/banner_"
         for(var i = 0; i < data.length; i++){
@@ -41,7 +41,7 @@ GreenLand.prototype.loadBanner = function(){
 //加载问题栏目
 GreenLand.prototype.loadProblemSection = function(){
     serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"green" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var problem_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -53,7 +53,7 @@ GreenLand.prototype.loadProblemSection = function(){
 //加载措施栏目
 GreenLand.prototype.loadMeasuresSection = function(){
     serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"green" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var measures_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -65,7 +65,7 @@ GreenLand.prototype.loadMeasuresSection = function(){
 //加载未来栏目
 GreenLand.prototype.loadFutureSection = function(){
     serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"green" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var future_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];

@@ -26,7 +26,7 @@ MedicalFacilities.prototype.init = function(){
 //加载banner
 MedicalFacilities.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"medical" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/medical/banner_"
         for(var i = 0; i < data.length; i++){
@@ -52,7 +52,7 @@ MedicalFacilities.prototype.loadBanner = function(){
 //加载问题栏目
 MedicalFacilities.prototype.loadProblemSection = function(){
     serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"medical" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var problem_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -64,7 +64,7 @@ MedicalFacilities.prototype.loadProblemSection = function(){
 //加载措施栏目
 MedicalFacilities.prototype.loadMeasuresSection = function(){
     serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"medical" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var measures_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -76,7 +76,7 @@ MedicalFacilities.prototype.loadMeasuresSection = function(){
 //加载未来栏目
 MedicalFacilities.prototype.loadFutureSection = function(){
     serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"medical" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var future_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];

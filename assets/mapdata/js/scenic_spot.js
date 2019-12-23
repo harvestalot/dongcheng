@@ -29,7 +29,7 @@ ScenicSpot.prototype.init = function(){
 //加载banner
 ScenicSpot.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"PLAY" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/visit_scenic_spots/banner_"
         for(var i = 0; i < data.length; i++){
@@ -56,7 +56,7 @@ ScenicSpot.prototype.loadBanner = function(){
 ScenicSpot.prototype.loadScenicSpot = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"scenicSpot/getScenicSpotList",this.tourist_attractions_params,function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         _this.tourist_attractions_list_data = data;
         var scenic_spot_art_space_list_str = "";
         for(var i = 0; i < data.length; i++){
@@ -71,7 +71,7 @@ ScenicSpot.prototype.loadScenicSpot = function(){
 ScenicSpot.prototype.loadTouristAttractions = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"culturalSpace/getculturalSpaceList",this.tourist_attractions_params,function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         _this.tourist_attractions_list_data = data;
         var scenic_spot_art_space_list_str = "";
         for(var i = 0; i < data.length; i++){

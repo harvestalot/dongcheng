@@ -30,7 +30,7 @@ EducationFacilities.prototype.init = function(){
 //加载banner
 EducationFacilities.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"EDU" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/education/banner_"
         for(var i = 0; i < data.length; i++){
@@ -56,7 +56,7 @@ EducationFacilities.prototype.loadBanner = function(){
 //加载问题栏目
 EducationFacilities.prototype.loadProblemSection = function(){
     serveRequest("get", service_config.data_server_url+"problem/getProblemList",{ type:"EDU" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var problem_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -68,7 +68,7 @@ EducationFacilities.prototype.loadProblemSection = function(){
 //加载措施栏目
 EducationFacilities.prototype.loadMeasuresSection = function(){
     serveRequest("get", service_config.data_server_url+"solution/getSolutionList",{ type:"EDU" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var measures_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];
@@ -80,7 +80,7 @@ EducationFacilities.prototype.loadMeasuresSection = function(){
 //加载未来栏目
 EducationFacilities.prototype.loadFutureSection = function(){
     serveRequest("get", service_config.data_server_url+"future/getfutureList",{ type:"EDU" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var future_str = '';
         for(var i = 0; i < data.length; i++){
             var item = data[i];

@@ -27,7 +27,7 @@ Eat.prototype.init = function(){
 //加载banner
 Eat.prototype.loadBanner = function(){
     serveRequest("get", service_config.data_server_url+"banner/getBannerList",{ type:"EAT" },function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         var banner_str = '';
         var toUrl = "./assets/bannerSubPage/eat/banner_"
         for(var i = 0; i < data.length; i++){
@@ -54,7 +54,7 @@ Eat.prototype.loadBanner = function(){
 Eat.prototype.loadTimeHonoredRestaurants = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"honored/getHonoredList",this.restaurant_params,function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         _this.restaurant_list_data = data;
         var restaurant_list_str = "";
         for(var i = 0; i < data.length; i++){
@@ -69,7 +69,7 @@ Eat.prototype.loadTimeHonoredRestaurants = function(){
 Eat.prototype.loadRankingListRestaurants = function(){
     var _this = this;
     serveRequest("get", service_config.data_server_url+"honored/getTopList",this.restaurant_params,function(result){
-        var data = result.data.resultKey;
+        var data = JSON.parse(Decrypt(result.data.resultKey));
         _this.restaurant_list_data = data;
         var restaurant_list_str = "";
         for(var i = 0; i < data.length; i++){
