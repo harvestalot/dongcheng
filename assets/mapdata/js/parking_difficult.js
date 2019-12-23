@@ -52,7 +52,7 @@ ParkingDifficult.prototype.loadBanner = function(){
             width: 1080,
             height: 265,
             verticalAlign: "middle",
-            precentWidth: "56%",
+            precentWidth: "45%",
             scale: 0.75,
             autoPlay: true,
             response: true,
@@ -126,6 +126,13 @@ ParkingDifficult.prototype.handleAccessibility = function(){
         }else{
             $("#map_legend,#population_legend").addClass("map_legend_animation");
             _this.mapLegend["工作地停车场"] = true;
+            //默认选中第一个图例
+            $("#map_legend input").each(function(i){
+                i === 0? $(this).prop("checked",true): $(this).prop("checked",false);
+            });
+            $("#population_legend input").each(function(i){
+                $(this).prop("checked",false);
+            });
             _this.mainMap.clearMap();
             _this.area_cultural_point_data = [];
             _this.loadParkingLotLayer();
@@ -141,11 +148,11 @@ ParkingDifficult.prototype.getMapLegend = function(){
             //清除居住人口所有选中图例
             $("#population_legend input").each(function(i){
                 if($(this).prop("checked")){
-                    _this.reset();
+                    // _this.reset();
                     // _this.mapInit();
                     // _this.layerInit();
                 }
-                $(this).prop("checked",false);
+                // $(this).prop("checked",false);
             });
             _this.mapLegend[$(this).val()] = $(this).prop("checked");
             _this.mainMap.remove(_this.parkingMarkers);
@@ -185,11 +192,11 @@ ParkingDifficult.prototype.initPopulationHeat = function(){
     var _this = this;
     $("#population_legend input").each(function(i){
         $(this).on("click",function(){
-            _this.reset();
-            //清除停车场所有选中图例
-            $("#map_legend input").each(function(i){
-                $(this).prop("checked",false);
-            });
+            // _this.reset();
+            // //清除停车场所有选中图例
+            // $("#map_legend input").each(function(i){
+            //     $(this).prop("checked",false);
+            // });
             _this.population_type = $(this).val();
             _this.loadPopulationHeatLayer();
         })

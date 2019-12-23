@@ -7,6 +7,9 @@ Introduction.prototype.init = function(){
     this.loadPopulationChart();
     this.loadPopulationDensityChart();
     this.loadLegalEntityChart();
+    serveRequest("get", service_config.data_server_url+ "/Coverage/getCoverageByCategory",{ category: "education" },function(result){
+       
+    });
 }
 //东城区各街道土地面积
 Introduction.prototype.loadLandAreaChart = function(){

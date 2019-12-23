@@ -38,7 +38,7 @@ ConveniencePeopleFacilities.prototype.loadBanner = function(){
             width: 1080,
             height: 265,
             verticalAlign: "middle",
-            precentWidth: "56%",
+            precentWidth: "45%",
             scale: 0.75,
             autoPlay: true,
             response: true,

@@ -41,7 +41,7 @@ ScenicSpot.prototype.loadBanner = function(){
             width: 1080,
             height: 265,
             verticalAlign: "middle",
-            precentWidth: "56%",
+            precentWidth: "45%",
             scale: 0.75,
             autoPlay: true,
             response: true,
@@ -356,6 +356,7 @@ ScenicSpot.prototype.loadTransferPathLayer = function(){
     this.transferPathLayer.search(this.startLocation, this.arriveLocation, 
         function(status, result) {
             if (status === 'complete') {
+                $("#scenic_spot_type").show()
                 // console.log(result)
             } else {
             } 
