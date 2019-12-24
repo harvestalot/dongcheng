@@ -39,8 +39,8 @@ function serveRequest(type,url,params_arguments,callBack){
 //服务接口配置
 var service_config = {
     data_server_url : "http://121.41.72.180:8901/",
-    file_server_url : "http://121.41.72.180:8089/web/assets/mapdata/json/",
-    // file_server_url : "http://127.0.0.1:5500/assets/mapdata/json/",
+    // file_server_url : "http://121.41.72.180:8089/web/assets/mapdata/json/",
+    file_server_url : "http://127.0.0.1:5500/assets/mapdata/json/",
     icon_url: "http://121.41.72.180:8089/web/assets/mapdata/images/",
     // icon_url: "http://localhost:8080/dongcheng-public-platform/assets/mapdata/images/",
     server_img_url: "http://121.41.72.180:8089/",

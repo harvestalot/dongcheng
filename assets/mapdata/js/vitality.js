@@ -53,7 +53,7 @@ Vitality.prototype.loadBanner = function(){
             width: 1080,
             height: 265,
             verticalAlign: "middle",
-            precentWidth: "56%",
+            precentWidth: "45%",
             scale: 0.75,
             autoPlay: true,
             response: true,
@@ -73,6 +73,8 @@ Vitality.prototype.mapInit = function(){
         center: [116.412255,39.908886],
         zoom: 12,
     });
+    //加载东城边界
+    this.loadBoundaryLayer();
     //加载人口热力图图层
     this.populationVitalityLayer = new Loca.HeatmapLayer({
         map: this.mainMap,
@@ -179,7 +181,6 @@ Vitality.prototype.loadVitalityPointList = function(name){
 }
 //图层初始化
 Vitality.prototype.layerInit = function(){
-    // this.loadBoundaryLayer();
     // 
     if(this.isCheckedVitality){
         if(this.vitality_type === "population"){
@@ -200,20 +201,19 @@ Vitality.prototype.layerInit = function(){
 }
 //各个社区边界范围图层
 Vitality.prototype.loadBoundaryLayer = function(){
-    var boundaryLayer = new Loca.PolygonLayer({
+    var boundaryLayer = new Loca.LineLayer({
         map: this.mainMap,
         zIndex: 13,
         // fitView: true,
         // eventSupport:true,
     });
-    $.get(service_config.file_server_url+'boundary_data.json', function (result) {
+    $.get(service_config.file_server_url+'dongcheng_boundary_data.json', function (result) {
         // var data = JSON.parse(result);
         var data = result;
         boundaryLayer.setData(data,{lnglat: 'lnglat'})
         // boundaryLayer.setData(JSON.parse(Decrypt(data)), {
         //     lnglat: 'coordinates'
         // });
-        var idx = 0;
         boundaryLayer.setOptions({
             style: {
                 height: function () {
@@ -222,12 +222,9 @@ Vitality.prototype.loadBoundaryLayer = function(){
                 opacity: 0.8,
                 // color:"#3ba0f3",
                 color: function () {
-                    return echarts_colors[idx++];
+                    return echarts_colors[7];
                 }
             },
-            // selectStyle:{
-            //     color:"#13EFDC",
-            // }
         });
         boundaryLayer.render();
     }); 
@@ -334,7 +331,6 @@ Vitality.prototype.loadVitalityPointBorderLayer= function(){
                 opacity: 1,
                 // color: '#86100F',
                 color: function(res){
-                    console.log(res)
                     var type = res.value.properties.type;
                     var color ="#5abfba";
                     switch (type){
