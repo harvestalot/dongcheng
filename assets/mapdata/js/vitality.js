@@ -53,7 +53,7 @@ Vitality.prototype.loadBanner = function(){
             width: 1080,
             height: 265,
             verticalAlign: "middle",
-            precentWidth: "45%",
+            precentWidth: "56%",
             scale: 0.75,
             autoPlay: true,
             response: true,
@@ -67,11 +67,11 @@ Vitality.prototype.loadBanner = function(){
 //地图初始化
 Vitality.prototype.mapInit = function(){
     //加载主地图
-	this.mainMap = new AMap.Map("main_map", {
+    this.mainMap = new AMap.Map("main_map", {
         // features: ['bg',],
         mapStyle: 'amap://styles/4ab81766c3532896d5b265289c82cbc6',
-	    center: [116.412255,39.908886],
-	    zoom: 12,
+        center: [116.412255,39.908886],
+        zoom: 12,
     });
     //加载人口热力图图层
     this.populationVitalityLayer = new Loca.HeatmapLayer({
@@ -235,23 +235,38 @@ Vitality.prototype.loadBoundaryLayer = function(){
 //加载人口活力图层
 Vitality.prototype.loadPopulationVitalityLayer = function(){
     var _this = this;
-    $.get(service_config.file_server_url+'population_vitality_data.json', function (result) {
+    $.get(service_config.file_server_url+'culture_vitality_1.csv', function (result) {
+    // $.get(service_config.file_server_url+'population_vitality_data.json', function (result) {
         // var data = JSON.parse(result);
         var data = result;
-
-        _this.populationVitalityLayer.setData(data["10:00"], {
-            lnglat: 'lnglat',
-            value: 'count'
+        _this.populationVitalityLayer.setData(data, {
+            // lnglat: 'lnglat',
+            value: function (params) {
+                if (params) {
+                     var value = params[_this.currentTime];
+                     return value;
+                }
+            },
+            // 或者使用回调函数构造经纬度坐标
+             lnglat: function (obj) {
+                if (obj.value) {
+                     var value = obj.value;
+                     var lnglat = wgs84togcj02(value['LON'], value['LAT']);
+                     return lnglat;
+                }
+             },
+            // 指定数据类型
+            type: 'csv'
         });
         _this.populationVitalityLayer.setOptions({
             style: {
-                radius: 10,
+                radius: 16,
                 color: {
                     // 0.5: '#2c7bb6',
                     // 0.65: '#abd9e9',
                     // 0.7: '#ffffbf',
                     // 0.9: '#fde468',
-                    // 1.0: '#d7191c',
+                    // 1.0: '#d7191c'
                     0.1:"#2892C6",
                     0.2:"#81B3AA",
                     0.3: '#BFD38B',
@@ -260,64 +275,44 @@ Vitality.prototype.loadPopulationVitalityLayer = function(){
                     0.7: '#FD0100',
                     1:"#A80000",
                 },
-                // opacity:[0.1,0.5]
+                // opacity:[0.3,0.7]
             }
         });
         _this.populationVitalityLayer.render();
         _this.populationVitalityLayer.show();
-	})
+    })
 }
 //文化热力图层
 Vitality.prototype.loadCultureVitalityLayer = function(){
     var _this = this;
-    $.get(service_config.file_server_url+'culture_vitality.csv', function (result) {
+    // $.get(service_config.file_server_url+'culture_vitality.csv', function (result) {
+    $.get(service_config.file_server_url+'culture_vitality_data.json', function (result) {
         // var data = JSON.parse(result);
         var data = result;
         _this.cultureVitalityLayer.setData(data, {
-            // lnglat: '经纬度',
-            // 或者使用回调函数构造经纬度坐标
-             lnglat: function (obj) {
-                if (obj.value) {
-                     var value = obj.value;
-                     var lnglat = [value['X'], value['Y']];
-                     return lnglat;
-                }
-             },
-             
-            // 指定数据类型
-            type: 'csv'
+            lnglat: "lnglat",
+            // // 或者使用回调函数构造经纬度坐标
+            //  lnglat: function (obj) {
+            //     if (obj.value) {
+            //          var value = obj.value;
+            //          var lnglat = [value['X'], value['Y']];
+            //          return lnglat;
+            //     }
+            //  },
+            // // 指定数据类型
+            // type: 'csv'
         });
         _this.cultureVitalityLayer.setOptions({
             style: {
-                radius: 5,
-                // color: function(res){
-                //     var val = res.value.value*1;
-                //     if(0 <= val && val <=  3000){
-                //         return "#2892C6";
-                //     }else if(3001 <= val && val <= 7000){
-                //         return "#81B3AA";
-                //     }else if(7001 <= val && val <= 12000){
-                //         return "#BFD38B";
-                //     }else if(12001 <= val && val <= 15000){
-                //         return "#FAFA64";
-                //     }else if(15001 <= val && val <= 18000){
-                //         return "#FCB344";
-                //     }else if(18001 <= val && val <= 26000){
-                //         return "#FD0100";
-                //     }else if(26001 <= val && val <= 49038){
-                //         return "#A80000"
-                //     }
-                // },
+                radius: 12,
                 color: {
-                    0.1:"#2892C6",
-                    0.2:"#81B3AA",
-                    0.3: '#BFD38B',
-                    0.4: '#FAFA64',
-                    0.5: '#FCB344',
-                    0.7: '#FD0100',
-                    1:"#A80000",
+                    0.5: '#2c7bb6',
+                    0.65: '#abd9e9',
+                    0.7: '#ffffbf',
+                    0.9: '#fde468',
+                    1.0: '#d7191c'
                 },
-                opacity:[0.1,0.5]
+                opacity:[0.3,0.7]
             }
         });
         _this.cultureVitalityLayer.render();
@@ -428,8 +423,8 @@ Vitality.prototype.timeline = function(){
     var _this = this;
     timelineChart.on("timelinechanged",function(params) {
         _this.currentTime = timeLine[params.currentIndex];
-        // _this.vitality_type === "population" && _this.isCheckedVitality
-        //     ?_this.loadPopulationVitalityLayer():"";
+        _this.vitality_type === "population" && _this.isCheckedVitality
+            ?_this.loadPopulationVitalityLayer():"";
     })
 }
 //分类拆分数据
