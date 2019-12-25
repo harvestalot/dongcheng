@@ -264,7 +264,7 @@ Introduction.prototype.loadPopulationDensityChart = function(){
 
     var option = {
         "title": {
-            text:"各街道人口密度统计图",
+            text:"各街道户籍人口密度（人/平方公里）统计图",
             left:50,
             top:0,
             textStyle:{

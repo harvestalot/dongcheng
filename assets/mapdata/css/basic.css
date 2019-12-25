@@ -37,6 +37,9 @@
 .mt_10{
     margin-top: 10px;
 }
+.mt_20{
+    margin-top: 20px;
+}
 /* 首行缩进 */
 .text_indent{
     text-indent:2em;
