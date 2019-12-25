@@ -46,22 +46,10 @@ Vitality.prototype.loadBanner = function(){
         var toUrl = "./assets/bannerSubPage/vitality/banner_"
         for(var i = 0; i < data.length; i++){
             var item = data[i];
-            banner_str += '<img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+  toUrl+(i+1)+".html" +' >'
+            banner_str += '<div class="swiper-slide"><a href="'+toUrl+(i+1)+".html"+'"><div class="swiper-slide"><a href="'+toUrl+(i+1)+".html"+'"><img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ toUrl+(i+1)+".html" +' ></div></div>';
         }
-        $("#banner").html(banner_str);
-        $("#banner").dnSlide({
-            width: 1080,
-            height: 265,
-            verticalAlign: "middle",
-            precentWidth: "45%",
-            scale: 0.75,
-            autoPlay: true,
-            response: true,
-            afterClickBtnFn: function (i) {
-                //console.log(i)
-            }
-
-        });
+        $("#banner .swiper-wrapper").html(banner_str);
+        startBanner();//启动banner
     })
 }
 //地图初始化
@@ -339,13 +327,13 @@ Vitality.prototype.loadVitalityPointBorderLayer= function(){
                             color = "#1afa29";
                         break;
                         case "文化遗产":
-                            color = "#c6826f";
+                            color = "#e2762d";
                         break;
                         case "商圈":
                             color = "#f71035";
                         break;
                         case "历史街区":
-                            color = '#5abfba';
+                            color = '#0a88f5';
                         break;
                     }
                     return color;
@@ -380,7 +368,7 @@ Vitality.prototype.loadCurrentVitalityPointBorderLayer= function(){
             style: {
                 borderWidth: 3,
                 opacity: 1,
-                color: '#FCA600',
+                color: '#f8ef06',
             }
         });
         _this.currentVitalityPointBorderLayer.render();

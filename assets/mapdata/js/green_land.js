@@ -20,22 +20,10 @@ GreenLand.prototype.loadBanner = function(){
         var toUrl = "./assets/bannerSubPage/green_land/banner_"
         for(var i = 0; i < data.length; i++){
             var item = data[i];
-            banner_str += '<img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ toUrl+(i+1)+".html" +' >'
+            banner_str += '<div class="swiper-slide"><a href="'+toUrl+(i+1)+".html"+'"><img src='+ service_config.server_img_url + item.url +' width="100%" data-href='+ toUrl+(i+1)+".html" +' ></div>'
         }
-        $("#banner").html(banner_str);
-        $("#banner").dnSlide({
-            width: 1080,
-            height: 265,
-            verticalAlign: "middle",
-            precentWidth: "45%",
-            scale: 0.75,
-            autoPlay: true,
-            response: true,
-            afterClickBtnFn: function (i) {
-                //console.log(i)
-            }
-
-        });
+        $("#banner .swiper-wrapper").html(banner_str);
+        startBanner();//启动banner
     })
 }
 //加载问题栏目
