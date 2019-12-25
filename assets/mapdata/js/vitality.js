@@ -216,14 +216,15 @@ Vitality.prototype.loadBoundaryLayer = function(){
         // });
         boundaryLayer.setOptions({
             style: {
-                height: function () {
-                    return Math.random() * 20000;
-                },
-                opacity: 0.8,
-                // color:"#3ba0f3",
-                color: function () {
-                    return echarts_colors[7];
-                }
+                // height: function () {
+                //     return Math.random() * 20000;
+                // },
+                borderWidth: 2,
+                // opacity: 0.8,
+                color:"#222",
+                // color: function () {
+                //     return echarts_colors[7];
+                // }
             },
         });
         boundaryLayer.render();
@@ -332,16 +333,16 @@ Vitality.prototype.loadVitalityPointBorderLayer= function(){
                 // color: '#86100F',
                 color: function(res){
                     var type = res.value.properties.type;
-                    var color ="#5abfba";
+                    var color ="#1afa29";
                     switch (type){
                         case "公园":
-                            color = "#5e61aa";
+                            color = "#1afa29";
                         break;
                         case "文化遗产":
                             color = "#c6826f";
                         break;
                         case "商圈":
-                            color = "#70a8da";
+                            color = "#f71035";
                         break;
                         case "历史街区":
                             color = '#5abfba';
