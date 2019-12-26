@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="full">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>北京老城保护数字文化平台</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="viewport" content="width=1200">
+	<meta name=" title" content="北京老城保护数字文化平台">
+	<meta name="desc" content="北京老城保护数字文化平台">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_l0blhkxhabn.css" />
+	<link href="assets/css/normalize.min.css" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?v3" rel="stylesheet">
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/js/loading.js"></script>
+    
+</head>
+
+<body class="full">
+	<div class="page page-cover full rel">
+		<div class="content-box rel">
+            <div class="full rel" style="overflow: hidden;">
+                <div class="left-bg cover-bg-box">
+                    <img class="cover-bg" src="assets/img/cover-bg.jpg" />
+                    <a href="http://peking.caupdcloud.com/#/homepage"><img class="cover-btn scale-effect" src="assets/img/cover-btn1.png" /></a>
+                </div>
+                <div class="right-bg cover-bg-box">
+                    <img class="cover-bg" src="assets/img/cover-bg2.jpg" />
+                    <a href="javascript:void(0);" style="cursor: default;"><img class="cover-btn" src="assets/img/cover-btn2.png" /></a>
+                    <div class="btns">
+                        <a href="http://peking.caupdcloud.com/bxq/beixinqiao_subdistrict.html" class="scale-effect">北新桥街道体检平台&nbsp;&gt;</a>
+                        <a href="./index.html" class="scale-effect">东城区街区更新公众平台&nbsp;&gt;</a>
+                    </div>
+                </div>
+                <div class="top-right-coner">
+                    <div class="search-input"><input type="text" /><i class="iconfont icon-search"></i></div>
+                </div>
+                
+            </div>
+            
+            <!-- <ul class="bottom-links">
+                <li><a href="">关于平台</a></li>
+            </ul> -->
+            <img src="assets/img/logo.png" class="logo" />
+        </div>
+
+        <div class="change-tips-popup full">
+            <div class="change-tips-box">
+                <div class="change-tips">
+                </div>
+                <i class="iconfont icon-close"></i>
+            </div>
+        </div>
+        
+	</div>
+	<script>
+        $(document).ready(function(){
+            $.loading.PageLoading({ sleep: 500, "borderWidth":0, complete: function() {
+                console.log('loadding');
+                setTimeout(function(){
+                    $(".change-tips").addClass("play");
+                }, 500);
+            }});
+
+            //关闭按钮
+            $(".change-tips-popup .icon-close").on("click", function(){
+                $(".change-tips-popup").fadeOut(800);
+            });
+
+            //自动关闭
+            $('.change-tips-popup').one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+                setTimeout(function(){
+                    $(".change-tips-popup").fadeOut(800);
+                }, 2500);
+                
+            });
+
+
+            $(".btns, .cover-bg-box a img").on("transitionend, transitionstart", function(e){
+                e.stopPropagation();
+            });
+            $(".cover-bg-box").on("transitionend", function(){
+                console.log('end', $(this).width());
+                if($(this).width()>1200){
+                    $(".btns").addClass("show");
+                }
+            });
+
+            $(".cover-bg-box").on("transitionstart", function(){
+                if($(this).width()>1200){
+                    $(".btns").removeClass("show");
+                }
+                
+                console.log('start', $(this).width());
+            });
+
+        });
+    </script>
+    
+</body>
+
+</html>

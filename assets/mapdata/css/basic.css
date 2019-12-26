@@ -191,7 +191,7 @@
     bottom: 10px!important;
 }
 .method-to-dest{
-    left: 60px;
+    /* left: 60px; */
 }
 .method-to-dest li.active{
     background-color: #8f735b;
@@ -220,4 +220,18 @@
     padding-right: 20px;
     border: none;
     overflow-y: auto;
+}
+.line_path_hint_message{
+    position: absolute;
+    left: 15px;
+    bottom: 40px;
+    padding:10px 15px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 8px 20px #ddd;
+    border-radius: 4px;
+    display: none;
+}
+.method-to-dest:hover .line_path_hint_message{
+    display: block;
 }

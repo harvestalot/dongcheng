@@ -192,28 +192,36 @@ ScenicSpot.prototype.mapInit = function(){
         _this.startLocation = [event.lnglat.lng, event.lnglat.lat];
         _this.loadLinePath();
     });
-    //定位当前位置
-    this.mainMap.plugin('AMap.Geolocation', function() {
-        _this.mainMap.addControl(new AMap.Geolocation());
-        var geolocation = new AMap.Geolocation({
-            // timeout: 10000,
-            GeoLocationFirst:true,
-            // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
-            buttonOffset: new AMap.Pixel(10, 20),
-            // zoomToAccuracy: true,     
-            buttonPosition: 'LB'
-        });
-        geolocation.isSupported();
-        geolocation.getCurrentPosition();
-        AMap.event.addListener(geolocation, 'complete', function(results){
-            _this.startLocation = [results.position.lng, results.position.lat];
-        })
-        AMap.event.addListener(geolocation, 'error', function(data) {
-            if (data.info == 'FAILED') {
-                // alert('获取您当前位置失败！')
-            }
-        });
-    })
+    
+let demo = document.getElementById("main_map");
+ 
+demo.oncontextmenu = function(e) {
+    e.preventDefault();
+    // 执行代码块
+    console.log(e)
+}
+    // //定位当前位置
+    // this.mainMap.plugin('AMap.Geolocation', function() {
+    //     _this.mainMap.addControl(new AMap.Geolocation());
+    //     var geolocation = new AMap.Geolocation({
+    //         // timeout: 10000,
+    //         GeoLocationFirst:true,
+    //         // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+    //         buttonOffset: new AMap.Pixel(10, 20),
+    //         // zoomToAccuracy: true,     
+    //         buttonPosition: 'LB'
+    //     });
+    //     geolocation.isSupported();
+    //     geolocation.getCurrentPosition();
+    //     AMap.event.addListener(geolocation, 'complete', function(results){
+    //         _this.startLocation = [results.position.lng, results.position.lat];
+    //     })
+    //     AMap.event.addListener(geolocation, 'error', function(data) {
+    //         if (data.info == 'FAILED') {
+    //             // alert('获取您当前位置失败！')
+    //         }
+    //     });
+    // })
 }
 //图层初始化
 ScenicSpot.prototype.layerInit = function(){
