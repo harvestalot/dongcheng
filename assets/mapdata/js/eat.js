@@ -84,6 +84,7 @@ Eat.prototype.loadRestaurantList = function(list_dom_str){
         for(var i = 0; i < _this.restaurant_list_data.length; i++){
             var item = _this.restaurant_list_data[i];
             if(item.name === $(this).html()){
+                $("#presentation p").html(item.description);
                 item.lnglat  = wgs84togcj02(item.lng, item.lat)
                 _this.arriveLocation = item.lnglat;
                 data_row = item;

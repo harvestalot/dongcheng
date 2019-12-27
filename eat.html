@@ -12,12 +12,12 @@
     <meta name="viewport" content="width=1200">
     <meta name=" title" content="北京老城保护数字文化平台">
     <meta name="desc" content="北京老城保护数字文化平台">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css?V2019122703" />
-    <link href="assets/css/normalize.min.css?V2019122703" rel="stylesheet">
-    <link type="text/css" href="assets/css/main.css?V2019122703" rel="stylesheet">
-    <link type="text/css" href="assets/css/slide.css?V2019122703" rel="stylesheet">
-    <link type="text/css" href="assets/css/swiper.min.css?V2019122703" rel="stylesheet">
-    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019122703" rel="stylesheet">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1351800_cxipsfhmb85.css?V2019122801" />
+    <link href="assets/css/normalize.min.css?V2019122801" rel="stylesheet">
+    <link type="text/css" href="assets/css/main.css?V2019122801" rel="stylesheet">
+    <link type="text/css" href="assets/css/slide.css?V2019122801" rel="stylesheet">
+    <link type="text/css" href="assets/css/swiper.min.css?V2019122801" rel="stylesheet">
+    <link type="text/css" href="./assets/mapdata/css/basic.css?V2019122801" rel="stylesheet">
 </head>
 
 <body>
@@ -99,12 +99,12 @@
                         <div class="point-brief-box">
                             <h1 class="title">舌尖上的东城</h1>
                             <div class="brief-content-box">
-                                <!-- <div class="brief-content intro-content">
+                                <div class="brief-content intro-content">
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>简介：</b></div>
                                     <div class="text-wrap">
-                                        <div class="text">
-                                            <p>全聚德，世界上现存规模最大、保存最为完整的木质结构的古建筑之一。</p>
+                                        <div id="presentation" class="text">
+                                            <p></p>
                                         </div>
                                     </div>
                                     <div class="show-more rtext">
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
 
-                                <div class="brief-content line-content">
+                                <!-- <div class="brief-content line-content">
                                     <img src="assets/img/dc/park-brief-thumb.png" class="brief-thumb abs" />
                                     <div><b>到达方式：</b></div>
                                     <div class="text-wrap">
@@ -192,12 +192,12 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js?V2019122703"></script>
-    <script src="assets/js/swiper.min.js?V2019122703"></script>
-    <script src="assets/js/ofi.min.js?V2019122703"></script>
-    <script src="./assets/mapdata/js/basic_config.js?V2019122703"></script>
-    <script src="./assets/mapdata/js/lnglat_transformation.js?V2019122703"></script>
-    <script src="./assets/mapdata/js/eat.js?V2019122703"></script>
+    <script src="assets/js/jquery.min.js?V2019122801"></script>
+    <script src="assets/js/swiper.min.js?V2019122801"></script>
+    <script src="assets/js/ofi.min.js?V2019122801"></script>
+    <script src="./assets/mapdata/js/basic_config.js?V2019122801"></script>
+    <script src="./assets/mapdata/js/lnglat_transformation.js?V2019122801"></script>
+    <script src="./assets/mapdata/js/eat.js?V2019122801"></script>
     <script>
         $(document).ready(function () {
             objectFitImages();
@@ -265,7 +265,7 @@
 
         //展示点的简介侧边栏
         function showPointBrief(pointId) {
-            updatePointBrief(pointId);
+            // updatePointBrief(pointId);
             $(".point-brief-box").addClass("show");
         }
 
