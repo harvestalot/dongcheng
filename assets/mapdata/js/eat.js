@@ -150,9 +150,12 @@ Eat.prototype.handleDomElement = function(){
         _this.restaurant_params.type= $(this).attr("data-cat");
         if(_this.restaurant_params.type === "京城老字号"){
             _this.loadTimeHonoredRestaurants();
-            // $(".intro-content, .price-content, .line-content").show();
+            $("#eat_intro").show();
+            $("#eat_intro #presentation p").html("");
+            // $(".intro-content, .price-content, .line-content")
         }else{
             _this.loadRankingListRestaurants();
+            $("#eat_intro").hide();
             // $(".intro-content, .price-content, .line-content").hide();
         }
     });
