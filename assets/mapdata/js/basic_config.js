@@ -39,12 +39,12 @@ function serveRequest(type,url,params_arguments,callBack){
 //服务接口配置
 var service_config = {
     // data_server_url : "http://121.41.72.180:8901/",
-    data_server_url : "http://114.64.228.103:8902/",
+    data_server_url : "http://114.64.228.104:8902/",
     file_server_url : "http://peking.caupdcloud.com/dongcheng/assets/mapdata/json/",
     // file_server_url : "http://127.0.0.1:5500/assets/mapdata/json/",
     icon_url: "http://peking.caupdcloud.com/dongcheng/assets/mapdata/images/",
     // icon_url: "http://127.0.0.1:5500/assets/mapdata/images/",
-    server_img_url: "http://114.64.228.103:8089/",
+    server_img_url: "http://114.64.228.104:8089/",
 }
 //颜色配置
 var echarts_colors = ["#85ccc8",'#a7add7',"#d8a79b",'#85b6db',"#b4d89c","#ceb1a8",
