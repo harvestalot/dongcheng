@@ -1603,3 +1603,16 @@ a {
     color:#fff;
 
 }
+
+.user_access{
+    position: absolute;
+    top: 50%;
+    right: 200px;
+    margin-top: -7px;
+    color: #fff;
+    font-size: 14px;
+}
+.user_access .number{
+    font-size: 16px;
+    color: #f0b33c;
+}

@@ -121,16 +121,51 @@
 				<ul class="footer-nav-links">
 					<li><a href="aboutus.html">关于我们</a></li>
 				</ul>
+				<!-- <div class="user_access">
+					<span>访问者总数：<span id="user_access" class="number">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span>页面浏览总量：<span id="PV" class="number">0</span></span>
+				</div> -->
 			</div>
 
 		</div>
 	</div>
 
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src= "./assets/mapdata/lib/encryption/aes.js"></script>;
+	<script type="text/javascript" src= "./assets/mapdata/lib/encryption/pad-zeropadding.js"></script>;
+	<script type="text/javascript" src= "./assets/mapdata/lib/encryption/security.js"></script>;
 	<script src="assets/js/ofi.min.js"></script>
 	<script>
 		$(document).ready(function () {
 			objectFitImages();
+			/**
+			 *ajax请求通用方法
+			 *
+			 * @param type           请求类型
+			 * @param url            请求服务的地址
+			 * @param params_arguments      传递的参数对象
+			 * @param callBack       请求成功的回调函数
+			 */
+			function serveRequest(type,url,params_arguments,callBack){
+			    $.ajax({
+			        type:type,
+			        url:url,
+			        data: params_arguments,
+			        success: function (result) {
+			            if(result.resultCode === "10000"){
+			                callBack(result);
+			            }else{
+			                alert(result.resultMessage);
+			            }
+			        },
+			    });
+			};
+	        serveRequest("post", "http://114.64.228.104:8081/UserView/refreshUserView", { data: JSON.stringify( { userIp: returnCitySN["cip"] } ) },function(result){
+	        	var data = JSON.parse(Decrypt(result.data.resultKey));
+	        	$("#user_access").html(data.USER_NUMBER);
+	        	$("#PV").html(data.VIEW_NUMBER);
+	        });
 		});
 	</script>
 </body>
