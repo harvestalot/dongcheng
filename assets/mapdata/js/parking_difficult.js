@@ -1,6 +1,6 @@
 //停车难
 function ParkingDifficult(){
-    this.reachability_url = "http://114.64.228.103/reachcircle/walkServlet";
+    this.reachability_url = "http://114.64.228.104:8070/reachcircle/walkServlet";
     this.mainMap = "";
     this.parkingMarkers = [];
     this.population_type = "";//人口图层类型
