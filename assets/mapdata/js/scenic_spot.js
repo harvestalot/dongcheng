@@ -124,7 +124,7 @@ ScenicSpot.prototype.loadTouristAttractionsList = function(list_dom_str){
             extData:data_row
         });
         _this.current_marker.on('click', function (ev) {
-            var properties = ev.target.Qe.extData;
+            var properties = ev.target.getExtData();
             var img_url = "images/play/scenicspot/";
             if(_this.tourist_attractions_params.type !== "东城景点"){
                 img_url = "images/play/culturalspace/";
@@ -318,7 +318,7 @@ ScenicSpot.prototype.loadScenicSpotLayer = function(){
                     extData:item
                 });
                 marker.on('click', function (ev) {
-                    var properties = ev.target.B.extData;
+                    var properties = ev.target.getExtData();
                     // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
                     $("#scenic_spot_info .name").html(properties.name);
                     $("#scenic_spot_info .info").html(properties.description);

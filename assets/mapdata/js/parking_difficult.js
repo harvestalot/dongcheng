@@ -267,7 +267,7 @@ ParkingDifficult.prototype.loadParkingLotLayer = function(){
                     extData:item.properties
                 });
                 marker.on('click', function (ev) {
-                    var properties = ev.target.B.extData;
+                    var properties = ev.target.getExtData();
                     _this.loadInfo(properties, ev.lnglat);
                 });
                 _this.parkingMarkers.push(marker);
@@ -510,7 +510,7 @@ ParkingDifficult.prototype.render_point_layer = function(){
             offset: new AMap.Pixel(-15, -10)
         });
         marker.on('click', function (ev) {
-            var properties = ev.target.B.extData;
+            var properties = ev.target.getExtData();
             var info = [];
             info.push('<div class="info_window">'+properties.properties.poi_name+'</div>');
             // info.push('<div class="info_window">地址：'+address+'</div>');
