@@ -109,7 +109,7 @@ Eat.prototype.loadRestaurantList = function(list_dom_str){
             extData:data_row
         });
         _this.current_marker.on('click', function (ev) {
-            var properties = ev.target.Qe.extData;
+            var properties = ev.target.getExtData();
             $("#scenic_spot_info .name").html(properties.name);
             $("#scenic_spot_info .type").html("菜系："+properties.cookingStyle);
             $("#scenic_spot_info .info").html("餐馆地址："+properties.address);
@@ -291,7 +291,7 @@ Eat.prototype.loadScenicSpotLayer = function(){
                     extData:item
                 });
                 marker.on('click', function (ev) {
-                    var properties = ev.target.B.extData;
+                    var properties = ev.target.getExtData();
                     // _this.loadInfo(properties.name, properties.introduction, ev.lnglat);
                     $("#scenic_spot_info .name").html(properties.name);
                     $("#scenic_spot_info .info").html("菜系："+ properties.cookingStyle);
